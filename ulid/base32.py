@@ -46,7 +46,7 @@ DECODING = array.array(
 )
 
 
-def encode(value: bytes) -> str:
+def encode_ulid(value: bytes) -> str:
     """
     Encode the given :class:`~bytes` instance to a :class:`~str` using Base32 encoding.
 
@@ -60,7 +60,7 @@ def encode(value: bytes) -> str:
     :raises ValueError: when the value is not 16 bytes
     """
     if len(value) != 16:
-        raise ValueError('Expects 16 bytes; got {}'.format(len(value)))
+        raise ValueError('Expects 16 bytes for timestamp + randomness; got {}'.format(len(value)))
 
     encoding = ENCODING
 
@@ -93,7 +93,7 @@ def encode(value: bytes) -> str:
         encoding[value[15] & 31]
 
 
-def decode(value: str) -> bytes:
+def decode_ulid(value: str) -> bytes:
     """
     Decode the given Base32 encoded :class:`~str` instance to :class:`~bytes`.
 
@@ -108,7 +108,7 @@ def decode(value: str) -> bytes:
     :raises ValueError: when value cannot be encoded in ASCII
     """
     if len(value) != 26:
-        raise ValueError('Expects 26 characters; got {}'.format(len(value)))
+        raise ValueError('Expects 26 characters for timestamp + randomness; got {}'.format(len(value)))
 
     try:
         value = value.encode('ascii')
