@@ -209,3 +209,81 @@ def decode_ulid(value: str) -> bytes:
         ((decoding[value[22]] << 7) | (decoding[value[23]] << 2) | (decoding[value[24]] >> 3)) & 0xFF,
         ((decoding[value[24]] << 5) | (decoding[value[25]])) & 0xFF
     ))
+
+
+def decode_timestamp(timestamp: str) -> bytes:
+    """
+    Decode the given Base32 encoded :class:`~str` instance to :class:`~bytes`.
+
+    The given :class:`~str` are expected to represent the first 10 characters of a ULID, which
+    are the timestamp in milliseconds.
+
+    .. note:: This uses an optimized strategy from the `NUlid` project for decoding ULID
+    strings specifically and is not meant for arbitrary decoding.
+
+    :param timestamp: String to decode
+    :type timestamp: :class:`~str`
+    :return: Value decoded from Base32 string
+    :rtype: :class:`~bytes`
+    :raises ValueError: when value is not 10 characters
+    :raises ValueError: when value cannot be encoded in ASCII
+    """
+    if len(timestamp) != 10:
+        raise ValueError('Expects 10 characters for timestamp; got {}'.format(len(timestamp)))
+
+    try:
+        timestamp = timestamp.encode('ascii')
+    except UnicodeEncodeError as ex:
+        raise ValueError('Expects timestamp that can be encoded in ASCII charset: {}'.format(ex))
+
+    decoding = DECODING
+
+    return bytes((
+        ((decoding[timestamp[0]] << 5) | decoding[timestamp[1]]) & 0xFF,
+        ((decoding[timestamp[2]] << 3) | (decoding[timestamp[3]] >> 2)) & 0xFF,
+        ((decoding[timestamp[3]] << 6) | (decoding[timestamp[4]] << 1) | (decoding[timestamp[5]] >> 4)) & 0xFF,
+        ((decoding[timestamp[5]] << 4) | (decoding[timestamp[6]] >> 1)) & 0xFF,
+        ((decoding[timestamp[6]] << 7) | (decoding[timestamp[7]] << 2) | (decoding[timestamp[8]] >> 3)) & 0xFF,
+        ((decoding[timestamp[8]] << 5) | (decoding[timestamp[9]])) & 0xFF
+    ))
+
+
+def decode_randomness(randomness: str) -> bytes:
+    """
+    Decode the given Base32 encoded :class:`~str` instance to :class:`~bytes`.
+
+    The given :class:`~str` are expected to represent the last 16 characters of a ULID, which
+    are cryptographically secure random values.
+
+    .. note:: This uses an optimized strategy from the `NUlid` project for decoding ULID
+    strings specifically and is not meant for arbitrary decoding.
+
+    :param randomness: String to decode
+    :type randomness: :class:`~str`
+    :return: Value decoded from Base32 string
+    :rtype: :class:`~bytes`
+    :raises ValueError: when value is not 16 characters
+    :raises ValueError: when value cannot be encoded in ASCII
+    """
+    if len(randomness) != 16:
+        raise ValueError('Expects 16 characters for randomness; got {}'.format(len(randomness)))
+
+    try:
+        randomness = randomness.encode('ascii')
+    except UnicodeEncodeError as ex:
+        raise ValueError('Expects randomness that can be encoded in ASCII charset: {}'.format(ex))
+
+    decoding = DECODING
+
+    return bytes((
+        ((decoding[randomness[0]] << 3) | (decoding[randomness[1]] >> 2)) & 0xFF,
+        ((decoding[randomness[1]] << 6) | (decoding[randomness[2]] << 1) | (decoding[randomness[3]] >> 4)) & 0xFF,
+        ((decoding[randomness[3]] << 4) | (decoding[randomness[4]] >> 1)) & 0xFF,
+        ((decoding[randomness[4]] << 7) | (decoding[randomness[5]] << 2) | (decoding[randomness[6]] >> 3)) & 0xFF,
+        ((decoding[randomness[6]] << 5) | (decoding[randomness[7]])) & 0xFF,
+        ((decoding[randomness[8]] << 3) | (decoding[randomness[9]] >> 2)) & 0xFF,
+        ((decoding[randomness[9]] << 6) | (decoding[randomness[10]] << 1) | (decoding[randomness[11]] >> 4)) & 0xFF,
+        ((decoding[randomness[11]] << 4) | (decoding[randomness[12]] >> 1)) & 0xFF,
+        ((decoding[randomness[12]] << 7) | (decoding[randomness[13]] << 2) | (decoding[randomness[14]] >> 3)) & 0xFF,
+        ((decoding[randomness[14]] << 5) | (decoding[randomness[15]])) & 0xFF
+    ))
