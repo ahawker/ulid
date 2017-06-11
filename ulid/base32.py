@@ -4,6 +4,11 @@
 
     Functionality for encoding/decoding ULID strings/bytes using Base32 format.
 
+    .. note:: This module makes the trade-off of code duplication for inline
+     computations over multiple function calls for performance reasons. I'll
+     check metrics in the future to see how much it helps and if it's worth
+     it to maintain.
+
     `Base32 Documentation <http://www.crockford.com/wrmg/base32.html>`
     `NUlid Project <https://github.com/RobThree/NUlid>`
 """
