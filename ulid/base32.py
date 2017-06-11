@@ -93,6 +93,80 @@ def encode_ulid(value: bytes) -> str:
         encoding[value[15] & 31]
 
 
+def encode_timestamp(timestamp: bytes) -> str:
+    """
+    Encode the given :class:`~bytes` instance to a :class:`~str` using Base32 encoding.
+
+    The given :class:`~bytes` are expected to represent the first 6 bytes of a ULID, which
+    are a timestamp in milliseconds.
+
+    .. note:: This uses an optimized strategy from the `NUlid` project for encoding ULID
+    bytes specifically and is not meant for arbitrary encoding.
+
+    :param timestamp: Bytes to encode
+    :type timestamp: :class:`~bytes`
+    :return: Value encoded as a Base32 string
+    :rtype: :class:`~str`
+    :raises ValueError: when the timestamp is not 6 bytes
+    """
+    if len(timestamp) != 6:
+        raise ValueError('Expects 6 bytes for timestamp; got {}'.format(len(timestamp)))
+
+    encoding = ENCODING
+
+    return \
+        encoding[(timestamp[0] & 224) >> 5] + \
+        encoding[timestamp[0] & 31] + \
+        encoding[(timestamp[1] & 248) >> 3] + \
+        encoding[((timestamp[1] & 7) << 2) | ((timestamp[2] & 192) >> 6)] + \
+        encoding[((timestamp[2] & 62) >> 1)] + \
+        encoding[((timestamp[2] & 1) << 4) | ((timestamp[3] & 240) >> 4)] + \
+        encoding[((timestamp[3] & 15) << 1) | ((timestamp[4] & 128) >> 7)] + \
+        encoding[(timestamp[4] & 124) >> 2] + \
+        encoding[((timestamp[4] & 3) << 3) | ((timestamp[5] & 224) >> 5)] + \
+        encoding[timestamp[5] & 31]
+
+
+def encode_randomness(randomness: bytes) -> str:
+    """
+    Encode the given :class:`~bytes` instance to a :class:`~str` using Base32 encoding.
+
+    The given :class:`~bytes` are expected to represent the last 10 bytes of a ULID, which
+    are cryptographically secure random values.
+
+    .. note:: This uses an optimized strategy from the `NUlid` project for encoding ULID
+    bytes specifically and is not meant for arbitrary encoding.
+
+    :param randomness: Bytes to encode
+    :type randomness: :class:`~bytes`
+    :return: Value encoded as a Base32 string
+    :rtype: :class:`~str`
+    :raises ValueError: when the randomness is not 10 bytes
+    """
+    if len(randomness) != 10:
+        raise ValueError('Expects 10 bytes for randomness; got {}'.format(len(randomness)))
+
+    encoding = ENCODING
+
+    return \
+        encoding[(randomness[0] & 248) >> 3] + \
+        encoding[((randomness[0] & 7) << 2) | ((randomness[1] & 192) >> 6)] + \
+        encoding[(randomness[1] & 62) >> 1] + \
+        encoding[((randomness[1] & 1) << 4) | ((randomness[2] & 240) >> 4)] + \
+        encoding[((randomness[2] & 15) << 1) | ((randomness[3] & 128) >> 7)] + \
+        encoding[(randomness[3] & 124) >> 2] + \
+        encoding[((randomness[3] & 3) << 3) | ((randomness[4] & 224) >> 5)] + \
+        encoding[randomness[4] & 31] + \
+        encoding[(randomness[5] & 248) >> 3] + \
+        encoding[((randomness[5] & 7) << 2) | ((randomness[6] & 192) >> 6)] + \
+        encoding[(randomness[6] & 62) >> 1] + \
+        encoding[((randomness[6] & 1) << 4) | ((randomness[7] & 240) >> 4)] + \
+        encoding[((randomness[7] & 15) << 1) | ((randomness[8] & 128) >> 7)] + \
+        encoding[(randomness[8] & 124) >> 2] + \
+        encoding[((randomness[8] & 3) << 3) | ((randomness[9] & 224) >> 5)] + \
+        encoding[randomness[9] & 31]
+
+
 def decode_ulid(value: str) -> bytes:
     """
     Decode the given Base32 encoded :class:`~str` instance to :class:`~bytes`.
