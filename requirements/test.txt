@@ -1,0 +1,14 @@
+# ulid/requirements/test.txt
+#
+# Requirements for executing the test suite.
+
+-r base.txt
+
+coverage>4.0,<4.4
+
+pylint
+
+pytest
+pytest-cov
+pytest-mock
+pytest-pep8

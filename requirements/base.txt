@@ -1,0 +1,5 @@
+# ulid/requirements/base.txt
+#
+# Requirements for using this package.
+
+bumpversion
