@@ -14,6 +14,8 @@
 """
 import array
 
+from . import hints
+
 
 #: Base32 character set. Excludes characters "I L O U".
 ENCODING = "0123456789ABCDEFGHJKMNPQRSTVWXYZ"
@@ -51,21 +53,50 @@ DECODING = array.array(
 )
 
 
-def encode_ulid(value: bytes) -> str:
+def encode(value: hints.Buffer) -> str:
     """
     Encode the given :class:`~bytes` instance to a :class:`~str` using Base32 encoding.
+
+    .. note:: You should only use this method if you've got a :class:`~bytes` instance
+    and you are unsure of what it represents. If you know the the _meaning_ of the
+    :class:`~bytes` instance, you should call the `encode_*` method explicitly for
+    better performance.
+
+    :param value: Bytes to encode
+    :type value: :class:`~bytes`, :class:`~bytearray`, or :class:`~memoryview`
+    :return: Value encoded as a Base32 string
+    :rtype: :class:`~str`
+    :raises ValueError: when the value is not 6, 10, or 16 bytes long
+    """
+    length = len(value)
+
+    # Order here is based on assumed hot path.
+    if length == 16:
+        return encode_ulid(value)
+    if length == 6:
+        return encode_timestamp(value)
+    if length == 10:
+        return encode_randomness(value)
+
+    raise ValueError('Expects bytes in sizes of 6, 10, or 16; got {}'.format(length))
+
+
+def encode_ulid(value: hints.Buffer) -> str:
+    """
+    Encode the given buffer to a :class:`~str` using Base32 encoding.
 
     .. note:: This uses an optimized strategy from the `NUlid` project for encoding ULID
     bytes specifically and is not meant for arbitrary encoding.
 
     :param value: Bytes to encode
-    :type value: :class:`~bytes`
+    :type value: :class:`~bytes`, :class:`~bytearray`, or :class:`~memoryview`
     :return: Value encoded as a Base32 string
     :rtype: :class:`~str`
     :raises ValueError: when the value is not 16 bytes
     """
-    if len(value) != 16:
-        raise ValueError('Expects 16 bytes for timestamp + randomness; got {}'.format(len(value)))
+    length = len(value)
+    if length != 16:
+        raise ValueError('Expects 16 bytes for timestamp + randomness; got {}'.format(length))
 
     encoding = ENCODING
 
@@ -98,9 +129,9 @@ def encode_ulid(value: bytes) -> str:
         encoding[value[15] & 31]
 
 
-def encode_timestamp(timestamp: bytes) -> str:
+def encode_timestamp(timestamp: hints.Buffer) -> str:
     """
-    Encode the given :class:`~bytes` instance to a :class:`~str` using Base32 encoding.
+    Encode the given buffer to a :class:`~str` using Base32 encoding.
 
     The given :class:`~bytes` are expected to represent the first 6 bytes of a ULID, which
     are a timestamp in milliseconds.
@@ -109,13 +140,14 @@ def encode_timestamp(timestamp: bytes) -> str:
     bytes specifically and is not meant for arbitrary encoding.
 
     :param timestamp: Bytes to encode
-    :type timestamp: :class:`~bytes`
+    :type timestamp: :class:`~bytes`, :class:`~bytearray`, or :class:`~memoryview`
     :return: Value encoded as a Base32 string
     :rtype: :class:`~str`
     :raises ValueError: when the timestamp is not 6 bytes
     """
-    if len(timestamp) != 6:
-        raise ValueError('Expects 6 bytes for timestamp; got {}'.format(len(timestamp)))
+    length = len(timestamp)
+    if length != 6:
+        raise ValueError('Expects 6 bytes for timestamp; got {}'.format(length))
 
     encoding = ENCODING
 
@@ -132,9 +164,9 @@ def encode_timestamp(timestamp: bytes) -> str:
         encoding[timestamp[5] & 31]
 
 
-def encode_randomness(randomness: bytes) -> str:
+def encode_randomness(randomness: hints.Buffer) -> str:
     """
-    Encode the given :class:`~bytes` instance to a :class:`~str` using Base32 encoding.
+    Encode the given buffer to a :class:`~str` using Base32 encoding.
 
     The given :class:`~bytes` are expected to represent the last 10 bytes of a ULID, which
     are cryptographically secure random values.
@@ -143,13 +175,14 @@ def encode_randomness(randomness: bytes) -> str:
     bytes specifically and is not meant for arbitrary encoding.
 
     :param randomness: Bytes to encode
-    :type randomness: :class:`~bytes`
+    :type randomness: :class:`~bytes`, :class:`~bytearray`, or :class:`~memoryview`
     :return: Value encoded as a Base32 string
     :rtype: :class:`~str`
     :raises ValueError: when the randomness is not 10 bytes
     """
-    if len(randomness) != 10:
-        raise ValueError('Expects 10 bytes for randomness; got {}'.format(len(randomness)))
+    length = len(randomness)
+    if length != 10:
+        raise ValueError('Expects 10 bytes for randomness; got {}'.format(length))
 
     encoding = ENCODING
 
@@ -172,6 +205,35 @@ def encode_randomness(randomness: bytes) -> str:
         encoding[randomness[9] & 31]
 
 
+def decode(value: str) -> bytes:
+    """
+    Decode the given Base32 encoded :class:`~str` instance to :class:`~bytes`.
+
+    .. note:: You should only use this method if you've got a :class:`~str` instance
+    and you are unsure of what it represents. If you know the the _meaning_ of the
+    :class:`~str` instance, you should call the `decode_*` method explicitly for
+    better performance.
+
+    :param value: String to decode
+    :type value: :class:`~str`
+    :return: Value decoded from Base32 string
+    :rtype: :class:`~bytes`
+    :raises ValueError: when value is not 10, 16, or 26 characters
+    :raises ValueError: when value cannot be encoded in ASCII
+    """
+    length = len(value)
+
+    # Order here is based on assumed hot path.
+    if length == 26:
+        return decode_ulid(value)
+    if length == 10:
+        return decode_timestamp(value)
+    if length == 16:
+        return decode_randomness(value)
+
+    raise ValueError('Expects string in lengths of 10, 16, or 26; got {}'.format(length))
+
+
 def decode_ulid(value: str) -> bytes:
     """
     Decode the given Base32 encoded :class:`~str` instance to :class:`~bytes`.
@@ -186,8 +248,9 @@ def decode_ulid(value: str) -> bytes:
     :raises ValueError: when value is not 26 characters
     :raises ValueError: when value cannot be encoded in ASCII
     """
-    if len(value) != 26:
-        raise ValueError('Expects 26 characters for timestamp + randomness; got {}'.format(len(value)))
+    length = len(value)
+    if length != 26:
+        raise ValueError('Expects 26 characters for timestamp + randomness; got {}'.format(length))
 
     try:
         value = value.encode('ascii')
@@ -233,8 +296,9 @@ def decode_timestamp(timestamp: str) -> bytes:
     :raises ValueError: when value is not 10 characters
     :raises ValueError: when value cannot be encoded in ASCII
     """
-    if len(timestamp) != 10:
-        raise ValueError('Expects 10 characters for timestamp; got {}'.format(len(timestamp)))
+    length = len(timestamp)
+    if length != 10:
+        raise ValueError('Expects 10 characters for timestamp; got {}'.format(length))
 
     try:
         timestamp = timestamp.encode('ascii')
@@ -270,8 +334,9 @@ def decode_randomness(randomness: str) -> bytes:
     :raises ValueError: when value is not 16 characters
     :raises ValueError: when value cannot be encoded in ASCII
     """
-    if len(randomness) != 16:
-        raise ValueError('Expects 16 characters for randomness; got {}'.format(len(randomness)))
+    length = len(randomness)
+    if length != 16:
+        raise ValueError('Expects 16 characters for randomness; got {}'.format(length))
 
     try:
         randomness = randomness.encode('ascii')
