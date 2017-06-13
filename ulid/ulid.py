@@ -5,6 +5,7 @@
     Object representation of a ULID.
 """
 import datetime
+import uuid
 
 from . import base32
 
@@ -255,3 +256,12 @@ class ULID(MemoryView):
         :rtype: :class:`~ulid.ulid.Timestamp`
         """
         return Randomness(self.memory[6:])
+
+    def uuid(self):
+        """
+        Creates a :class:`~uuid.UUID` instance of the ULID from its :class:`~bytes` representation.
+
+        :return: UUIDv4 from the ULID bytes
+        :rtype: :class:`~uuid.UUID`
+        """
+        return uuid.UUID(bytes=self.bytes)
