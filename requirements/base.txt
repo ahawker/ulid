@@ -3,3 +3,4 @@
 # Requirements for using this package.
 
 bumpversion
+typing; python_version < '3.6'
