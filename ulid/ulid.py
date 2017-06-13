@@ -15,7 +15,7 @@ __all__ = ['Timestamp', 'Randomness', 'ULID']
 class MemoryView:
     """
     Wraps a buffer object, typically :class:`~bytes`, with a :class:`~memoryview` and provides easy
-    type comparisons and conversations between presentation formats.
+    type comparisons and conversions between presentation formats.
     """
 
     __slots__ = ['memory']
