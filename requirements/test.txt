@@ -9,6 +9,7 @@ coverage>4.0,<4.4
 pylint
 
 pytest
+pytest-benchmark
 pytest-cov
 pytest-mock
 pytest-pep8
