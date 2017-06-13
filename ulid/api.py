@@ -6,11 +6,12 @@
 """
 import os
 import time
+import uuid
 
 from . import base32, hints, ulid
 
 
-__all__ = ['new', 'from_bytes', 'from_int', 'from_str', 'from_timestamp', 'from_randomness']
+__all__ = ['new', 'from_bytes', 'from_int', 'from_str', 'from_uuid', 'from_timestamp', 'from_randomness']
 
 
 def new() -> ulid.ULID:
@@ -74,6 +75,18 @@ def from_str(value: str) -> ulid.ULID:
     :raises ValueError: when the value is not 26 characters or malformed
     """
     return ulid.ULID(base32.decode_ulid(value))
+
+
+def from_uuid(value: uuid.UUID) -> ulid.ULID:
+    """
+    Create a new :class:`~ulid.ulid.ULID` instance from the given :class:`~uuid.UUID` value.
+
+    :param value: UUIDv4 value
+    :type value: :class:`~uuid.UUID`
+    :return: ULID from UUID value
+    :rtype: :class:`~ulid.ulid.ULID`
+    """
+    return ulid.ULID(value.bytes)
 
 
 def from_timestamp(timestamp: hints.TimestampPrimitive) -> ulid.ULID:
