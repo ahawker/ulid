@@ -103,3 +103,99 @@ def test_encode_randomness_raises_on_bytes_length_mismatch(invalid_bytes_80):
     """
     with pytest.raises(ValueError):
         base32.encode_randomness(invalid_bytes_80)
+
+
+def test_decode_handles_ulid_and_returns_16_bytes(valid_str_26):
+    """
+    Assert that :func:`~ulid.base32.decode` decodes a valid 26 character string  into a :class:`~bytes`
+    instance that is 128 bit.
+    """
+    decoded = base32.decode(valid_str_26)
+    assert isinstance(decoded, bytes)
+    assert len(decoded) == 16
+
+
+def test_decode_handles_timestamp_and_returns_6_bytes(valid_str_10):
+    """
+    Assert that :func:`~ulid.base32.decode` decodes a valid 10 character string  into a :class:`~bytes`
+    instance that is 48 bit.
+    """
+    decoded = base32.decode(valid_str_10)
+    assert isinstance(decoded, bytes)
+    assert len(decoded) == 6
+
+
+def test_decode_handles_randomness_and_returns_10_bytes(valid_str_16):
+    """
+    Assert that :func:`~ulid.base32.decode` decodes a valid 16 character string  into a :class:`~bytes`
+    instance that is 80 bit.
+    """
+    decoded = base32.decode(valid_str_16)
+    assert isinstance(decoded, bytes)
+    assert len(decoded) == 10
+
+
+def test_decode_raises_on_str_length_mismatch(invalid_str_10_16_26):
+    """
+    Assert that :func:`~ulid.base32.decode` raises a :class:`~ValueError` when given a :class:`~str`
+    instance that is not exactly 10, 16, 26 characters in length.
+    """
+    with pytest.raises(ValueError):
+        base32.decode(invalid_str_10_16_26)
+
+
+def test_decode_ulid_returns_16_bytes(valid_str_26):
+    """
+    Assert that :func:`~ulid.base32.decode_ulid` decodes a valid 26 character string  into a :class:`~bytes`
+    instance that is 128 bit.
+    """
+    decoded = base32.decode_ulid(valid_str_26)
+    assert isinstance(decoded, bytes)
+    assert len(decoded) == 16
+
+
+def test_decode_ulid_raises_on_str_length_mismatch(invalid_str_26):
+    """
+    Assert that :func:`~ulid.base32.decode_ulid` raises a :class:`~ValueError` when given a :class:`~str`
+    instance that is not exactly 26 chars.
+    """
+    with pytest.raises(ValueError):
+        base32.decode_ulid(invalid_str_26)
+
+
+def test_decode_timestamp_returns_6_bytes(valid_str_10):
+    """
+    Assert that :func:`~ulid.base32.decode_timestamp` decodes a valid 10 character string  into a :class:`~bytes`
+    instance that is 48 bit.
+    """
+    decoded = base32.decode_timestamp(valid_str_10)
+    assert isinstance(decoded, bytes)
+    assert len(decoded) == 6
+
+
+def test_decode_timestamp_raises_on_str_length_mismatch(invalid_str_10):
+    """
+    Assert that :func:`~ulid.base32.decode_timestamp` raises a :class:`~ValueError` when given a :class:`~str`
+    instance that is not exactly 10 chars.
+    """
+    with pytest.raises(ValueError):
+        base32.decode_timestamp(invalid_str_10)
+
+
+def test_decode_randomness_returns_10_bytes(valid_str_16):
+    """
+    Assert that :func:`~ulid.base32.decode_randomness` decodes a valid 16 character string  into a :class:`~bytes`
+    instance that is 80 bit.
+    """
+    decoded = base32.decode_randomness(valid_str_16)
+    assert isinstance(decoded, bytes)
+    assert len(decoded) == 10
+
+
+def test_decode_randomness_raises_on_str_length_mismatch(invalid_str_16):
+    """
+    Assert that :func:`~ulid.base32.decode_randomness` raises a :class:`~ValueError` when given a :class:`~str`
+    instance that is not exactly 16 chars.
+    """
+    with pytest.raises(ValueError):
+        base32.decode_randomness(invalid_str_16)
