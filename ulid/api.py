@@ -108,8 +108,10 @@ def from_timestamp(timestamp: hints.TimestampPrimitive) -> ulid.ULID:
         timestamp = int(timestamp * 1000.0).to_bytes(6, byteorder='big')
     elif isinstance(timestamp, str):
         timestamp = base32.decode_timestamp(timestamp)
+    elif isinstance(timestamp, memoryview):
+        timestamp = timestamp.tobytes()
 
-    if not isinstance(timestamp, (bytes, bytearray, memoryview)):
+    if not isinstance(timestamp, (bytes, bytearray)):
         raise ValueError('Expected int, float, str, bytes, '
                          'bytearray, or memoryview; got {}'.format(type(timestamp).__name__))
 
@@ -140,8 +142,10 @@ def from_randomness(randomness: hints.RandomnessPrimitive) -> ulid.ULID:
         randomness = int(randomness).to_bytes(10, byteorder='big')
     elif isinstance(randomness, str):
         randomness = base32.decode_randomness(randomness)
+    elif isinstance(randomness, memoryview):
+        randomness = randomness.tobytes()
 
-    if not isinstance(randomness, (bytes, bytearray, memoryview)):
+    if not isinstance(randomness, (bytes, bytearray)):
         raise ValueError('Expected int, float, str, bytes, '
                          'bytearray, or memoryview; got {}'.format(type(randomness).__name__))
 
