@@ -48,45 +48,45 @@ class MemoryView:
 
     def __lt__(self, other):
         if isinstance(other, MemoryView):
-            return self.memory < other.memory
+            return self.int < other.int
         if isinstance(other, (bytes, bytearray, memoryview)):
-            return self.memory < other
+            return self.int < int.from_bytes(other, byteorder='big')
         if isinstance(other, int):
             return self.int < other
-        if isinstance(other, str):
+        if isinstance(other, str):  # TODO: #1
             return self.str < other
         return NotImplemented
 
     def __gt__(self, other):
         if isinstance(other, MemoryView):
-            return self.memory > other.memory
+            return self.int > other.int
         if isinstance(other, (bytes, bytearray, memoryview)):
-            return self.memory > other
+            return self.int > int.from_bytes(other, byteorder='big')
         if isinstance(other, int):
             return self.int > other
-        if isinstance(other, str):
+        if isinstance(other, str):  # TODO: #1
             return self.str > other
         return NotImplemented
 
     def __le__(self, other):
         if isinstance(other, MemoryView):
-            return self.memory <= other.memory
+            return self.int <= other.int
         if isinstance(other, (bytes, bytearray, memoryview)):
-            return self.memory <= other
+            return self.int <= int.from_bytes(other, byteorder='big')
         if isinstance(other, int):
             return self.int <= other
-        if isinstance(other, str):
+        if isinstance(other, str):  # TODO: #1
             return self.str <= other
         return NotImplemented
 
     def __ge__(self, other):
         if isinstance(other, MemoryView):
-            return self.memory >= other.memory
+            return self.int >= other.int
         if isinstance(other, (bytes, bytearray, memoryview)):
-            return self.memory >= other
+            return self.int >= int.from_bytes(other, byteorder='big')
         if isinstance(other, int):
             return self.int >= other
-        if isinstance(other, str):
+        if isinstance(other, str):  # TODO: #1
             return self.str >= other
         return NotImplemented
 
