@@ -42,7 +42,7 @@ def from_bytes(value: hints.Buffer) -> ulid.ULID:
     """
     length = len(value)
     if length != 16:
-        raise ValueError('Expects bytes to be 128 bits; got {}'.format(length))
+        raise ValueError('Expects bytes to be 128 bits; got {} bytes'.format(length))
 
     return ulid.ULID(value)
 
@@ -57,9 +57,9 @@ def from_int(value: int) -> ulid.ULID:
     :rtype: :class:`~ulid.ulid.ULID`
     :raises ValueError: when the value is not a 128 bit integer
     """
-    length = value.bit_length()
+    length = (value.bit_length() + 7) // 8
     if length != 16:
-        raise ValueError('Expects integer to be 128 bits; got {}'.format(length))
+        raise ValueError('Expects integer to be 128 bits; got {} bytes'.format(length))
 
     return ulid.ULID(value.to_bytes(16, byteorder='big'))
 
@@ -115,7 +115,7 @@ def from_timestamp(timestamp: hints.TimestampPrimitive) -> ulid.ULID:
 
     length = len(timestamp)
     if length != 6:
-        raise ValueError('Expects timestamp to be 48 bits; got {}'.format(length))
+        raise ValueError('Expects timestamp to be 48 bits; got {} bytes'.format(length))
 
     randomness = os.urandom(10)
     return ulid.ULID(timestamp + randomness)
@@ -147,7 +147,7 @@ def from_randomness(randomness: hints.Buffer) -> ulid.ULID:
 
     length = len(randomness)
     if length != 10:
-        raise ValueError('Expects randomness to be 80 bits; got {}'.format(length))
+        raise ValueError('Expects randomness to be 80 bits; got {} bytes'.format(length))
 
     timestamp = int(time.time() * 1000).to_bytes(6, byteorder='big')
     return ulid.ULID(timestamp + randomness)
