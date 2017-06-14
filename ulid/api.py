@@ -121,7 +121,7 @@ def from_timestamp(timestamp: hints.TimestampPrimitive) -> ulid.ULID:
     return ulid.ULID(timestamp + randomness)
 
 
-def from_randomness(randomness: hints.Buffer) -> ulid.ULID:
+def from_randomness(randomness: hints.RandomnessPrimitive) -> ulid.ULID:
     """
     Create a new :class:`~ulid.ulid.ULID` instance using the given :class:`~int`, :class:`~float`,
     :class:`~str`, :class:`~bytes`, :class:`~bytearray`, or :class`~memoryview` value that
