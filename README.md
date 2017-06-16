@@ -9,11 +9,83 @@
 [![PyPI Versions](https://img.shields.io/pypi/pyversions/ulid-py.svg)](https://pypi.python.org/pypi/ulid-py)
 [![PyPI Downloads](https://img.shields.io/pypi/dm/ulid-py.svg)](https://pypi.python.org/pypi/ulid-py)
 
-[Universally Unique Lexicographically Sortable Identifier](https://github.com/alizain/ulid) in [Python](https://www.python.org/).
+[Universally Unique Lexicographically Sortable Identifier](https://github.com/alizain/ulid) in [Python 3](https://www.python.org/).
+
+### Status
+
+This project is actively maintained.
+
+### Installation
+
+To install ulid from [pip](https://pypi.python.org/pypi/pip):
+```bash
+    $ pip install ulid-py
+```
+
+To install ulid from source:
+```bash
+    $ git clone git@github.com:ahawker/ulid.git
+    $ cd ulid && python setup.py install
+```
+
+### Usage
+
+Create a brand new ULID.
+
+The timestamp value (48-bits) is from [time.time()](https://docs.python.org/3/library/time.html?highlight=time.time#time.time) with millisecond precision.
+
+The randomness value (80-bits) is from [os.urandom()](https://docs.python.org/3/library/os.html?highlight=os.urandom#os.urandom).
+
+```python
+>>> import ulid
+>>> ulid.new()
+<ULID(01BJQE4QTHMFP0S5J153XCFSP9)>
+```
+
+Create a new ULID from an existing 128-bit value, such as a [UUID](https://docs.python.org/3/library/uuid.html).
+
+Supports ULID values as `int`, `bytes`, `str`, and `UUID` types.
+
+```python
+>>> import ulid, uuid
+>>> value = uuid.uuid4()
+>>> value
+UUID('0983d0a2-ff15-4d83-8f37-7dd945b5aa39')
+>>> ulid.from_uuid(value)
+<ULID(09GF8A5ZRN9P1RYDVXV52VBAHS)>
+```
+
+Create a new ULID from an existing timestamp value, such as a [datetime](https://docs.python.org/3/library/datetime.html#module-datetime) object.
+
+Supports timestamp values as `int`, `float`, `str`, `bytes`, `bytearray`, `memoryview`, and `datetime` types.
+
+```python
+>>> import datetime, ulid
+>>> ulid.from_timestamp(datetime.datetime(1999, 1, 1))
+<ULID(00TM9HX0008S220A3PWSFVNFEH)>
+```
+
+Create a new ULID from an existing randomness value.
+
+Supports randomness values as `int`, `float`, `str`, `bytes`, `bytearray`, and `memoryview`.
+
+```python
+>>> import os, ulid
+>>> randomness = os.urandom(10)
+>>> ulid.from_randomness(randomness)
+>>> <ULID(01BJQHX2XEDK0VN0GMYWT9JN8S)>
+```
+
+### Future Items
+
+* I've been back and fourth on methods vs. properties; finalize!
+* Collection of benchmarks to track performance.
+* Backport to Python 2.7?
+* See [Github Issues](https://github.com/ahawker/ulid/issues) for more!
 
 ### Goals
 
-A fast implementation of the spec with binary format support.
+A fast implementation in pure python of the spec with binary format support.
 
 ### Contributing
 
@@ -22,3 +94,70 @@ If you would like to contribute, simply fork the repository, push your changes a
 ### License
 
 [Apache 2.0](LICENSE)
+
+## Specification
+
+Below is the current specification of ULID as implemented in this repository.
+
+The binary format is implemented.
+
+```
+ 01AN4Z07BY      79KA1307SR9X4MV3
+
+|----------|    |----------------|
+ Timestamp          Randomness
+  10chars            16chars
+   48bits             80bits
+```
+
+### Components
+
+**Timestamp**
+- 48 bit integer
+- UNIX-time in milliseconds
+- Won't run out of space till the year 10895 AD.
+
+**Randomness**
+- 80 bits
+- Cryptographically secure source of randomness, if possible
+
+### Sorting
+
+The left-most character must be sorted first, and the right-most character sorted last (lexical order).
+The default ASCII character set must be used. Within the same millisecond, sort order is not guaranteed
+
+### Encoding
+
+Crockford's Base32 is used as shown. This alphabet excludes the letters I, L, O, and U to avoid confusion and abuse.
+
+```
+0123456789ABCDEFGHJKMNPQRSTVWXYZ
+```
+
+### Binary Layout and Byte Order
+
+The components are encoded as 16 octets. Each component is encoded with the Most Significant Byte first (network byte order).
+
+```
+0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                      32_bit_uint_time_high                    |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|     16_bit_uint_time_low      |       16_bit_uint_random      |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                       32_bit_uint_random                      |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                       32_bit_uint_random                      |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+```
+
+### String Representation
+
+```
+ttttttttttrrrrrrrrrrrrrrrr
+
+where
+t is Timestamp
+r is Randomness
+```
