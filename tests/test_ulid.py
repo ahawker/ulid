@@ -138,6 +138,33 @@ def test_memoryview_unorderble_with_unsupported_type(valid_bytes_128, unsupporte
         mv >= unsupported_comparison_type()
 
 
+def test_memoryview_supports_str(valid_bytes_128):
+    """
+    Assert that the `str` representation of a :class:`~ulid.ulid.MemoryView` is equal to the
+    result of the :meth:`~ulid.ulid.MemoryView.str` method.
+    """
+    mv = ulid.MemoryView(valid_bytes_128)
+    assert str(mv) == mv.str()
+
+
+def test_memoryview_supports_int(valid_bytes_128):
+    """
+    Assert that the `int` representation of a :class:`~ulid.ulid.MemoryView` is equal to the
+    result of the :meth:`~ulid.ulid.MemoryView.int` method.
+    """
+    mv = ulid.MemoryView(valid_bytes_128)
+    assert int(mv) == mv.int()
+
+
+def test_memoryview_defines_hash(valid_bytes_128):
+    """
+    Assert that the `hash` representation of a :class:`~ulid.ulid.MemoryView` is equal to the
+    hash result of the underlying :class:`~memoryview.`
+    """
+    mv = ulid.MemoryView(valid_bytes_128)
+    assert hash(mv) == hash(mv.memory)
+
+
 def test_timestamp_coverts_bytes_to_unix_time_seconds():
     """
     Assert that :meth:`~ulid.ulid.Timestamp.timestamp` returns the value in Unix time in seconds from epoch.
