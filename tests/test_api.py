@@ -11,6 +11,20 @@ import uuid
 from ulid import api, base32, ulid
 
 
+@pytest.fixture(scope='session', params=[
+    list,
+    dict,
+    set,
+    tuple,
+    type(None)
+])
+def unsupported_type(request):
+    """
+    Fixture that yields types that a cannot be converted to a timestamp/randomness.
+    """
+    return request.param
+
+
 @pytest.fixture('session', params=[bytes, bytearray, memoryview])
 def buffer_type(request):
     """
@@ -144,6 +158,15 @@ def test_from_timestamp_bytes_returns_ulid_instance(buffer_type, valid_bytes_48)
     assert instance.timestamp().bytes() == value
 
 
+def test_from_timestamp_with_unsupported_type_raises(unsupported_type):
+    """
+    Assert that :func:`~ulid.api.from_timestamp` raises a :class:`~ValueError` when given
+    a type it cannot compute a timestamp value from.
+    """
+    with pytest.raises(ValueError):
+        api.from_timestamp(unsupported_type())
+
+
 def test_from_randomness_int_returns_ulid_instance(valid_bytes_80):
     """
     Assert that :func:`~ulid.api.from_randomness` returns a new :class:`~ulid.ulid.ULID` instance
@@ -186,3 +209,12 @@ def test_from_randomness_bytes_returns_ulid_instance(buffer_type, valid_bytes_80
     instance = api.from_randomness(value)
     assert isinstance(instance, ulid.ULID)
     assert instance.randomness().bytes() == value
+
+
+def test_from_randomness_with_unsupported_type_raises(unsupported_type):
+    """
+    Assert that :func:`~ulid.api.from_randomness` raises a :class:`~ValueError` when given
+    a type it cannot compute a randomness value from.
+    """
+    with pytest.raises(ValueError):
+        api.from_timestamp(unsupported_type())
