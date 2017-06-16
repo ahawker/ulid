@@ -39,7 +39,7 @@ The randomness value (80-bits) is from [os.urandom()](https://docs.python.org/3/
 ```python
 >>> import ulid
 >>> ulid.new()
-<ULID(01BJQE4QTHMFP0S5J153XCFSP9)>
+<ULID('01BJQE4QTHMFP0S5J153XCFSP9')>
 ```
 
 Create a new ULID from an existing 128-bit value, such as a [UUID](https://docs.python.org/3/library/uuid.html).
@@ -52,7 +52,7 @@ Supports ULID values as `int`, `bytes`, `str`, and `UUID` types.
 >>> value
 UUID('0983d0a2-ff15-4d83-8f37-7dd945b5aa39')
 >>> ulid.from_uuid(value)
-<ULID(09GF8A5ZRN9P1RYDVXV52VBAHS)>
+<ULID('09GF8A5ZRN9P1RYDVXV52VBAHS')>
 ```
 
 Create a new ULID from an existing timestamp value, such as a [datetime](https://docs.python.org/3/library/datetime.html#module-datetime) object.
@@ -62,7 +62,7 @@ Supports timestamp values as `int`, `float`, `str`, `bytes`, `bytearray`, `memor
 ```python
 >>> import datetime, ulid
 >>> ulid.from_timestamp(datetime.datetime(1999, 1, 1))
-<ULID(00TM9HX0008S220A3PWSFVNFEH)>
+<ULID('00TM9HX0008S220A3PWSFVNFEH')>
 ```
 
 Create a new ULID from an existing randomness value.
@@ -73,7 +73,7 @@ Supports randomness values as `int`, `float`, `str`, `bytes`, `bytearray`, and `
 >>> import os, ulid
 >>> randomness = os.urandom(10)
 >>> ulid.from_randomness(randomness)
->>> <ULID(01BJQHX2XEDK0VN0GMYWT9JN8S)>
+>>> <ULID('01BJQHX2XEDK0VN0GMYWT9JN8S')>
 ```
 
 ### Future Items
