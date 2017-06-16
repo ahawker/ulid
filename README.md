@@ -76,6 +76,65 @@ Supports randomness values as `int`, `float`, `str`, `bytes`, `bytearray`, and `
 >>> <ULID('01BJQHX2XEDK0VN0GMYWT9JN8S')>
 ```
 
+Once you have a ULID object, there are a number of ways to interact with it.
+
+The `timestamp` method will give you a snapshot view of the first 48-bits of the ULID while the `randomness` method
+will give you a snapshot of the last 80-bits.
+
+```python
+>>> import ulid
+>>> u = ulid.new()
+>>> u
+<ULID('01BJQM7SC7D5VVTG3J68ABFQ3N')>
+>>> u.timestamp()
+<Timestamp('01BJQM7SC7')>
+>>> u.randomness()
+<Randomness('D5VVTG3J68ABFQ3N')>
+```
+
+The `ULID`, `Timestamp`, and `Randomness` classes all derive from the same base class, a `MemoryView`.
+
+A `MemoryView` provides the `str`, `int`, and `bytes` methods for changing any values representation.
+
+```python
+>>> import ulid
+>>> u = ulid.new()
+>>> u
+<ULID('01BJQMF54D093DXEAWZ6JYRPAQ')>
+>>> u.timestamp()
+<Timestamp('01BJQMF54D')>
+>>> u.timestamp().int()
+1497589322893
+>>> u.timestamp().bytes()
+b'\x01\\\xafG\x94\x8d'
+>>> u.timestamp().datetime()
+datetime.datetime(2017, 6, 16, 5, 2, 2, 893000)
+>>> u.randomness().bytes()
+b'\x02F\xde\xb9\\\xf9\xa5\xecYW'
+>>> u.bytes()[6:] == u.randomness().bytes()
+True
+>>> u.str()
+'01BJQMF54D093DXEAWZ6JYRPAQ'
+>>> u.int()
+1810474399624548315999517391436142935
+```
+
+A `MemoryView` also provides rich comparison functionality.
+
+```python
+>>> import datetime, time, ulid
+>>> u1 = ulid.new()
+>>> time.sleep(5)
+>>> u2 = ulid.new()
+>>> u1 < u2
+True
+>>> u3 = ulid.from_timestamp(datetime.datetime(2039, 1, 1))
+>>> u1 < u2 < u3
+True
+>>> [u.timestamp().datetime() for u in sorted([u2, u3, u1])]
+[datetime.datetime(2017, 6, 16, 5, 7, 14, 847000), datetime.datetime(2017, 6, 16, 5, 7, 26, 775000), datetime.datetime(2039, 1, 1, 8, 0)]
+```
+
 ### Future Items
 
 * I've been back and fourth on methods vs. properties; finalize!
