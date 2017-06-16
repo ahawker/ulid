@@ -167,6 +167,15 @@ def test_from_timestamp_with_unsupported_type_raises(unsupported_type):
         api.from_timestamp(unsupported_type())
 
 
+def test_from_timestamp_with_incorrect_size_bytes_raises(valid_bytes_128):
+    """
+    Assert that :func:`~ulid.api.from_timestamp` raises a :class:`~ValueError` when given
+    a type that cannot be represented as exactly 48 bits.
+    """
+    with pytest.raises(ValueError):
+        api.from_timestamp(valid_bytes_128)
+
+
 def test_from_randomness_int_returns_ulid_instance(valid_bytes_80):
     """
     Assert that :func:`~ulid.api.from_randomness` returns a new :class:`~ulid.ulid.ULID` instance
@@ -218,3 +227,12 @@ def test_from_randomness_with_unsupported_type_raises(unsupported_type):
     """
     with pytest.raises(ValueError):
         api.from_timestamp(unsupported_type())
+
+
+def test_from_randomness_with_incorrect_size_bytes_raises(valid_bytes_128):
+    """
+    Assert that :func:`~ulid.api.from_randomness` raises a :class:`~ValueError` when given
+    a type that cannot be represented as exactly 80 bits.
+    """
+    with pytest.raises(ValueError):
+        api.from_timestamp(valid_bytes_128)
