@@ -34,7 +34,7 @@ def test_from_bytes_returns_ulid_instance(buffer_type, valid_bytes_128):
     value = buffer_type(valid_bytes_128)
     instance = api.from_bytes(value)
     assert isinstance(instance, ulid.ULID)
-    assert instance.bytes == valid_bytes_128
+    assert instance.bytes() == valid_bytes_128
 
 
 def test_from_bytes_raises_when_not_128_bits(buffer_type, invalid_bytes_128):
@@ -55,7 +55,7 @@ def test_from_int_returns_ulid_instance(valid_bytes_128):
     value = int.from_bytes(valid_bytes_128, byteorder='big')
     instance = api.from_int(value)
     assert isinstance(instance, ulid.ULID)
-    assert instance.bytes == valid_bytes_128
+    assert instance.bytes() == valid_bytes_128
 
 
 def test_from_int_raises_when_not_128_bits(invalid_bytes_128):
@@ -76,7 +76,7 @@ def test_from_str_returns_ulid_instance(valid_bytes_128):
     value = base32.encode(valid_bytes_128)
     instance = api.from_str(value)
     assert isinstance(instance, ulid.ULID)
-    assert instance.bytes == valid_bytes_128
+    assert instance.bytes() == valid_bytes_128
 
 
 def test_from_str_raises_when_not_128_bits(valid_bytes_48):
@@ -97,7 +97,7 @@ def test_from_uuid_returns_ulid_instance():
     value = uuid.uuid4()
     instance = api.from_uuid(value)
     assert isinstance(instance, ulid.ULID)
-    assert instance.bytes == value.bytes
+    assert instance.bytes() == value.bytes
 
 
 def test_from_timestamp_int_returns_ulid_instance():
@@ -108,7 +108,7 @@ def test_from_timestamp_int_returns_ulid_instance():
     value = int(time.time())
     instance = api.from_timestamp(value)
     assert isinstance(instance, ulid.ULID)
-    assert int(instance.timestamp().timestamp) == value
+    assert int(instance.timestamp().timestamp()) == value
 
 
 def test_from_timestamp_float_returns_ulid_instance():
@@ -119,7 +119,7 @@ def test_from_timestamp_float_returns_ulid_instance():
     value = float(time.time())
     instance = api.from_timestamp(value)
     assert isinstance(instance, ulid.ULID)
-    assert int(instance.timestamp().timestamp) == int(value)
+    assert int(instance.timestamp().timestamp()) == int(value)
 
 
 def test_from_timestamp_str_returns_ulid_instance(valid_bytes_48):
@@ -130,7 +130,7 @@ def test_from_timestamp_str_returns_ulid_instance(valid_bytes_48):
     value = base32.encode_timestamp(valid_bytes_48)
     instance = api.from_timestamp(value)
     assert isinstance(instance, ulid.ULID)
-    assert instance.timestamp().str == value
+    assert instance.timestamp().str() == value
 
 
 def test_from_timestamp_bytes_returns_ulid_instance(buffer_type, valid_bytes_48):
@@ -141,7 +141,7 @@ def test_from_timestamp_bytes_returns_ulid_instance(buffer_type, valid_bytes_48)
     value = buffer_type(valid_bytes_48)
     instance = api.from_timestamp(value)
     assert isinstance(instance, ulid.ULID)
-    assert instance.timestamp().bytes == value
+    assert instance.timestamp().bytes() == value
 
 
 def test_from_randomness_int_returns_ulid_instance(valid_bytes_80):
@@ -152,7 +152,7 @@ def test_from_randomness_int_returns_ulid_instance(valid_bytes_80):
     value = int.from_bytes(valid_bytes_80, byteorder='big')
     instance = api.from_randomness(value)
     assert isinstance(instance, ulid.ULID)
-    assert instance.randomness().int == value
+    assert instance.randomness().int() == value
 
 
 def test_from_randomness_float_returns_ulid_instance(valid_bytes_80):
@@ -163,7 +163,7 @@ def test_from_randomness_float_returns_ulid_instance(valid_bytes_80):
     value = float(int.from_bytes(valid_bytes_80, byteorder='big'))
     instance = api.from_randomness(value)
     assert isinstance(instance, ulid.ULID)
-    assert instance.randomness().int == int(value)
+    assert instance.randomness().int() == int(value)
 
 
 def test_from_randomness_str_returns_ulid_instance(valid_bytes_80):
@@ -174,7 +174,7 @@ def test_from_randomness_str_returns_ulid_instance(valid_bytes_80):
     value = base32.encode_randomness(valid_bytes_80)
     instance = api.from_randomness(value)
     assert isinstance(instance, ulid.ULID)
-    assert instance.randomness().str == value
+    assert instance.randomness().str() == value
 
 
 def test_from_randomness_bytes_returns_ulid_instance(buffer_type, valid_bytes_80):
@@ -185,4 +185,4 @@ def test_from_randomness_bytes_returns_ulid_instance(buffer_type, valid_bytes_80
     value = buffer_type(valid_bytes_80)
     instance = api.from_randomness(value)
     assert isinstance(instance, ulid.ULID)
-    assert instance.randomness().bytes == value
+    assert instance.randomness().bytes() == value

@@ -91,16 +91,16 @@ def test_memoryview_supports_ge_with_expected_types(valid_bytes_128, valid_bytes
 
 def test_timestamp_coverts_bytes_to_unix_time_seconds():
     """
-    Assert that :prop:`~ulid.ulid.Timestamp.timestamp` returns the value in Unix time in seconds from epoch.
+    Assert that :meth:`~ulid.ulid.Timestamp.timestamp` returns the value in Unix time in seconds from epoch.
     """
     now_ms = int(time.time()) * 1000
     timestamp = ulid.Timestamp(now_ms.to_bytes(6, byteorder='big'))
-    assert timestamp.timestamp == now_ms / 1000.0
+    assert timestamp.timestamp() == now_ms / 1000.0
 
 
 def test_timestamp_converts_to_datetime():
     """
-    Assert that :prop:`~ulid.ulid.Timestamp.datetime` returns the value as
+    Assert that :meth:`~ulid.ulid.Timestamp.datetime` returns the value as
     a :class:`~datetime.dateime` instance.
     """
     now_ms = int(time.time()) * 1000
@@ -121,7 +121,7 @@ def test_ulid_timestamp_is_first_48_bits(valid_bytes_128):
     is populated with the first 48 bits of the ULID.
     """
     timestamp = ulid.ULID(valid_bytes_128).timestamp()
-    assert timestamp.bytes == valid_bytes_128[:6]
+    assert timestamp.bytes() == valid_bytes_128[:6]
 
 
 def test_ulid_randomness_returns_instance(valid_bytes_128):
@@ -137,7 +137,7 @@ def test_ulid_randomness_is_first_48_bits(valid_bytes_128):
     is populated with the last 80 bits of the ULID.
     """
     randomness = ulid.ULID(valid_bytes_128).randomness()
-    assert randomness.bytes == valid_bytes_128[6:]
+    assert randomness.bytes() == valid_bytes_128[6:]
 
 
 def test_ulid_uuid_returns_instance(valid_bytes_128):
