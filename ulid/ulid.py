@@ -176,12 +176,14 @@ class Timestamp(MemoryView):
 
     def datetime(self) -> datetime.datetime:
         """
-        Creates a :class:`~datetime.datetime` instance (assumes UTC) from the Unix time value of the timestamp.
+        Creates a :class:`~datetime.datetime` instance (assumes UTC) from the Unix time value of the timestamp
+        with millisecond precision.
 
         :return: Timestamp in datetime form.
         :rtype: :class:`~datetime.datetime`
         """
-        return datetime.datetime.utcfromtimestamp(self.timestamp())
+        ms = self.int()
+        return datetime.datetime.utcfromtimestamp(ms // 1000.0).replace(microsecond=ms % 1000 * 1000)
 
 
 class Randomness(MemoryView):

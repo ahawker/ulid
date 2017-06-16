@@ -4,6 +4,7 @@
 
     Defines the public API of the `ulid` package.
 """
+import datetime
 import os
 import time
 import uuid
@@ -97,13 +98,15 @@ def from_timestamp(timestamp: hints.TimestampPrimitive) -> ulid.ULID:
 
     :param timestamp: Unix timestamp in seconds
     :type timestamp: :class:`~int`, :class:`~float`, :class:`~str`,
-        :class:`~bytes`, :class:`~bytearray`, or :class:`~memoryview`
+        :class:`~bytes`, :class:`~bytearray`, :class:`~memoryview`, or :class:`~datetime.datetime`
     :return: ULID using given timestamp and new randomness
     :rtype: :class:`~ulid.ulid.ULID`
     :raises ValueError: when the value is an unsupported type
     :raises ValueError: when the value is a string and cannot be Base32 decoded
     :raises ValueError: when the value is or was converted to something 48 bits
     """
+    if isinstance(timestamp, datetime.datetime):
+        timestamp = timestamp.timestamp()
     if isinstance(timestamp, (int, float)):
         timestamp = int(timestamp * 1000.0).to_bytes(6, byteorder='big')
     elif isinstance(timestamp, str):

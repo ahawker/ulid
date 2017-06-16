@@ -4,6 +4,7 @@
 
     Tests for the :mod:`~ulid.api` module.
 """
+import datetime
 import pytest
 import time
 import uuid
@@ -112,6 +113,17 @@ def test_from_uuid_returns_ulid_instance():
     instance = api.from_uuid(value)
     assert isinstance(instance, ulid.ULID)
     assert instance.bytes() == value.bytes
+
+
+def test_from_timestamp_datetime_returns_ulid_instance():
+    """
+    Assert that :func:`~ulid.api.from_timestamp` returns a new :class:`~ulid.ulid.ULID` instance
+    from the given Unix time from epoch in seconds as an :class:`~datetime.dateime`.
+    """
+    value = datetime.datetime.now()
+    instance = api.from_timestamp(value)
+    assert isinstance(instance, ulid.ULID)
+    assert int(instance.timestamp().timestamp()) == int(value.timestamp())
 
 
 def test_from_timestamp_int_returns_ulid_instance():
