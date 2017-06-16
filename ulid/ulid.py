@@ -49,44 +49,52 @@ class MemoryView:
     def __lt__(self, other):
         if isinstance(other, MemoryView):
             return self.int() < other.int()
-        if isinstance(other, (bytes, bytearray, memoryview)):
-            return self.int() < int.from_bytes(other, byteorder='big')
+        if isinstance(other, (bytes, bytearray)):
+            return self.bytes() < other
+        if isinstance(other, memoryview):
+            return self.bytes() < other.tobytes()
         if isinstance(other, int):
             return self.int() < other
-        if isinstance(other, str):  # TODO: #1
+        if isinstance(other, str):
             return self.str() < other
         return NotImplemented
 
     def __gt__(self, other):
         if isinstance(other, MemoryView):
             return self.int() > other.int()
-        if isinstance(other, (bytes, bytearray, memoryview)):
-            return self.int() > int.from_bytes(other, byteorder='big')
+        if isinstance(other, (bytes, bytearray)):
+            return self.bytes() > other
+        if isinstance(other, memoryview):
+            return self.bytes() > other.tobytes()
         if isinstance(other, int):
             return self.int() > other
-        if isinstance(other, str):  # TODO: #1
+        if isinstance(other, str):
             return self.str() > other
         return NotImplemented
 
     def __le__(self, other):
         if isinstance(other, MemoryView):
             return self.int() <= other.int()
-        if isinstance(other, (bytes, bytearray, memoryview)):
-            return self.int() <= int.from_bytes(other, byteorder='big')
+        if isinstance(other, (bytes, bytearray)):
+            return self.bytes() <= other
+        if isinstance(other, memoryview):
+            return self.bytes() <= other.tobytes()
         if isinstance(other, int):
             return self.int() <= other
-        if isinstance(other, str):  # TODO: #1
+        if isinstance(other, str):
             return self.str() <= other
         return NotImplemented
 
     def __ge__(self, other):
         if isinstance(other, MemoryView):
             return self.int() >= other.int()
-        if isinstance(other, (bytes, bytearray, memoryview)):
-            return self.int() >= int.from_bytes(other, byteorder='big')
+        if isinstance(other, (bytes, bytearray)):
+            return self.bytes() >= other
+        if isinstance(other, memoryview):
+            return self.bytes() >= other.tobytes()
         if isinstance(other, int):
             return self.int() >= other
-        if isinstance(other, str):  # TODO: #1
+        if isinstance(other, str):
             return self.str() >= other
         return NotImplemented
 

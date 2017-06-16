@@ -37,56 +37,58 @@ def test_memoryview_supports_ne_with_expected_types(valid_bytes_128, valid_bytes
     assert mv != base32.encode(valid_bytes_80)
 
 
-def test_memoryview_supports_lt_with_expected_types(valid_bytes_128, valid_bytes_80):
+def test_memoryview_supports_lt_with_expected_types(ulid_bytes_year_1990, ulid_bytes_year_2000):
     """
     Assert that :class:`~ulid.ulid.MemoryView` supports "less than" comparisons against expected types.
     """
-    mv = ulid.MemoryView(valid_bytes_80)
-    assert mv < ulid.MemoryView(valid_bytes_128)
-    assert mv < bytes(valid_bytes_128)
-    assert mv < bytearray(valid_bytes_128)
-    assert mv < memoryview(valid_bytes_128)
-    assert mv < int.from_bytes(valid_bytes_128, byteorder='big')
-    # assert mv < base32.encode(valid_bytes_128)  # TODO: #1
+    mv = ulid.MemoryView(ulid_bytes_year_1990)
+    assert mv < ulid.MemoryView(ulid_bytes_year_2000)
+    assert mv < bytes(ulid_bytes_year_2000)
+    assert mv < bytearray(ulid_bytes_year_2000)
+    assert mv < memoryview(ulid_bytes_year_2000)
+    assert mv < int.from_bytes(ulid_bytes_year_2000, byteorder='big')
+    assert mv < base32.encode(ulid_bytes_year_2000)
 
 
-def test_memoryview_supports_gt_with_expected_types(valid_bytes_128, valid_bytes_80):
+def test_memoryview_supports_gt_with_expected_types(ulid_bytes_year_1990, ulid_bytes_year_2000):
     """
     Assert that :class:`~ulid.ulid.MemoryView` supports "greater than" comparisons against expected types.
     """
-    mv = ulid.MemoryView(valid_bytes_128)
-    assert mv > ulid.MemoryView(valid_bytes_80)
-    assert mv > bytes(valid_bytes_80)
-    assert mv > bytearray(valid_bytes_80)
-    assert mv > memoryview(valid_bytes_80)
-    assert mv > int.from_bytes(valid_bytes_80, byteorder='big')
-    # assert mv > base32.encode(valid_bytes_80)  # TODO: #1
+    mv = ulid.MemoryView(ulid_bytes_year_2000)
+    assert mv > ulid.MemoryView(ulid_bytes_year_1990)
+    assert mv > bytes(ulid_bytes_year_1990)
+    assert mv > bytearray(ulid_bytes_year_1990)
+    assert mv > memoryview(ulid_bytes_year_1990)
+    assert mv > int.from_bytes(ulid_bytes_year_1990, byteorder='big')
+    assert mv > base32.encode(ulid_bytes_year_1990)
 
 
-def test_memoryview_supports_le_with_expected_types(valid_bytes_128, valid_bytes_80):
+def test_memoryview_supports_le_with_expected_types(ulid_bytes_year_1990, ulid_bytes_year_2000):
     """
     Assert that :class:`~ulid.ulid.MemoryView` supports "less than or equals" comparisons against expected types.
     """
-    mv = ulid.MemoryView(valid_bytes_80)
-    assert mv <= ulid.MemoryView(valid_bytes_128)
-    assert mv <= bytes(valid_bytes_128)
-    assert mv <= bytearray(valid_bytes_128)
-    assert mv <= memoryview(valid_bytes_128)
-    assert mv <= int.from_bytes(valid_bytes_128, byteorder='big')
-    # assert mv <= base32.encode(valid_bytes_128)  # TODO: #1
+    mv = ulid.MemoryView(ulid_bytes_year_1990)
+    assert mv <= ulid.MemoryView(ulid_bytes_year_1990)
+    assert mv <= ulid.MemoryView(ulid_bytes_year_2000)
+    assert mv <= bytes(ulid_bytes_year_2000)
+    assert mv <= bytearray(ulid_bytes_year_2000)
+    assert mv <= memoryview(ulid_bytes_year_2000)
+    assert mv <= int.from_bytes(ulid_bytes_year_2000, byteorder='big')
+    assert mv <= base32.encode(ulid_bytes_year_2000)
 
 
-def test_memoryview_supports_ge_with_expected_types(valid_bytes_128, valid_bytes_80):
+def test_memoryview_supports_ge_with_expected_types(ulid_bytes_year_1990, ulid_bytes_year_2000):
     """
     Assert that :class:`~ulid.ulid.MemoryView` supports "greater than or equals" comparisons against expected types.
     """
-    mv = ulid.MemoryView(valid_bytes_128)
-    assert mv >= ulid.MemoryView(valid_bytes_80)
-    assert mv >= bytes(valid_bytes_80)
-    assert mv >= bytearray(valid_bytes_80)
-    assert mv >= memoryview(valid_bytes_80)
-    assert mv >= int.from_bytes(valid_bytes_80, byteorder='big')
-    # assert mv >= base32.encode(valid_bytes_80)  # TODO: #1
+    mv = ulid.MemoryView(ulid_bytes_year_2000)
+    assert mv >= ulid.MemoryView(ulid_bytes_year_1990)
+    assert mv >= ulid.MemoryView(ulid_bytes_year_1990)
+    assert mv >= bytes(ulid_bytes_year_1990)
+    assert mv >= bytearray(ulid_bytes_year_1990)
+    assert mv >= memoryview(ulid_bytes_year_1990)
+    assert mv >= int.from_bytes(ulid_bytes_year_1990, byteorder='big')
+    assert mv >= base32.encode(ulid_bytes_year_1990)
 
 
 def test_timestamp_coverts_bytes_to_unix_time_seconds():

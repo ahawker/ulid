@@ -4,11 +4,31 @@
 
     High level fixtures used across multiple test modules.
 """
+import calendar
+import datetime
 import os
 import pytest
 import random
 
 from ulid import base32
+
+
+@pytest.fixture(scope='function')
+def ulid_bytes_year_1990(valid_bytes_80):
+    """
+    Fixture that yields a :class:`~bytes` instance that represents a ULID with a timestamp
+    from the year 1990.
+    """
+    return fixed_year_timestamp_bytes(1990, 1, 1) + valid_bytes_80
+
+
+@pytest.fixture(scope='function')
+def ulid_bytes_year_2000(valid_bytes_80):
+    """
+    Fixture that yields a :class:`~bytes` instance that represents a ULID with a timestamp
+    from the year 2000.
+    """
+    return fixed_year_timestamp_bytes(2000, 1, 1) + valid_bytes_80
 
 
 @pytest.fixture(scope='function')
@@ -138,3 +158,11 @@ def random_str(num_chars, not_in=(-1,)):
     """
     num_chars = num_chars + 1 if num_chars in not_in else num_chars
     return ''.join(random.choice(base32.ENCODING) for _ in range(num_chars))
+
+
+def fixed_year_timestamp_bytes(*args, **kwargs):
+    """
+    Helper function that returns bytes for a :class:`~datetime.datetime` created by the given args.
+    """
+    timestamp = int(calendar.timegm(datetime.datetime(*args, **kwargs).timetuple())) * 1000
+    return timestamp.to_bytes(6, byteorder='big')
