@@ -5,10 +5,25 @@
     Tests for the :mod:`~ulid.ulid` module.
 """
 import datetime
+import pytest
 import time
 import uuid
 
 from ulid import base32, ulid
+
+
+@pytest.fixture(scope='session', params=[
+    list,
+    dict,
+    set,
+    tuple,
+    type(None)
+])
+def unsupported_comparison_type(request):
+    """
+    Fixture that yields types that a :class:`~ulid.ulid.MemoryView` cannot be compared with.
+    """
+    return request.param
 
 
 def test_memoryview_supports_eq_with_expected_types(valid_bytes_128):
@@ -89,6 +104,38 @@ def test_memoryview_supports_ge_with_expected_types(ulid_bytes_year_1990, ulid_b
     assert mv >= memoryview(ulid_bytes_year_1990)
     assert mv >= int.from_bytes(ulid_bytes_year_1990, byteorder='big')
     assert mv >= base32.encode(ulid_bytes_year_1990)
+
+
+def test_memoryview_eq_false_with_unsupported_type(valid_bytes_128, unsupported_comparison_type):
+    """
+    Assert that :class:`~ulid.ulid.MemoryView` returns `False` on "equal" comparisons
+    against unsupported types.
+    """
+    assert not ulid.MemoryView(valid_bytes_128) == unsupported_comparison_type()
+
+
+def test_memoryview_ne_false_with_unsupported_type(valid_bytes_128, unsupported_comparison_type):
+    """
+    Assert that :class:`~ulid.ulid.MemoryView` returns `True` on "not equal" comparisons
+    against unsupported types.
+    """
+    assert ulid.MemoryView(valid_bytes_128) != unsupported_comparison_type()
+
+
+def test_memoryview_unorderble_with_unsupported_type(valid_bytes_128, unsupported_comparison_type):
+    """
+    Assert that :class:`~ulid.ulid.MemoryView` returns `False` on "less than" comparisons
+    against unsupported types.
+    """
+    mv = ulid.MemoryView(valid_bytes_128)
+    with pytest.raises(TypeError):
+        mv < unsupported_comparison_type()
+    with pytest.raises(TypeError):
+        mv > unsupported_comparison_type()
+    with pytest.raises(TypeError):
+        mv <= unsupported_comparison_type()
+    with pytest.raises(TypeError):
+        mv >= unsupported_comparison_type()
 
 
 def test_timestamp_coverts_bytes_to_unix_time_seconds():
