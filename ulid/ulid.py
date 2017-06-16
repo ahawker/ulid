@@ -162,16 +162,16 @@ class Timestamp(MemoryView):
         return base32.encode_timestamp(self.memory)
 
     @property
-    def timestamp(self):
+    def timestamp(self) -> float:
         """
         Computes the Unix time (seconds since epoch) from its :class:`~memoryview`.
 
         :return: Timestamp in Unix time (seconds since epoch) form.
-        :rtype: :class:`~int`
+        :rtype: :class:`~float`
         """
         return self.int / 1000.0
 
-    def datetime(self):
+    def datetime(self) -> datetime.datetime:
         """
         Creates a :class:`~datetime.datetime` instance (assumes UTC) from the Unix time value of the timestamp.
 
@@ -239,7 +239,7 @@ class ULID(MemoryView):
         """
         return base32.encode_ulid(self.memory)
 
-    def timestamp(self):
+    def timestamp(self) -> Timestamp:
         """
         Creates a :class:`~ulid.ulid.Timestamp` instance that maps to the first 48 bits of this ULID.
 
@@ -248,7 +248,7 @@ class ULID(MemoryView):
         """
         return Timestamp(self.memory[:6])
 
-    def randomness(self):
+    def randomness(self) -> Randomness:
         """
         Creates a :class:`~ulid.ulid.Randomness` instance that maps to the last 80 bits of this ULID.
 
@@ -257,7 +257,7 @@ class ULID(MemoryView):
         """
         return Randomness(self.memory[6:])
 
-    def uuid(self):
+    def uuid(self) -> uuid.UUID:
         """
         Creates a :class:`~uuid.UUID` instance of the ULID from its :class:`~bytes` representation.
 
