@@ -6,7 +6,11 @@ test-install:  ## Install dependencies required for local test execution.
 
 .PHONY: test
 test: test-install  ## Run test suite.
-	@py.test -v tests
+	@py.test -v --ignore tests/benchmarks tests
+
+.PHONY: benchmark
+benchmark: test-install  ## Run performance suite.
+	@py.test -v tests/benchmarks
 
 .PHONY: tox-install
 tox-install:  ## Install dependencies required for local test execution using tox.
