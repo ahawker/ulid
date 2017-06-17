@@ -7,12 +7,24 @@
 import datetime
 import os
 import time
+import typing
 import uuid
 
 from . import base32, hints, ulid
 
 
 __all__ = ['new', 'from_bytes', 'from_int', 'from_str', 'from_uuid', 'from_timestamp', 'from_randomness']
+
+
+#: Type hint that defines multiple primitive types that can represent
+#: a Unix timestamp in seconds.
+TimestampPrimitive = typing.Union[int, float, str, bytes, bytearray, memoryview,
+                                  datetime.datetime, ulid.Timestamp, ulid.ULID]
+
+
+#: Type hint that defines multiple primitive types that can represent
+#: randomness.
+RandomnessPrimitive = typing.Union[int, float, str, bytes, bytearray, memoryview]
 
 
 def new() -> ulid.ULID:
@@ -90,7 +102,7 @@ def from_uuid(value: uuid.UUID) -> ulid.ULID:
     return ulid.ULID(value.bytes)
 
 
-def from_timestamp(timestamp: hints.TimestampPrimitive) -> ulid.ULID:
+def from_timestamp(timestamp: TimestampPrimitive) -> ulid.ULID:
     """
     Create a new :class:`~ulid.ulid.ULID` instance using the given :class:`~int`, :class:`~float`,
     :class:`~str`, :class:`~bytes`, :class:`~bytearray`, or :class`~memoryview` value that
@@ -126,7 +138,7 @@ def from_timestamp(timestamp: hints.TimestampPrimitive) -> ulid.ULID:
     return ulid.ULID(timestamp + randomness)
 
 
-def from_randomness(randomness: hints.RandomnessPrimitive) -> ulid.ULID:
+def from_randomness(randomness: RandomnessPrimitive) -> ulid.ULID:
     """
     Create a new :class:`~ulid.ulid.ULID` instance using the given :class:`~int`, :class:`~float`,
     :class:`~str`, :class:`~bytes`, :class:`~bytearray`, or :class`~memoryview` value that
