@@ -5,12 +5,12 @@
     Functionality for encoding/decoding ULID strings/bytes using Base32 format.
 
     .. note:: This module makes the trade-off of code duplication for inline
-     computations over multiple function calls for performance reasons. I'll
-     check metrics in the future to see how much it helps and if it's worth
-     it to maintain.
+        computations over multiple function calls for performance reasons. I'll
+        check metrics in the future to see how much it helps and if it's worth
+        it to maintain.
 
-    `Base32 Documentation <http://www.crockford.com/wrmg/base32.html>`
-    `NUlid Project <https://github.com/RobThree/NUlid>`
+    * `Base32 Documentation <http://www.crockford.com/wrmg/base32.html>`
+    * `NUlid Project <https://github.com/RobThree/NUlid>`
 """
 import array
 
@@ -58,9 +58,9 @@ def encode(value: hints.Buffer) -> str:
     Encode the given :class:`~bytes` instance to a :class:`~str` using Base32 encoding.
 
     .. note:: You should only use this method if you've got a :class:`~bytes` instance
-    and you are unsure of what it represents. If you know the the _meaning_ of the
-    :class:`~bytes` instance, you should call the `encode_*` method explicitly for
-    better performance.
+        and you are unsure of what it represents. If you know the the _meaning_ of the
+        :class:`~bytes` instance, you should call the `encode_*` method explicitly for
+        better performance.
 
     :param value: Bytes to encode
     :type value: :class:`~bytes`, :class:`~bytearray`, or :class:`~memoryview`
@@ -86,7 +86,7 @@ def encode_ulid(value: hints.Buffer) -> str:
     Encode the given buffer to a :class:`~str` using Base32 encoding.
 
     .. note:: This uses an optimized strategy from the `NUlid` project for encoding ULID
-    bytes specifically and is not meant for arbitrary encoding.
+        bytes specifically and is not meant for arbitrary encoding.
 
     :param value: Bytes to encode
     :type value: :class:`~bytes`, :class:`~bytearray`, or :class:`~memoryview`
@@ -137,7 +137,7 @@ def encode_timestamp(timestamp: hints.Buffer) -> str:
     are a timestamp in milliseconds.
 
     .. note:: This uses an optimized strategy from the `NUlid` project for encoding ULID
-    bytes specifically and is not meant for arbitrary encoding.
+        bytes specifically and is not meant for arbitrary encoding.
 
     :param timestamp: Bytes to encode
     :type timestamp: :class:`~bytes`, :class:`~bytearray`, or :class:`~memoryview`
@@ -172,7 +172,7 @@ def encode_randomness(randomness: hints.Buffer) -> str:
     are cryptographically secure random values.
 
     .. note:: This uses an optimized strategy from the `NUlid` project for encoding ULID
-    bytes specifically and is not meant for arbitrary encoding.
+        bytes specifically and is not meant for arbitrary encoding.
 
     :param randomness: Bytes to encode
     :type randomness: :class:`~bytes`, :class:`~bytearray`, or :class:`~memoryview`
@@ -210,9 +210,9 @@ def decode(value: str) -> bytes:
     Decode the given Base32 encoded :class:`~str` instance to :class:`~bytes`.
 
     .. note:: You should only use this method if you've got a :class:`~str` instance
-    and you are unsure of what it represents. If you know the the _meaning_ of the
-    :class:`~str` instance, you should call the `decode_*` method explicitly for
-    better performance.
+        and you are unsure of what it represents. If you know the the _meaning_ of the
+        :class:`~str` instance, you should call the `decode_*` method explicitly for
+        better performance.
 
     :param value: String to decode
     :type value: :class:`~str`
@@ -239,7 +239,7 @@ def decode_ulid(value: str) -> bytes:
     Decode the given Base32 encoded :class:`~str` instance to :class:`~bytes`.
 
     .. note:: This uses an optimized strategy from the `NUlid` project for decoding ULID
-    strings specifically and is not meant for arbitrary decoding.
+        strings specifically and is not meant for arbitrary decoding.
 
     :param value: String to decode
     :type value: :class:`~str`
@@ -287,7 +287,7 @@ def decode_timestamp(timestamp: str) -> bytes:
     are the timestamp in milliseconds.
 
     .. note:: This uses an optimized strategy from the `NUlid` project for decoding ULID
-    strings specifically and is not meant for arbitrary decoding.
+        strings specifically and is not meant for arbitrary decoding.
 
     :param timestamp: String to decode
     :type timestamp: :class:`~str`
@@ -325,7 +325,7 @@ def decode_randomness(randomness: str) -> bytes:
     are cryptographically secure random values.
 
     .. note:: This uses an optimized strategy from the `NUlid` project for decoding ULID
-    strings specifically and is not meant for arbitrary decoding.
+        strings specifically and is not meant for arbitrary decoding.
 
     :param randomness: String to decode
     :type randomness: :class:`~str`
