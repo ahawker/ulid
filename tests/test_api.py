@@ -254,6 +254,28 @@ def test_from_randomness_bytes_returns_ulid_instance(buffer_type, valid_bytes_80
     assert instance.randomness().bytes() == value
 
 
+def test_from_randomness_randomness_returns_ulid_instance(valid_bytes_80):
+    """
+    Assert that :func:`~ulid.api.from_randomness` returns a new :class:`~ulid.ulid.ULID` instance
+    from the given random values as a :class:`~ulid.ulid.Randomness`.
+    """
+    value = ulid.Randomness(valid_bytes_80)
+    instance = api.from_randomness(value)
+    assert isinstance(instance, ulid.ULID)
+    assert instance.randomness() == value
+
+
+def test_from_randomness_ulid_returns_ulid_instance(valid_bytes_128):
+    """
+    Assert that :func:`~ulid.api.from_randomness` returns a new :class:`~ulid.ulid.ULID` instance
+    from the given random values as a :class:`~ulid.ulid.ULID`.
+    """
+    value = ulid.ULID(valid_bytes_128)
+    instance = api.from_randomness(value)
+    assert isinstance(instance, ulid.ULID)
+    assert instance.randomness() == value.randomness()
+
+
 def test_from_randomness_with_unsupported_type_raises(unsupported_type):
     """
     Assert that :func:`~ulid.api.from_randomness` raises a :class:`~ValueError` when given

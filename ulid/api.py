@@ -24,7 +24,8 @@ TimestampPrimitive = typing.Union[int, float, str, bytes, bytearray, memoryview,
 
 #: Type hint that defines multiple primitive types that can represent
 #: randomness.
-RandomnessPrimitive = typing.Union[int, float, str, bytes, bytearray, memoryview]
+RandomnessPrimitive = typing.Union[int, float, str, bytes, bytearray, memoryview,
+                                   ulid.Randomness, ulid.ULID]
 
 
 def new() -> ulid.ULID:
@@ -153,13 +154,21 @@ def from_timestamp(timestamp: TimestampPrimitive) -> ulid.ULID:
 
 def from_randomness(randomness: RandomnessPrimitive) -> ulid.ULID:
     """
-    Create a new :class:`~ulid.ulid.ULID` instance using the given :class:`~int`, :class:`~float`,
-    :class:`~str`, :class:`~bytes`, :class:`~bytearray`, or :class`~memoryview` value that
-    represents cryptographically secure random values.
+    Create a new :class:`~ulid.ulid.ULID` instance using the given randomness value of a supported type.
+
+    The following types are supported for randomness values:
+
+    * :class:`~int`
+    * :class:`~float`
+    * :class:`~str`
+    * :class:`~memoryview`
+    * :class:`~ulid.ulid.Randomness`
+    * :class:`~ulid.ulid.ULID`
+    * :class:`~ulid.ulid.bytes`
+    * :class:`~ulid.ulid.bytearray`
 
     :param randomness: Random bytes
-    :type randomness: :class:`~int`, :class:`~float`, :class:`~str`,
-        :class:`~bytes`, :class:`~bytearray`, or :class:`~memoryview`
+    :type randomness: See docstring for types
     :return: ULID using new timestamp and given randomness
     :rtype: :class:`~ulid.ulid.ULID`
     :raises ValueError: when the value is an unsupported type
@@ -172,10 +181,14 @@ def from_randomness(randomness: RandomnessPrimitive) -> ulid.ULID:
         randomness = base32.decode_randomness(randomness)
     elif isinstance(randomness, memoryview):
         randomness = randomness.tobytes()
+    elif isinstance(randomness, ulid.Randomness):
+        randomness = randomness.bytes()
+    elif isinstance(randomness, ulid.ULID):
+        randomness = randomness.randomness().bytes()
 
     if not isinstance(randomness, (bytes, bytearray)):
-        raise ValueError('Expected int, float, str, bytes, '
-                         'bytearray, or memoryview; got {}'.format(type(randomness).__name__))
+        raise ValueError('Expected int, float, str, memoryview, Randomness, ULID, '
+                         'bytes, or bytearray; got {}'.format(type(randomness).__name__))
 
     length = len(randomness)
     if length != 10:
