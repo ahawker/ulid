@@ -9,6 +9,8 @@
 [![PyPI Versions](https://img.shields.io/pypi/pyversions/ulid-py.svg)](https://pypi.python.org/pypi/ulid-py)
 [![PyPI Downloads](https://img.shields.io/pypi/dm/ulid-py.svg)](https://pypi.python.org/pypi/ulid-py)
 
+[![Documentation Status](https://readthedocs.org/projects/ulid/badge/?version=latest)](http://ulid.readthedocs.io/en/latest/?badge=latest)
+
 [Universally Unique Lexicographically Sortable Identifier](https://github.com/alizain/ulid) in [Python 3](https://www.python.org/).
 
 ### Status
