@@ -170,6 +170,28 @@ def test_from_timestamp_bytes_returns_ulid_instance(buffer_type, valid_bytes_48)
     assert instance.timestamp().bytes() == value
 
 
+def test_from_timestamp_timestamp_returns_ulid_instance(valid_bytes_48):
+    """
+    Assert that :func:`~ulid.api.from_timestamp` returns a new :class:`~ulid.ulid.ULID` instance
+    from the given timestamp as a :class:`~ulid.ulid.Timestamp`.
+    """
+    value = ulid.Timestamp(valid_bytes_48)
+    instance = api.from_timestamp(value)
+    assert isinstance(instance, ulid.ULID)
+    assert instance.timestamp() == value
+
+
+def test_from_timestamp_ulid_returns_ulid_instance(valid_bytes_128):
+    """
+    Assert that :func:`~ulid.api.from_timestamp` returns a new :class:`~ulid.ulid.ULID` instance
+    from the given timestamp as a :class:`~ulid.ulid.ULID`.
+    """
+    value = ulid.ULID(valid_bytes_128)
+    instance = api.from_timestamp(value)
+    assert isinstance(instance, ulid.ULID)
+    assert instance.timestamp() == value.timestamp()
+
+
 def test_from_timestamp_with_unsupported_type_raises(unsupported_type):
     """
     Assert that :func:`~ulid.api.from_timestamp` raises a :class:`~ValueError` when given

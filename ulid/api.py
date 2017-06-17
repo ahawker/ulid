@@ -104,13 +104,22 @@ def from_uuid(value: uuid.UUID) -> ulid.ULID:
 
 def from_timestamp(timestamp: TimestampPrimitive) -> ulid.ULID:
     """
-    Create a new :class:`~ulid.ulid.ULID` instance using the given :class:`~int`, :class:`~float`,
-    :class:`~str`, :class:`~bytes`, :class:`~bytearray`, or :class`~memoryview` value that
-    represents Unix timestamp in seconds.
+    Create a new :class:`~ulid.ulid.ULID` instance using a timestamp value of a supported type.
+
+    The following types are supported for timestamp values:
+
+    * :class:`~datetime.datetime`
+    * :class:`~int`
+    * :class:`~float`
+    * :class:`~str`
+    * :class:`~memoryview`
+    * :class:`~ulid.ulid.Timestamp`
+    * :class:`~ulid.ulid.ULID`
+    * :class:`~ulid.ulid.bytes`
+    * :class:`~ulid.ulid.bytearray`
 
     :param timestamp: Unix timestamp in seconds
-    :type timestamp: :class:`~int`, :class:`~float`, :class:`~str`,
-        :class:`~bytes`, :class:`~bytearray`, :class:`~memoryview`, or :class:`~datetime.datetime`
+    :type timestamp: See docstring for types
     :return: ULID using given timestamp and new randomness
     :rtype: :class:`~ulid.ulid.ULID`
     :raises ValueError: when the value is an unsupported type
@@ -125,10 +134,14 @@ def from_timestamp(timestamp: TimestampPrimitive) -> ulid.ULID:
         timestamp = base32.decode_timestamp(timestamp)
     elif isinstance(timestamp, memoryview):
         timestamp = timestamp.tobytes()
+    elif isinstance(timestamp, ulid.Timestamp):
+        timestamp = timestamp.bytes()
+    elif isinstance(timestamp, ulid.ULID):
+        timestamp = timestamp.timestamp().bytes()
 
     if not isinstance(timestamp, (bytes, bytearray)):
-        raise ValueError('Expected int, float, str, bytes, '
-                         'bytearray, or memoryview; got {}'.format(type(timestamp).__name__))
+        raise ValueError('Expected datetime, int, float, str, memoryview, Timestamp, ULID, '
+                         'bytes, or bytearray; got {}'.format(type(timestamp).__name__))
 
     length = len(timestamp)
     if length != 6:
