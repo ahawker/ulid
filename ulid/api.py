@@ -136,9 +136,9 @@ def from_timestamp(timestamp: TimestampPrimitive) -> ulid.ULID:
     elif isinstance(timestamp, memoryview):
         timestamp = timestamp.tobytes()
     elif isinstance(timestamp, ulid.Timestamp):
-        timestamp = timestamp.bytes()
+        timestamp = timestamp.bytes
     elif isinstance(timestamp, ulid.ULID):
-        timestamp = timestamp.timestamp().bytes()
+        timestamp = timestamp.timestamp().bytes
 
     if not isinstance(timestamp, (bytes, bytearray)):
         raise ValueError('Expected datetime, int, float, str, memoryview, Timestamp, ULID, '
@@ -182,9 +182,9 @@ def from_randomness(randomness: RandomnessPrimitive) -> ulid.ULID:
     elif isinstance(randomness, memoryview):
         randomness = randomness.tobytes()
     elif isinstance(randomness, ulid.Randomness):
-        randomness = randomness.bytes()
+        randomness = randomness.bytes
     elif isinstance(randomness, ulid.ULID):
-        randomness = randomness.randomness().bytes()
+        randomness = randomness.randomness().bytes
 
     if not isinstance(randomness, (bytes, bytearray)):
         raise ValueError('Expected int, float, str, memoryview, Randomness, ULID, '

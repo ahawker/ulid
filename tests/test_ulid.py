@@ -144,7 +144,7 @@ def test_memoryview_supports_str(valid_bytes_128):
     result of the :meth:`~ulid.ulid.MemoryView.str` method.
     """
     mv = ulid.MemoryView(valid_bytes_128)
-    assert str(mv) == mv.str()
+    assert str(mv) == mv.str
 
 
 def test_memoryview_supports_int(valid_bytes_128):
@@ -153,7 +153,7 @@ def test_memoryview_supports_int(valid_bytes_128):
     result of the :meth:`~ulid.ulid.MemoryView.int` method.
     """
     mv = ulid.MemoryView(valid_bytes_128)
-    assert int(mv) == mv.int()
+    assert int(mv) == mv.int
 
 
 def test_memoryview_defines_hash(valid_bytes_128):
@@ -171,7 +171,7 @@ def test_timestamp_coverts_bytes_to_unix_time_seconds():
     """
     now_ms = int(time.time()) * 1000
     timestamp = ulid.Timestamp(now_ms.to_bytes(6, byteorder='big'))
-    assert timestamp.timestamp() == now_ms / 1000.0
+    assert timestamp.timestamp == now_ms / 1000.0
 
 
 def test_timestamp_converts_to_datetime():
@@ -181,7 +181,7 @@ def test_timestamp_converts_to_datetime():
     """
     now_ms = int(time.time()) * 1000
     timestamp = ulid.Timestamp(now_ms.to_bytes(6, byteorder='big'))
-    assert timestamp.datetime() == datetime.datetime.utcfromtimestamp(now_ms / 1000.0)
+    assert timestamp.datetime == datetime.datetime.utcfromtimestamp(now_ms / 1000.0)
 
 
 def test_ulid_timestamp_returns_instance(valid_bytes_128):
@@ -197,7 +197,7 @@ def test_ulid_timestamp_is_first_48_bits(valid_bytes_128):
     is populated with the first 48 bits of the ULID.
     """
     timestamp = ulid.ULID(valid_bytes_128).timestamp()
-    assert timestamp.bytes() == valid_bytes_128[:6]
+    assert timestamp.bytes == valid_bytes_128[:6]
 
 
 def test_ulid_randomness_returns_instance(valid_bytes_128):
@@ -213,11 +213,11 @@ def test_ulid_randomness_is_first_48_bits(valid_bytes_128):
     is populated with the last 80 bits of the ULID.
     """
     randomness = ulid.ULID(valid_bytes_128).randomness()
-    assert randomness.bytes() == valid_bytes_128[6:]
+    assert randomness.bytes == valid_bytes_128[6:]
 
 
 def test_ulid_uuid_returns_instance(valid_bytes_128):
     """
     Assert that :func:`~ulid.ulid.ULID.uuid` returns a :class:`~uuid.UUID` instance.
     """
-    assert isinstance(ulid.ULID(valid_bytes_128).uuid(), uuid.UUID)
+    assert isinstance(ulid.ULID(valid_bytes_128).uuid, uuid.UUID)

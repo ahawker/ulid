@@ -30,9 +30,9 @@ class MemoryView:
         if isinstance(other, (bytes, bytearray, memoryview)):
             return self.memory == other
         if isinstance(other, int):
-            return self.int() == other
+            return self.int == other
         if isinstance(other, str):
-            return self.str() == other
+            return self.str == other
         return NotImplemented
 
     def __ne__(self, other):
@@ -41,75 +41,76 @@ class MemoryView:
         if isinstance(other, (bytes, bytearray, memoryview)):
             return self.memory != other
         if isinstance(other, int):
-            return self.int() != other
+            return self.int != other
         if isinstance(other, str):
-            return self.str() != other
+            return self.str != other
         return NotImplemented
 
     def __lt__(self, other):
         if isinstance(other, MemoryView):
-            return self.int() < other.int()
+            return self.int < other.int
         if isinstance(other, (bytes, bytearray)):
-            return self.bytes() < other
+            return self.bytes < other
         if isinstance(other, memoryview):
-            return self.bytes() < other.tobytes()
+            return self.bytes < other.tobytes()
         if isinstance(other, int):
-            return self.int() < other
+            return self.int < other
         if isinstance(other, str):
-            return self.str() < other
+            return self.str < other
         return NotImplemented
 
     def __gt__(self, other):
         if isinstance(other, MemoryView):
-            return self.int() > other.int()
+            return self.int > other.int
         if isinstance(other, (bytes, bytearray)):
-            return self.bytes() > other
+            return self.bytes > other
         if isinstance(other, memoryview):
-            return self.bytes() > other.tobytes()
+            return self.bytes > other.tobytes()
         if isinstance(other, int):
-            return self.int() > other
+            return self.int > other
         if isinstance(other, str):
-            return self.str() > other
+            return self.str > other
         return NotImplemented
 
     def __le__(self, other):
         if isinstance(other, MemoryView):
-            return self.int() <= other.int()
+            return self.int <= other.int
         if isinstance(other, (bytes, bytearray)):
-            return self.bytes() <= other
+            return self.bytes <= other
         if isinstance(other, memoryview):
-            return self.bytes() <= other.tobytes()
+            return self.bytes <= other.tobytes()
         if isinstance(other, int):
-            return self.int() <= other
+            return self.int <= other
         if isinstance(other, str):
-            return self.str() <= other
+            return self.str <= other
         return NotImplemented
 
     def __ge__(self, other):
         if isinstance(other, MemoryView):
-            return self.int() >= other.int()
+            return self.int >= other.int
         if isinstance(other, (bytes, bytearray)):
-            return self.bytes() >= other
+            return self.bytes >= other
         if isinstance(other, memoryview):
-            return self.bytes() >= other.tobytes()
+            return self.bytes >= other.tobytes()
         if isinstance(other, int):
-            return self.int() >= other
+            return self.int >= other
         if isinstance(other, str):
-            return self.str() >= other
+            return self.str >= other
         return NotImplemented
 
     def __hash__(self):
         return hash(self.memory)
 
     def __int__(self):
-        return self.int()
+        return self.int
 
     def __repr__(self):
         return '<{}({!r})>'.format(self.__class__.__name__, str(self))
 
     def __str__(self):
-        return self.str()
+        return self.str
 
+    @property
     def bytes(self) -> bytes:
         """
         Computes the bytes value of the underlying :class:`~memoryview`.
@@ -119,6 +120,7 @@ class MemoryView:
         """
         return self.memory.tobytes()
 
+    @property
     def int(self) -> int:
         """
         Computes the integer value of the underlying :class:`~memoryview` in big-endian byte order.
@@ -128,6 +130,7 @@ class MemoryView:
         """
         return int.from_bytes(self.memory, byteorder='big')
 
+    @property
     def str(self) -> str:
         """
         Computes the string value of the underlying :class:`~memoryview` in Base32 encoding.
@@ -155,6 +158,7 @@ class Timestamp(MemoryView):
 
     __slots__ = MemoryView.__slots__
 
+    @property
     def str(self) -> str:
         """
         Computes the string value of the timestamp from the underlying :class:`~memoryview` in Base32 encoding.
@@ -165,6 +169,7 @@ class Timestamp(MemoryView):
         """
         return base32.encode_timestamp(self.memory)
 
+    @property
     def timestamp(self) -> float:
         """
         Computes the Unix time (seconds since epoch) from its :class:`~memoryview`.
@@ -172,8 +177,9 @@ class Timestamp(MemoryView):
         :return: Timestamp in Unix time (seconds since epoch) form.
         :rtype: :class:`~float`
         """
-        return self.int() / 1000.0
+        return self.int / 1000.0
 
+    @property
     def datetime(self) -> datetime.datetime:
         """
         Creates a :class:`~datetime.datetime` instance (assumes UTC) from the Unix time value of the timestamp
@@ -182,7 +188,7 @@ class Timestamp(MemoryView):
         :return: Timestamp in datetime form.
         :rtype: :class:`~datetime.datetime`
         """
-        ms = self.int()
+        ms = self.int
         return datetime.datetime.utcfromtimestamp(ms // 1000.0).replace(microsecond=ms % 1000 * 1000)
 
 
@@ -197,6 +203,7 @@ class Randomness(MemoryView):
 
     __slots__ = MemoryView.__slots__
 
+    @property
     def str(self) -> str:
         """
         Computes the string value of the randomness from the underlying :class:`~memoryview` in Base32 encoding.
@@ -220,6 +227,7 @@ class ULID(MemoryView):
 
     __slots__ = MemoryView.__slots__
 
+    @property
     def str(self) -> str:
         """
         Computes the string value of the ULID from its :class:`~memoryview` in Base32 encoding.
@@ -248,6 +256,7 @@ class ULID(MemoryView):
         """
         return Randomness(self.memory[6:])
 
+    @property
     def uuid(self) -> uuid.UUID:
         """
         Creates a :class:`~uuid.UUID` instance of the ULID from its :class:`~bytes` representation.
@@ -255,4 +264,4 @@ class ULID(MemoryView):
         :return: UUIDv4 from the ULID bytes
         :rtype: :class:`~uuid.UUID`
         """
-        return uuid.UUID(bytes=self.bytes())
+        return uuid.UUID(bytes=self.bytes)

@@ -105,19 +105,19 @@ A `MemoryView` provides the `str`, `int`, and `bytes` methods for changing any v
 <ULID('01BJQMF54D093DXEAWZ6JYRPAQ')>
 >>> u.timestamp()
 <Timestamp('01BJQMF54D')>
->>> u.timestamp().int()
+>>> u.timestamp().int
 1497589322893
->>> u.timestamp().bytes()
+>>> u.timestamp().bytes
 b'\x01\\\xafG\x94\x8d'
->>> u.timestamp().datetime()
+>>> u.timestamp().datetime
 datetime.datetime(2017, 6, 16, 5, 2, 2, 893000)
->>> u.randomness().bytes()
+>>> u.randomness().bytes
 b'\x02F\xde\xb9\\\xf9\xa5\xecYW'
->>> u.bytes()[6:] == u.randomness().bytes()
+>>> u.bytes[6:] == u.randomness().bytes
 True
->>> u.str()
+>>> u.str
 '01BJQMF54D093DXEAWZ6JYRPAQ'
->>> u.int()
+>>> u.int
 1810474399624548315999517391436142935
 ```
 
@@ -133,7 +133,7 @@ True
 >>> u3 = ulid.from_timestamp(datetime.datetime(2039, 1, 1))
 >>> u1 < u2 < u3
 True
->>> [u.timestamp().datetime() for u in sorted([u2, u3, u1])]
+>>> [u.timestamp().datetime for u in sorted([u2, u3, u1])]
 [datetime.datetime(2017, 6, 16, 5, 7, 14, 847000), datetime.datetime(2017, 6, 16, 5, 7, 26, 775000), datetime.datetime(2039, 1, 1, 8, 0)]
 ```
 
