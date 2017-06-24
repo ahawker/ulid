@@ -116,8 +116,8 @@ def from_timestamp(timestamp: TimestampPrimitive) -> ulid.ULID:
     * :class:`~memoryview`
     * :class:`~ulid.ulid.Timestamp`
     * :class:`~ulid.ulid.ULID`
-    * :class:`~ulid.ulid.bytes`
-    * :class:`~ulid.ulid.bytearray`
+    * :class:`~bytes`
+    * :class:`~bytearray`
 
     :param timestamp: Unix timestamp in seconds
     :type timestamp: See docstring for types
@@ -164,8 +164,8 @@ def from_randomness(randomness: RandomnessPrimitive) -> ulid.ULID:
     * :class:`~memoryview`
     * :class:`~ulid.ulid.Randomness`
     * :class:`~ulid.ulid.ULID`
-    * :class:`~ulid.ulid.bytes`
-    * :class:`~ulid.ulid.bytearray`
+    * :class:`~bytes`
+    * :class:`~bytearray`
 
     :param randomness: Random bytes
     :type randomness: See docstring for types

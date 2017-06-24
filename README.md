@@ -59,7 +59,7 @@ UUID('0983d0a2-ff15-4d83-8f37-7dd945b5aa39')
 
 Create a new ULID from an existing timestamp value, such as a [datetime](https://docs.python.org/3/library/datetime.html#module-datetime) object.
 
-Supports timestamp values as `int`, `float`, `str`, `bytes`, `bytearray`, `memoryview`, and `datetime` types.
+Supports timestamp values as `int`, `float`, `str`, `bytes`, `bytearray`, `memoryview`, `datetime`, `Timestamp`, and `ULID` types.
 
 ```python
 >>> import datetime, ulid
@@ -69,7 +69,7 @@ Supports timestamp values as `int`, `float`, `str`, `bytes`, `bytearray`, `memor
 
 Create a new ULID from an existing randomness value.
 
-Supports randomness values as `int`, `float`, `str`, `bytes`, `bytearray`, and `memoryview`.
+Supports randomness values as `int`, `float`, `str`, `bytes`, `bytearray`, `memoryview`, `Randomness`, and `ULID` types.
 
 ```python
 >>> import os, ulid
