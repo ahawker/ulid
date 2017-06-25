@@ -26,84 +26,164 @@ def unsupported_comparison_type(request):
     return request.param
 
 
-def test_memoryview_supports_eq_with_expected_types(valid_bytes_128):
+@pytest.fixture(scope='session', params=[
+    ulid.MemoryView,
+    ulid.Timestamp,
+    ulid.Randomness,
+    ulid.ULID
+])
+def model_types(request):
     """
-    Assert that :class:`~ulid.ulid.MemoryView` supports "equal" comparisons against expected types.
+    Fixture that yields a model type that is assignable from :class:`~ulid.ulid.MemoryView`.
     """
-    mv = ulid.MemoryView(valid_bytes_128)
-    assert mv == ulid.MemoryView(valid_bytes_128)
-    assert mv == bytes(valid_bytes_128)
-    assert mv == bytearray(valid_bytes_128)
-    assert mv == memoryview(valid_bytes_128)
-    assert mv == int.from_bytes(valid_bytes_128, byteorder='big')
-    assert mv == base32.encode(valid_bytes_128)
+    return request.param
 
 
-def test_memoryview_supports_ne_with_expected_types(valid_bytes_128, valid_bytes_80):
+@pytest.fixture(scope='function')
+def model_with_eq_bytes(model_types, valid_bytes_128, valid_bytes_80, valid_bytes_48):
     """
-    Assert that :class:`~ulid.ulid.MemoryView` supports "not equal" comparisons against expected types.
+    Fixture that yields a model type along with a valid collection of bytes for an equality check.
     """
-    mv = ulid.MemoryView(valid_bytes_128)
-    assert mv != ulid.MemoryView(valid_bytes_80)
-    assert mv != bytes(valid_bytes_80)
-    assert mv != bytearray(valid_bytes_80)
-    assert mv != memoryview(valid_bytes_80)
-    assert mv != int.from_bytes(valid_bytes_80, byteorder='big')
-    assert mv != base32.encode(valid_bytes_80)
+    if model_types in (ulid.MemoryView, ulid.ULID):
+        return model_types, valid_bytes_128
+    if model_types == ulid.Randomness:
+        return model_types, valid_bytes_80
+    if model_types == ulid.Timestamp:
+        return model_types, valid_bytes_48
 
 
-def test_memoryview_supports_lt_with_expected_types(ulid_bytes_year_1990, ulid_bytes_year_2000):
+@pytest.fixture(scope='function')
+def model_with_ne_bytes(model_types, valid_bytes_128, valid_bytes_80, valid_bytes_48):
     """
-    Assert that :class:`~ulid.ulid.MemoryView` supports "less than" comparisons against expected types.
+    Fixture that yields a model type, a valid collection of bytes of an equality check, and
+    a valid collection of bytes for an inequality check.
     """
-    mv = ulid.MemoryView(ulid_bytes_year_1990)
-    assert mv < ulid.MemoryView(ulid_bytes_year_2000)
-    assert mv < bytes(ulid_bytes_year_2000)
-    assert mv < bytearray(ulid_bytes_year_2000)
-    assert mv < memoryview(ulid_bytes_year_2000)
-    assert mv < int.from_bytes(ulid_bytes_year_2000, byteorder='big')
-    assert mv < base32.encode(ulid_bytes_year_2000)
+    if model_types in (ulid.MemoryView, ulid.ULID):
+        return model_types, valid_bytes_128, valid_bytes_80
+    if model_types == ulid.Randomness:
+        return model_types, valid_bytes_80, valid_bytes_128
+    if model_types == ulid.Timestamp:
+        return model_types, valid_bytes_48, valid_bytes_128
 
 
-def test_memoryview_supports_gt_with_expected_types(ulid_bytes_year_1990, ulid_bytes_year_2000):
+@pytest.fixture(scope='function')
+def model_with_ordered_bytes(model_types, valid_bytes_128_before, valid_bytes_128_after,
+                             valid_bytes_80_before, valid_bytes_80_after,
+                             valid_bytes_48_before, valid_bytes_48_after):
     """
-    Assert that :class:`~ulid.ulid.MemoryView` supports "greater than" comparisons against expected types.
+    Fixture that yields a model type, a valid collection of before that are "less than", and
+    a valid collection of bytes that are "greater than" the "less than" collection of bytes.
     """
-    mv = ulid.MemoryView(ulid_bytes_year_2000)
-    assert mv > ulid.MemoryView(ulid_bytes_year_1990)
-    assert mv > bytes(ulid_bytes_year_1990)
-    assert mv > bytearray(ulid_bytes_year_1990)
-    assert mv > memoryview(ulid_bytes_year_1990)
-    assert mv > int.from_bytes(ulid_bytes_year_1990, byteorder='big')
-    assert mv > base32.encode(ulid_bytes_year_1990)
+    if model_types in (ulid.MemoryView, ulid.ULID):
+        return model_types, valid_bytes_128_before, valid_bytes_128_after
+    if model_types == ulid.Randomness:
+        return model_types, valid_bytes_80_before, valid_bytes_80_after
+    if model_types == ulid.Timestamp:
+        return model_types, valid_bytes_48_before, valid_bytes_48_after
 
 
-def test_memoryview_supports_le_with_expected_types(ulid_bytes_year_1990, ulid_bytes_year_2000):
+def test_model_supports_eq_with_expected_types(model_with_eq_bytes):
     """
-    Assert that :class:`~ulid.ulid.MemoryView` supports "less than or equals" comparisons against expected types.
+    Assert that any of the model types support "equal" comparisons against expected types.
     """
-    mv = ulid.MemoryView(ulid_bytes_year_1990)
-    assert mv <= ulid.MemoryView(ulid_bytes_year_1990)
-    assert mv <= ulid.MemoryView(ulid_bytes_year_2000)
-    assert mv <= bytes(ulid_bytes_year_2000)
-    assert mv <= bytearray(ulid_bytes_year_2000)
-    assert mv <= memoryview(ulid_bytes_year_2000)
-    assert mv <= int.from_bytes(ulid_bytes_year_2000, byteorder='big')
-    assert mv <= base32.encode(ulid_bytes_year_2000)
+    model_type, equal_bytes = model_with_eq_bytes
+
+    model = model_type(equal_bytes)
+    assert model == model_type(equal_bytes)
+    assert model == bytes(equal_bytes)
+    assert model == bytearray(equal_bytes)
+    assert model == memoryview(equal_bytes)
+    assert model == int.from_bytes(equal_bytes, byteorder='big')
+    assert model == base32.encode(equal_bytes)
 
 
-def test_memoryview_supports_ge_with_expected_types(ulid_bytes_year_1990, ulid_bytes_year_2000):
+def test_model_supports_ne_with_expected_types(model_with_ne_bytes):
     """
-    Assert that :class:`~ulid.ulid.MemoryView` supports "greater than or equals" comparisons against expected types.
+    Assert that any of the model types supports "not equal" comparisons against expected types.
     """
-    mv = ulid.MemoryView(ulid_bytes_year_2000)
-    assert mv >= ulid.MemoryView(ulid_bytes_year_1990)
-    assert mv >= ulid.MemoryView(ulid_bytes_year_1990)
-    assert mv >= bytes(ulid_bytes_year_1990)
-    assert mv >= bytearray(ulid_bytes_year_1990)
-    assert mv >= memoryview(ulid_bytes_year_1990)
-    assert mv >= int.from_bytes(ulid_bytes_year_1990, byteorder='big')
-    assert mv >= base32.encode(ulid_bytes_year_1990)
+    model_type, equal_bytes, not_equal_bytes = model_with_ne_bytes
+
+    model = model_type(equal_bytes)
+    assert model != ulid.MemoryView(not_equal_bytes)
+    assert model != bytes(not_equal_bytes)
+    assert model != bytearray(not_equal_bytes)
+    assert model != memoryview(not_equal_bytes)
+    assert model != int.from_bytes(not_equal_bytes, byteorder='big')
+    assert model != base32.encode(not_equal_bytes)
+
+
+def test_model_supports_lt_with_expected_types(model_with_ordered_bytes):
+    """
+    Assert that any of the model types support "less than" comparisons against expected types.
+    """
+    model_type, less_than_bytes, greater_than_bytes = model_with_ordered_bytes
+
+    model = model_type(less_than_bytes)
+    assert model < ulid.MemoryView(greater_than_bytes)
+    assert model < bytes(greater_than_bytes)
+    assert model < bytearray(greater_than_bytes)
+    assert model < memoryview(greater_than_bytes)
+    assert model < int.from_bytes(greater_than_bytes, byteorder='big')
+    assert model < base32.encode(greater_than_bytes)
+
+
+def test_model_supports_gt_with_expected_types(model_with_ordered_bytes):
+    """
+    Assert that any of the model types support "greater than" comparisons against expected types.
+    """
+    model_type, less_than_bytes, greater_than_bytes = model_with_ordered_bytes
+
+    model = model_type(greater_than_bytes)
+    assert model > ulid.MemoryView(less_than_bytes)
+    assert model > bytes(less_than_bytes)
+    assert model > bytearray(less_than_bytes)
+    assert model > memoryview(less_than_bytes)
+    assert model > int.from_bytes(less_than_bytes, byteorder='big')
+    assert model > base32.encode(less_than_bytes)
+
+
+def test_model_supports_le_with_expected_types(model_with_ordered_bytes):
+    """
+    Assert that any of the model types support "less than or equal" comparisons against expected types.
+    """
+    model_type, less_than_bytes, greater_than_bytes = model_with_ordered_bytes
+
+    model = model_type(less_than_bytes)
+    assert model <= ulid.MemoryView(less_than_bytes)
+    assert model <= bytes(less_than_bytes)
+    assert model <= bytearray(less_than_bytes)
+    assert model <= memoryview(less_than_bytes)
+    assert model <= int.from_bytes(less_than_bytes, byteorder='big')
+    assert model <= base32.encode(less_than_bytes)
+
+    assert model <= ulid.MemoryView(greater_than_bytes)
+    assert model <= bytes(greater_than_bytes)
+    assert model <= bytearray(greater_than_bytes)
+    assert model <= memoryview(greater_than_bytes)
+    assert model <= int.from_bytes(greater_than_bytes, byteorder='big')
+    assert model <= base32.encode(greater_than_bytes)
+
+
+def test_model_supports_ge_with_expected_types(model_with_ordered_bytes):
+    """
+    Assert that any of the model types support "greater than or equal" comparisons against expected types.
+    """
+    model_type, less_than_bytes, greater_than_bytes = model_with_ordered_bytes
+
+    model = model_type(greater_than_bytes)
+    assert model >= ulid.MemoryView(greater_than_bytes)
+    assert model >= bytes(greater_than_bytes)
+    assert model >= bytearray(greater_than_bytes)
+    assert model >= memoryview(greater_than_bytes)
+    assert model >= int.from_bytes(greater_than_bytes, byteorder='big')
+    assert model >= base32.encode(greater_than_bytes)
+
+    assert model >= ulid.MemoryView(less_than_bytes)
+    assert model >= bytes(less_than_bytes)
+    assert model >= bytearray(less_than_bytes)
+    assert model >= memoryview(less_than_bytes)
+    assert model >= int.from_bytes(less_than_bytes, byteorder='big')
+    assert model >= base32.encode(less_than_bytes)
 
 
 def test_memoryview_eq_false_with_unsupported_type(valid_bytes_128, unsupported_comparison_type):

@@ -13,22 +13,58 @@ import random
 from ulid import base32
 
 
-@pytest.fixture(scope='function')
-def ulid_bytes_year_1990(valid_bytes_80):
+@pytest.fixture(scope='session')
+def valid_bytes_48_before():
     """
-    Fixture that yields a :class:`~bytes` instance that represents a ULID with a timestamp
-    from the year 1990.
+    Fixture that yields a :class:`~bytes` that is 48 bits and is ordered "less than" the
+    result of the :func:`~valid_bytes_48_after` fixture.
     """
-    return fixed_year_timestamp_bytes(1990, 1, 1) + valid_bytes_80
+    return fixed_year_timestamp_bytes(1990, 1, 1)
 
 
-@pytest.fixture(scope='function')
-def ulid_bytes_year_2000(valid_bytes_80):
+@pytest.fixture(scope='session')
+def valid_bytes_48_after():
     """
-    Fixture that yields a :class:`~bytes` instance that represents a ULID with a timestamp
-    from the year 2000.
+    Fixture that yields a :class:`~bytes` that is 48 bits and is ordered "greater than" the
+    result of the :func:`~valid_bytes_48_before` fixture.
     """
-    return fixed_year_timestamp_bytes(2000, 1, 1) + valid_bytes_80
+    return fixed_year_timestamp_bytes(2000, 1, 1)
+
+
+@pytest.fixture(scope='session')
+def valid_bytes_80_before(valid_bytes_48_before):
+    """
+    Fixture that yields a :class:`~bytes` that is 80 bits and is ordered "less than" the
+    result of the :func:`~valid_bytes_80_after` fixture.
+    """
+    return valid_bytes_48_before + b'\0' * 4
+
+
+@pytest.fixture(scope='session')
+def valid_bytes_80_after(valid_bytes_48_after):
+    """
+    Fixture that yields a :class:`~bytes` that is 80 bits and is ordered "greater than" the
+    result of the :func:`~valid_bytes_80_after` fixture.
+    """
+    return valid_bytes_48_after + b'\0' * 4
+
+
+@pytest.fixture(scope='session')
+def valid_bytes_128_before(valid_bytes_48_before):
+    """
+    Fixture that yields a :class:`~bytes` that is 128 bits and is ordered "less than" the
+    result of the :func:`~valid_bytes_128_after` fixture.
+    """
+    return valid_bytes_48_before + b'\0' * 10
+
+
+@pytest.fixture(scope='session')
+def valid_bytes_128_after(valid_bytes_48_after):
+    """
+    Fixture that yields a :class:`~bytes` that is 128 bits and is ordered "greater than" the
+    result of the :func:`~valid_bytes_128_after` fixture.
+    """
+    return valid_bytes_48_after + b'\0' * 10
 
 
 @pytest.fixture(scope='function')
