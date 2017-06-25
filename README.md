@@ -11,6 +11,8 @@
 
 [![Documentation Status](https://readthedocs.org/projects/ulid/badge/?version=latest)](http://ulid.readthedocs.io/en/latest/?badge=latest)
 
+[![Stories in Ready](https://badge.waffle.io/ahawker/ulid.svg?label=ready&title=Ready)](http://waffle.io/ahawker/ulid)
+
 [Universally Unique Lexicographically Sortable Identifier](https://github.com/alizain/ulid) in [Python 3](https://www.python.org/).
 
 ### Status
