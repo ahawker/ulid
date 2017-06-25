@@ -139,7 +139,6 @@ True
 
 ### Future Items
 
-* I've been back and fourth on methods vs. properties; finalize!
 * Collection of benchmarks to track performance.
 * Backport to Python 2.7?
 * See [Github Issues](https://github.com/ahawker/ulid/issues) for more!
