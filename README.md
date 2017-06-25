@@ -150,6 +150,7 @@ A fast implementation in pure python of the spec with binary format support.
 ### Contributing
 
 If you would like to contribute, simply fork the repository, push your changes and send a pull request.
+Pull requests will be brought into the `master` branch via a rebase and fast-forward merge with the goal of having a linear branch history with no merge commits.
 
 ### License
 
