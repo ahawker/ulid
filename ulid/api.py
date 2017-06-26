@@ -18,13 +18,13 @@ __all__ = ['new', 'from_bytes', 'from_int', 'from_str', 'from_uuid', 'from_times
 
 #: Type hint that defines multiple primitive types that can represent
 #: a Unix timestamp in seconds.
-TimestampPrimitive = typing.Union[int, float, str, bytes, bytearray, memoryview,
+TimestampPrimitive = typing.Union[int, float, str, bytes, bytearray, memoryview,  # pylint: disable=invalid-name
                                   datetime.datetime, ulid.Timestamp, ulid.ULID]
 
 
 #: Type hint that defines multiple primitive types that can represent
 #: randomness.
-RandomnessPrimitive = typing.Union[int, float, str, bytes, bytearray, memoryview,
+RandomnessPrimitive = typing.Union[int, float, str, bytes, bytearray, memoryview,  # pylint: disable=invalid-name
                                    ulid.Randomness, ulid.ULID]
 
 

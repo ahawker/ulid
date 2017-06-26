@@ -8,9 +8,9 @@
     :license: Apache 2.0, see LICENSE for more details.
 """
 from . import api
-from .api import *
+from .api import *   # pylint: disable=wildcard-import
 from . import ulid
-from .ulid import *
+from .ulid import *  # pylint: disable=wildcard-import
 
 
 __all__ = api.__all__ + ulid.__all__
