@@ -43,6 +43,10 @@ codeclimate:  ## Run codeclimate analysis.
 
 .PHONY: lint
 lint:  ## Run pylint on the package.
+.PHONY: mypy
+mypy:  ## Run mypy static analysis checks on the package.
+	@mypy ulid
+
 	@pylint --rcfile .pylintrc ulid
 
 .PHONY: bump-patch
