@@ -253,29 +253,29 @@ def decode_ulid(value: str) -> bytes:
         raise ValueError('Expects 26 characters for timestamp + randomness; got {}'.format(length))
 
     try:
-        value = value.encode('ascii')
+        encoded = value.encode('ascii')
     except UnicodeEncodeError as ex:
         raise ValueError('Expects value that can be encoded in ASCII charset: {}'.format(ex))
 
     decoding = DECODING
 
     return bytes((
-        ((decoding[value[0]] << 5) | decoding[value[1]]) & 0xFF,
-        ((decoding[value[2]] << 3) | (decoding[value[3]] >> 2)) & 0xFF,
-        ((decoding[value[3]] << 6) | (decoding[value[4]] << 1) | (decoding[value[5]] >> 4)) & 0xFF,
-        ((decoding[value[5]] << 4) | (decoding[value[6]] >> 1)) & 0xFF,
-        ((decoding[value[6]] << 7) | (decoding[value[7]] << 2) | (decoding[value[8]] >> 3)) & 0xFF,
-        ((decoding[value[8]] << 5) | (decoding[value[9]])) & 0xFF,
-        ((decoding[value[10]] << 3) | (decoding[value[11]] >> 2)) & 0xFF,
-        ((decoding[value[11]] << 6) | (decoding[value[12]] << 1) | (decoding[value[13]] >> 4)) & 0xFF,
-        ((decoding[value[13]] << 4) | (decoding[value[14]] >> 1)) & 0xFF,
-        ((decoding[value[14]] << 7) | (decoding[value[15]] << 2) | (decoding[value[16]] >> 3)) & 0xFF,
-        ((decoding[value[16]] << 5) | (decoding[value[17]])) & 0xFF,
-        ((decoding[value[18]] << 3) | (decoding[value[19]] >> 2)) & 0xFF,
-        ((decoding[value[19]] << 6) | (decoding[value[20]] << 1) | (decoding[value[21]] >> 4)) & 0xFF,
-        ((decoding[value[21]] << 4) | (decoding[value[22]] >> 1)) & 0xFF,
-        ((decoding[value[22]] << 7) | (decoding[value[23]] << 2) | (decoding[value[24]] >> 3)) & 0xFF,
-        ((decoding[value[24]] << 5) | (decoding[value[25]])) & 0xFF
+        ((decoding[encoded[0]] << 5) | decoding[encoded[1]]) & 0xFF,
+        ((decoding[encoded[2]] << 3) | (decoding[encoded[3]] >> 2)) & 0xFF,
+        ((decoding[encoded[3]] << 6) | (decoding[encoded[4]] << 1) | (decoding[encoded[5]] >> 4)) & 0xFF,
+        ((decoding[encoded[5]] << 4) | (decoding[encoded[6]] >> 1)) & 0xFF,
+        ((decoding[encoded[6]] << 7) | (decoding[encoded[7]] << 2) | (decoding[encoded[8]] >> 3)) & 0xFF,
+        ((decoding[encoded[8]] << 5) | (decoding[encoded[9]])) & 0xFF,
+        ((decoding[encoded[10]] << 3) | (decoding[encoded[11]] >> 2)) & 0xFF,
+        ((decoding[encoded[11]] << 6) | (decoding[encoded[12]] << 1) | (decoding[encoded[13]] >> 4)) & 0xFF,
+        ((decoding[encoded[13]] << 4) | (decoding[encoded[14]] >> 1)) & 0xFF,
+        ((decoding[encoded[14]] << 7) | (decoding[encoded[15]] << 2) | (decoding[encoded[16]] >> 3)) & 0xFF,
+        ((decoding[encoded[16]] << 5) | (decoding[encoded[17]])) & 0xFF,
+        ((decoding[encoded[18]] << 3) | (decoding[encoded[19]] >> 2)) & 0xFF,
+        ((decoding[encoded[19]] << 6) | (decoding[encoded[20]] << 1) | (decoding[encoded[21]] >> 4)) & 0xFF,
+        ((decoding[encoded[21]] << 4) | (decoding[encoded[22]] >> 1)) & 0xFF,
+        ((decoding[encoded[22]] << 7) | (decoding[encoded[23]] << 2) | (decoding[encoded[24]] >> 3)) & 0xFF,
+        ((decoding[encoded[24]] << 5) | (decoding[encoded[25]])) & 0xFF
     ))
 
 
@@ -301,19 +301,19 @@ def decode_timestamp(timestamp: str) -> bytes:
         raise ValueError('Expects 10 characters for timestamp; got {}'.format(length))
 
     try:
-        timestamp = timestamp.encode('ascii')
+        encoded = timestamp.encode('ascii')
     except UnicodeEncodeError as ex:
         raise ValueError('Expects timestamp that can be encoded in ASCII charset: {}'.format(ex))
 
     decoding = DECODING
 
     return bytes((
-        ((decoding[timestamp[0]] << 5) | decoding[timestamp[1]]) & 0xFF,
-        ((decoding[timestamp[2]] << 3) | (decoding[timestamp[3]] >> 2)) & 0xFF,
-        ((decoding[timestamp[3]] << 6) | (decoding[timestamp[4]] << 1) | (decoding[timestamp[5]] >> 4)) & 0xFF,
-        ((decoding[timestamp[5]] << 4) | (decoding[timestamp[6]] >> 1)) & 0xFF,
-        ((decoding[timestamp[6]] << 7) | (decoding[timestamp[7]] << 2) | (decoding[timestamp[8]] >> 3)) & 0xFF,
-        ((decoding[timestamp[8]] << 5) | (decoding[timestamp[9]])) & 0xFF
+        ((decoding[encoded[0]] << 5) | decoding[encoded[1]]) & 0xFF,
+        ((decoding[encoded[2]] << 3) | (decoding[encoded[3]] >> 2)) & 0xFF,
+        ((decoding[encoded[3]] << 6) | (decoding[encoded[4]] << 1) | (decoding[encoded[5]] >> 4)) & 0xFF,
+        ((decoding[encoded[5]] << 4) | (decoding[encoded[6]] >> 1)) & 0xFF,
+        ((decoding[encoded[6]] << 7) | (decoding[encoded[7]] << 2) | (decoding[encoded[8]] >> 3)) & 0xFF,
+        ((decoding[encoded[8]] << 5) | (decoding[encoded[9]])) & 0xFF
     ))
 
 
@@ -339,21 +339,21 @@ def decode_randomness(randomness: str) -> bytes:
         raise ValueError('Expects 16 characters for randomness; got {}'.format(length))
 
     try:
-        randomness = randomness.encode('ascii')
+        encoded = randomness.encode('ascii')
     except UnicodeEncodeError as ex:
         raise ValueError('Expects randomness that can be encoded in ASCII charset: {}'.format(ex))
 
     decoding = DECODING
 
     return bytes((
-        ((decoding[randomness[0]] << 3) | (decoding[randomness[1]] >> 2)) & 0xFF,
-        ((decoding[randomness[1]] << 6) | (decoding[randomness[2]] << 1) | (decoding[randomness[3]] >> 4)) & 0xFF,
-        ((decoding[randomness[3]] << 4) | (decoding[randomness[4]] >> 1)) & 0xFF,
-        ((decoding[randomness[4]] << 7) | (decoding[randomness[5]] << 2) | (decoding[randomness[6]] >> 3)) & 0xFF,
-        ((decoding[randomness[6]] << 5) | (decoding[randomness[7]])) & 0xFF,
-        ((decoding[randomness[8]] << 3) | (decoding[randomness[9]] >> 2)) & 0xFF,
-        ((decoding[randomness[9]] << 6) | (decoding[randomness[10]] << 1) | (decoding[randomness[11]] >> 4)) & 0xFF,
-        ((decoding[randomness[11]] << 4) | (decoding[randomness[12]] >> 1)) & 0xFF,
-        ((decoding[randomness[12]] << 7) | (decoding[randomness[13]] << 2) | (decoding[randomness[14]] >> 3)) & 0xFF,
-        ((decoding[randomness[14]] << 5) | (decoding[randomness[15]])) & 0xFF
+        ((decoding[encoded[0]] << 3) | (decoding[encoded[1]] >> 2)) & 0xFF,
+        ((decoding[encoded[1]] << 6) | (decoding[encoded[2]] << 1) | (decoding[encoded[3]] >> 4)) & 0xFF,
+        ((decoding[encoded[3]] << 4) | (decoding[encoded[4]] >> 1)) & 0xFF,
+        ((decoding[encoded[4]] << 7) | (decoding[encoded[5]] << 2) | (decoding[encoded[6]] >> 3)) & 0xFF,
+        ((decoding[encoded[6]] << 5) | (decoding[encoded[7]])) & 0xFF,
+        ((decoding[encoded[8]] << 3) | (decoding[encoded[9]] >> 2)) & 0xFF,
+        ((decoding[encoded[9]] << 6) | (decoding[encoded[10]] << 1) | (decoding[encoded[11]] >> 4)) & 0xFF,
+        ((decoding[encoded[11]] << 4) | (decoding[encoded[12]] >> 1)) & 0xFF,
+        ((decoding[encoded[12]] << 7) | (decoding[encoded[13]] << 2) | (decoding[encoded[14]] >> 3)) & 0xFF,
+        ((decoding[encoded[14]] << 5) | (decoding[encoded[15]])) & 0xFF
     ))
