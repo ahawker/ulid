@@ -282,7 +282,7 @@ def test_from_randomness_with_unsupported_type_raises(unsupported_type):
     a type it cannot compute a randomness value from.
     """
     with pytest.raises(ValueError):
-        api.from_timestamp(unsupported_type())
+        api.from_randomness(unsupported_type())
 
 
 def test_from_randomness_with_incorrect_size_bytes_raises(valid_bytes_128):
@@ -291,4 +291,4 @@ def test_from_randomness_with_incorrect_size_bytes_raises(valid_bytes_128):
     a type that cannot be represented as exactly 80 bits.
     """
     with pytest.raises(ValueError):
-        api.from_timestamp(valid_bytes_128)
+        api.from_randomness(valid_bytes_128)
