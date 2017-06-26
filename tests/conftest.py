@@ -13,6 +13,9 @@ import random
 from ulid import base32
 
 
+NON_ASCII_ALPHABET = ''.join(chr(d) for d in range(128, 256))
+
+
 @pytest.fixture(scope='session')
 def valid_bytes_48_before():
     """
@@ -179,6 +182,15 @@ def invalid_str_10_16_26(request):
     return random_str(request.param, not_in=[10, 16, 26])
 
 
+@pytest.fixture(scope='function', params=range(0, 32))
+def invalid_str_encoding(request):
+    """
+    Fixture that yields :class:`~str` instances that are between 0 and 32 characters
+    that uses non-ascii characters.
+    """
+    return random_str(request.param, alphabet=NON_ASCII_ALPHABET)
+
+
 def random_bytes(num_bytes, not_in=(-1,)):
     """
     Helper function that returns a number of random bytes, optionally excluding those of a specific length.
@@ -187,13 +199,13 @@ def random_bytes(num_bytes, not_in=(-1,)):
     return os.urandom(num_bytes)
 
 
-def random_str(num_chars, not_in=(-1,)):
+def random_str(num_chars, alphabet=base32.ENCODING, not_in=(-1,)):
     """
     Helper function that returns a string with the specified number of random characters, optionally
     excluding those of a specific length.
     """
     num_chars = num_chars + 1 if num_chars in not_in else num_chars
-    return ''.join(random.choice(base32.ENCODING) for _ in range(num_chars))
+    return ''.join(random.choice(alphabet) for _ in range(num_chars))
 
 
 def fixed_year_timestamp_bytes(*args, **kwargs):
