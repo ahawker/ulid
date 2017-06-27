@@ -7,7 +7,7 @@
 import datetime
 import uuid
 
-from . import base32
+from . import base32, hints
 
 
 __all__ = ['Timestamp', 'Randomness', 'ULID']
@@ -111,7 +111,7 @@ class MemoryView:
         return self.str
 
     @property
-    def bytes(self) -> bytes:
+    def bytes(self) -> hints.Bytes:
         """
         Computes the bytes value of the underlying :class:`~memoryview`.
 
@@ -121,7 +121,7 @@ class MemoryView:
         return self.memory.tobytes()
 
     @property
-    def int(self) -> int:
+    def int(self) -> hints.Int:
         """
         Computes the integer value of the underlying :class:`~memoryview` in big-endian byte order.
 
@@ -131,7 +131,7 @@ class MemoryView:
         return int.from_bytes(self.memory, byteorder='big')
 
     @property
-    def str(self) -> str:
+    def str(self) -> hints.Str:
         """
         Computes the string value of the underlying :class:`~memoryview` in Base32 encoding.
 
@@ -159,7 +159,7 @@ class Timestamp(MemoryView):
     __slots__ = MemoryView.__slots__
 
     @property
-    def str(self) -> str:
+    def str(self) -> hints.Str:
         """
         Computes the string value of the timestamp from the underlying :class:`~memoryview` in Base32 encoding.
 
@@ -170,7 +170,7 @@ class Timestamp(MemoryView):
         return base32.encode_timestamp(self.memory)
 
     @property
-    def timestamp(self) -> float:
+    def timestamp(self) -> hints.Float:
         """
         Computes the Unix time (seconds since epoch) from its :class:`~memoryview`.
 
@@ -180,7 +180,7 @@ class Timestamp(MemoryView):
         return self.int / 1000.0
 
     @property
-    def datetime(self) -> datetime.datetime:
+    def datetime(self) -> hints.Datetime:
         """
         Creates a :class:`~datetime.datetime` instance (assumes UTC) from the Unix time value of the timestamp
         with millisecond precision.
@@ -204,7 +204,7 @@ class Randomness(MemoryView):
     __slots__ = MemoryView.__slots__
 
     @property
-    def str(self) -> str:
+    def str(self) -> hints.Str:
         """
         Computes the string value of the randomness from the underlying :class:`~memoryview` in Base32 encoding.
 
@@ -228,7 +228,7 @@ class ULID(MemoryView):
     __slots__ = MemoryView.__slots__
 
     @property
-    def str(self) -> str:
+    def str(self) -> hints.Str:
         """
         Computes the string value of the ULID from its :class:`~memoryview` in Base32 encoding.
 
@@ -257,7 +257,7 @@ class ULID(MemoryView):
         return Randomness(self.memory[6:])
 
     @property
-    def uuid(self) -> uuid.UUID:
+    def uuid(self) -> hints.UUID:
         """
         Creates a :class:`~uuid.UUID` instance of the ULID from its :class:`~bytes` representation.
 
