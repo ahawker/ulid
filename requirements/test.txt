@@ -2,11 +2,9 @@
 #
 # Requirements for executing the test suite.
 
--r base.txt
+-r dev.txt
 
 coverage>4.0,<4.4
-
-pylint
 
 pytest
 pytest-benchmark

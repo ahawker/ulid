@@ -2,6 +2,4 @@
 #
 # Requirements for using this package.
 
-bumpversion
-mypy
 typing; python_version < '3.6'

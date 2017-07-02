@@ -1,0 +1,9 @@
+# ulid/requirements/dev.txt
+#
+# Requirements for using developing package.
+
+-r base.txt
+
+bumpversion
+mypy
+pylint
