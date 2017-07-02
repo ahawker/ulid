@@ -4,6 +4,6 @@
 
 -r base.txt
 
-bumpversion
-mypy
-pylint
+bumpversion==0.5.3
+mypy==0.511
+pylint==1.7.2

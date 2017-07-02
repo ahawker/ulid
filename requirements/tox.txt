@@ -4,4 +4,4 @@
 
 -r test.txt
 
-tox
+tox==2.7.0

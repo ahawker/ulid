@@ -4,4 +4,4 @@
 
 -r tox.txt
 
-tox-travis
+tox-travis==0.8
