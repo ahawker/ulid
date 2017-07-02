@@ -1,0 +1,3 @@
+schedule: every week
+branch_prefix: pyup/
+pr_prefix: "pyup.io: "
