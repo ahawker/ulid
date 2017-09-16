@@ -29,7 +29,7 @@ travis-install: codeclimate-install  ## Install dependencies for travis-ci.org i
 	@pip install -q -r requirements/travis.txt
 
 .PHONY: travis-script
-travis-script: travis-install tox lint  ## Entry point for travis-ci.org execution.
+travis-script: travis-install tox lint safety-check  ## Entry point for travis-ci.org execution.
 
 .PHONY: codeclimate-install
 codeclimate-install:  ## Install dependencies required for codeclimate.com integration.
