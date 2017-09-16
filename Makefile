@@ -12,6 +12,10 @@ test: test-install  ## Run test suite.
 benchmark: test-install  ## Run performance suite.
 	@py.test -v tests/benchmarks
 
+.PHONY: safety-check
+safety-check: test-install  ## Run vuln saftey check scan.
+	@safety check
+
 .PHONY: tox-install
 tox-install:  ## Install dependencies required for local test execution using tox.
 	@pip install -q -r requirements/tox.txt
