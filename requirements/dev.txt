@@ -7,3 +7,4 @@
 bumpversion==0.5.3
 mypy==0.511
 pylint==1.7.2
+safety==1.5.1
