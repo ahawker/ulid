@@ -25,6 +25,11 @@ def get_version():
         return str(ast.literal_eval(version_regex.search(f.read()).group(1)))
 
 
+def get_long_description():
+    with open('README.rst') as f:
+        return f.read()
+
+
 setup(
     name='ulid-py',
     version=get_version(),
@@ -33,7 +38,7 @@ setup(
     url='https://github.com/ahawker/ulid',
     license='Apache 2.0',
     description='Universally Unique Lexicographically Sortable Identifier',
-    long_description=__doc__,
+    long_description=get_long_description(),
     packages=['ulid'],
     classifiers=(
         'Development Status :: 4 - Beta',
