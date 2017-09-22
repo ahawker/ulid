@@ -15,4 +15,4 @@ from .ulid import *  # pylint: disable=wildcard-import
 
 __all__ = api.__all__ + ulid.__all__
 
-__version__ = '0.0.3'
+__version__ = '0.0.4'
