@@ -11,7 +11,7 @@ script: make travis-script
 after_success: codeclimate-test-reporter
 deploy:
 - provider: pypi
-  server: https://testpypi.python.org/pypi
+  server: https://test.pypi.org/legacy
   user: Andrew.Hawker
   password:
     secure: VHR/BEv5pvw0LYwv12ivZmLTnV/Ilz0QdYqkOAu5p4jeHsOuqeDKrVN1yh69YxIVnQnaEbJEQf5pCTk8RufGM+YyzwEp7iHrMR25REAUR/0SnU4U2Z94HPi7RkW9padUMWVGnX3Pzc+7XBExL22AWKFJ/9CDMvsO9kcqUtb+bTx56sgvh0Yh2R5V5eIxIi8iIx1LbLsyJA6Jtb7ccfGvXko51DldGSn1J68FjyVIA7UTTW+hAlh7XABeJNgtpxLGSqzPyhKhLazrsR6QVsXjx0wwtU8MRqurn4BGZIAMGM077yUWJ1Wv1TgBfaH76oB+AUM0r1UybH7Awtc20/NGUtJYLfJ0A6ILEWM3XSjIwZo408aiYzac6ypGHRMx6+EhZMnNPf0cIgFxHVQhbAbCfuRWEXeHoTgt6JWo01MdoWZ876wOMjIDc/2nN5zTq5UCrFAaAyhyFGCWMr0D6mucXTUS8OKQEgxa1qg7oWqfV+dOmwFKaiVIaeaFoFmchk/R4kF1wovURFp5pKwin0DoP0/DDnIHfr3sgWhcVC22PAE+5oGLu9s/33f1fJTzWJNt4o3LJBL0R528aWM5okEuFuRhQFhwN267U0KZY9MbB1qpWcKziHyyBbpvelkTzUNPnb/yozHdTLtFC8+8HIXbxxrmtuR3FqgyKPwBjSjOcdU=
@@ -22,7 +22,7 @@ deploy:
     tags: false
     condition: $TRAVIS_PYTHON_VERSION = "3.4"
 - provider: pypi
-  server: https://pypi.python.org/pypi
+  server: https://upload.pypi.org/legacy
   user: Andrew.Hawker
   password:
     secure: E5vxK/i2YF7Y9VK6vkVzv0B/p6VEuH4OE8346gnpqTxopJfuqV3ev6Bu9p7djRbrGyrSnDrdp52P80MQFQ5E+FZVGUVCC7X3ju/E7ThFQgom9io1Q2xdM6EX+sKdcfUtiuDmcBnd2b+4dkNTYBOXm1pNjSQQ2w1cQNWwYCA/Y1UNczuwRIPFU2U/7Id3gp+Tq8LN35WA9j8LfzaWwrSI7CmMMeuZ7+MV28EKz95WVss+PlUavTyXEVjM9QVoBD+hPv8J/yF3GPZ+UJpz15htg29V7IbK2r4WZ5mvRgB3YygpyaBpyTBjpG5uRH8XsmEe/qvr13RLxNuW9TmLNRscKYpszPh5TeNacm+azpvJ/+PDKC22wVcjICNHiNO6Vp84K8N3jT2wbpiJrvg6YZ40RR7pg2Itk1bwRxPIIlPIeT1lJlKnWlctjS3haixwe9gqww/NQkGxxP6WD0Scv/bRBw9rBjdrZ21teNHycgedKgZ3o05aQ6rpo1WLmNi7Hza8TCb2mQN9JMgssZ9s/9nlICf33FikSBZq1ripVRcD7QfndUPMFCqPeITWl2w9SGh7e5RWl1pkewYmUoqSDz75PQth4Kupiu/wE+G5T4uYXZSRjDjlsFFzRMetdOPynBrqKMBnSZhQ0GPpg/xRsq8VFwPkGE0un30w4y2mIAhlHVs=
