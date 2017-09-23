@@ -25,7 +25,7 @@ tox: tox-install  ## Run test suite using tox.
 	@tox
 
 .PHONY: travis-install
-travis-install: codeclimate-install  ## Install dependencies for travis-ci.org integration.
+travis-install:  ## Install dependencies for travis-ci.org integration.
 	@pip install -q -r requirements/travis.txt
 
 .PHONY: travis-before-script
@@ -40,10 +40,6 @@ travis-script: travis-install tox  ## Entry point for travis-ci.org execution.
 .PHONY: travis-install
 travis-after-script:  ## Entry point for travis-ci.org 'after_script' execution.
 	@./cc-test-reporter after-build --coverage-input-type coverage.py --exit-code ${TRAVIS_TEST_RESULT} --debug
-
-.PHONY: codeclimate-install
-codeclimate-install:  ## Install dependencies required for codeclimate.com integration.
-		@pip install -q -r requirements/codeclimate.txt
 
 .PHONY: codeclimate
 codeclimate:  ## Run codeclimate analysis.
