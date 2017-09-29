@@ -6,5 +6,5 @@
 
 bumpversion==0.5.3
 mypy==0.521
-pylint==1.7.2
+pylint==1.7.3
 safety==1.5.1
