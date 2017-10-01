@@ -12,6 +12,8 @@ matrix:
   include:
   - python: '3.6'
     env: TOXENV=lint
+  - python: '3.6'
+    env: TOXENV=scan
 install: make travis-install
 script: make travis-script
 after_success: codeclimate-test-reporter
