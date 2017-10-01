@@ -8,3 +8,4 @@ bumpversion==0.5.3
 mypy==0.521
 pylint==1.7.4
 safety==1.5.1
+bandit==1.4.0
