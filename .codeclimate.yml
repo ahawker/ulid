@@ -22,6 +22,6 @@ exclude_paths:
 - tests/
 - build/
 - requirements/
-- pylintrc
+- .pylintrc
 - Makefile
 - "*.md"
