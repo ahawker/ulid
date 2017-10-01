@@ -6,6 +6,12 @@ python:
 - '3.5'
 - '3.6'
 - nightly
+matrix:
+  allow_failures:
+  - python: nightly
+  include:
+  - python: '3.6'
+    env: TOXENV=lint
 install: make travis-install
 script: make travis-script
 after_success: codeclimate-test-reporter
@@ -40,6 +46,3 @@ env:
   - VIRTUALENV_NO_DOWNLOAD=1
   matrix:
   - secure: AiyZUELj6vVrnyVdCqVQD7pdV6IzS43zfcsJA6UudVe+z9PPcfBNyJe+92cBfASPR0Pg/FkbeUQmhHCDS+IvMIabips55k6N4b4vOz6Qu8dYGT28hy8PNZEeyTMt/Y8fF5hjW9UXoduHgnniPSJIctt+33/hNjq+ZNrc76KlwLzEFI63JqMjpGKT4nGWXzIN1Wfu7GE8ezVNUcfpYJeRiPXvBNOc6f9VdJDotxivOw3pclSGlYdogQfD5TeVOou/okIq+H9bUpIF2X4mAfBD18glT+caCBimJGcf0NnU7QeZSQPzbZEUpnaYzv6TJ9Awxt0rNmUuQHgPBz4SHniRGs/0UBRO/XqsDIyvSCYQHMle/AKG50U5M7DrCJby5ztqz0NvSlzFWdWIfJFa4n6Q6y5nLMpFDHvmCQ1gxaVeqGx7E5ZK2wH0+9C9me7P5euKPoDYpjesxaECzhhBypi3uKKuqDvsGhw7PkWM2ZCPmi07XxChSNYO2L3rd2pcA89KBfq3kXWXJQxfKhF5gNLjFdB5PWIeE0VoexP734WXDSRJVmNZhel3rLt3UbRVBPQv9FGnAe0JPR+2V0fh7P8l/IN8NpACvzWxyaL2BKe8YckcdSemwl4wkS+9ZipX+uc0/E/77YNEue2595hNRVqAH7BHaG7mag2eK64kmjaIb+w=
-matrix:
-  allow_failures:
-    - python: nightly
