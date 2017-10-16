@@ -40,6 +40,10 @@ travis-before-script: travis-install  ## Entry point for travis-ci.org 'before_s
 .PHONY: travis-script
 travis-script: travis-install tox  ## Entry point for travis-ci.org execution.
 
+.PHONY: travis-after-success
+travis-after-success:  ## Entry point for travis-ci.org 'after_success' execution.
+	@./codecov -e TOX_ENV
+
 .PHONY: codeclimate-install
 codeclimate-install:  ## Install dependencies required for codeclimate.com integration.
 		@pip install -q -r requirements/codeclimate.txt
