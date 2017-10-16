@@ -15,6 +15,7 @@ matrix:
   - python: '3.6'
     env: TOXENV=scan
 install: make travis-install
+before_script: make travis-before-script
 script: make travis-script
 after_success: codeclimate-test-reporter
 deploy:
