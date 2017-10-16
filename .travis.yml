@@ -17,7 +17,7 @@ matrix:
 install: make travis-install
 before_script: make travis-before-script
 script: make travis-script
-after_success: codeclimate-test-reporter
+after_success: make travis-after-success
 deploy:
 - provider: pypi
   server: https://test.pypi.org/legacy/
