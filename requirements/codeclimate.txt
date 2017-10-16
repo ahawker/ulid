@@ -1,7 +1,0 @@
-# ulid/requirements/codeclimate.txt
-#
-# Requirements for interacting with codeclimate.com from Travis CI.
-
--r travis.txt
-
-codeclimate-test-reporter==0.2.3
