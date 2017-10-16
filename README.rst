@@ -1,7 +1,7 @@
 ulid
 ====
 
-|Build Status| |Test Coverage| |Code Climate| |Issue Count|
+|Build Status| |codecov| |Code Climate| |Issue Count|
 
 |PyPI Version| |PyPI Versions|
 
@@ -291,8 +291,8 @@ Links
 
 .. |Build Status| image:: https://travis-ci.org/ahawker/ulid.svg?branch=master
    :target: https://travis-ci.org/ahawker/ulid
-.. |Test Coverage| image:: https://codeclimate.com/github/ahawker/ulid/badges/coverage.svg
-   :target: https://codeclimate.com/github/ahawker/ulid/coverage
+.. |codecov| image:: https://codecov.io/gh/ahawker/ulid/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/ahawker/ulid
 .. |Code Climate| image:: https://codeclimate.com/github/ahawker/ulid/badges/gpa.svg
    :target: https://codeclimate.com/github/ahawker/ulid
 .. |Issue Count| image:: https://codeclimate.com/github/ahawker/ulid/badges/issue_count.svg
