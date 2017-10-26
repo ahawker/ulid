@@ -9,6 +9,14 @@ import pytest
 from ulid import base32
 
 
+@pytest.fixture(scope='session')
+def decoding_alphabet():
+    """
+    Fixture that yields the entire alphabet that is valid for base32 decoding.
+    """
+    return base32.ENCODING + 'lLiIoO'
+
+
 def test_encode_handles_ulid_and_returns_26_char_string(valid_bytes_128):
     """
     Assert that :func:`~ulid.base32.encode` encodes a valid 128 bit bytes object into a :class:`~str`
@@ -235,3 +243,12 @@ def test_decode_randomness_raises_on_non_ascii_str(invalid_str_encoding):
     """
     with pytest.raises(ValueError):
         base32.decode_randomness(invalid_str_encoding)
+
+
+def test_decode_table_has_value_for_entire_decoding_alphabet(decoding_alphabet):
+    """
+    Assert that :attr:`~ulid.base32.DECODING` stores a valid value mapping for all characters that
+    can be base32 decoded.
+    """
+    for char in decoding_alphabet:
+        assert base32.DECODING[ord(char)] != 0xFF, 'Character "{}" decoded improperly'.format(char)
