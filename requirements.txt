@@ -1,0 +1,10 @@
+# ulid/requirements.txt
+#
+# Requirements file for all dependencies for all environments.
+
+-r requirements/base.txt
+-r requirements/dev.txt
+-r requirements/docs.txt
+-r requirements/test.txt
+-r requirements/tox.txt
+-r requirements/travis.txt
