@@ -118,7 +118,7 @@ def test_encode_randomness_raises_on_bytes_length_mismatch(invalid_bytes_80):
 
 def test_decode_handles_ulid_and_returns_16_bytes(valid_str_26):
     """
-    Assert that :func:`~ulid.base32.decode` decodes a valid 26 character string  into a :class:`~bytes`
+    Assert that :func:`~ulid.base32.decode` decodes a valid 26 character string into a :class:`~bytes`
     instance that is 128 bit.
     """
     decoded = base32.decode(valid_str_26)
@@ -128,7 +128,7 @@ def test_decode_handles_ulid_and_returns_16_bytes(valid_str_26):
 
 def test_decode_handles_timestamp_and_returns_6_bytes(valid_str_10):
     """
-    Assert that :func:`~ulid.base32.decode` decodes a valid 10 character string  into a :class:`~bytes`
+    Assert that :func:`~ulid.base32.decode` decodes a valid 10 character string into a :class:`~bytes`
     instance that is 48 bit.
     """
     decoded = base32.decode(valid_str_10)
@@ -138,7 +138,7 @@ def test_decode_handles_timestamp_and_returns_6_bytes(valid_str_10):
 
 def test_decode_handles_randomness_and_returns_10_bytes(valid_str_16):
     """
-    Assert that :func:`~ulid.base32.decode` decodes a valid 16 character string  into a :class:`~bytes`
+    Assert that :func:`~ulid.base32.decode` decodes a valid 16 character string into a :class:`~bytes`
     instance that is 80 bit.
     """
     decoded = base32.decode(valid_str_16)
@@ -176,7 +176,7 @@ def test_decode_raises_on_non_base32_decode_char(ascii_non_base32_str_valid_leng
 
 def test_decode_ulid_returns_16_bytes(valid_str_26):
     """
-    Assert that :func:`~ulid.base32.decode_ulid` decodes a valid 26 character string  into a :class:`~bytes`
+    Assert that :func:`~ulid.base32.decode_ulid` decodes a valid 26 character string into a :class:`~bytes`
     instance that is 128 bit.
     """
     decoded = base32.decode_ulid(valid_str_26)
@@ -214,7 +214,7 @@ def test_decode_ulid_raises_on_non_base32_decode_char(ascii_non_base32_str_26):
 
 def test_decode_timestamp_returns_6_bytes(valid_str_10):
     """
-    Assert that :func:`~ulid.base32.decode_timestamp` decodes a valid 10 character string  into a :class:`~bytes`
+    Assert that :func:`~ulid.base32.decode_timestamp` decodes a valid 10 character string into a :class:`~bytes`
     instance that is 48 bit.
     """
     decoded = base32.decode_timestamp(valid_str_10)
@@ -252,7 +252,7 @@ def test_decode_timestamp_raises_on_non_base32_decode_char(ascii_non_base32_str_
 
 def test_decode_randomness_returns_10_bytes(valid_str_16):
     """
-    Assert that :func:`~ulid.base32.decode_randomness` decodes a valid 16 character string  into a :class:`~bytes`
+    Assert that :func:`~ulid.base32.decode_randomness` decodes a valid 16 character string into a :class:`~bytes`
     instance that is 80 bit.
     """
     decoded = base32.decode_randomness(valid_str_16)
