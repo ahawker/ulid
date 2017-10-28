@@ -164,6 +164,16 @@ def test_decode_raises_on_extended_ascii_str(extended_ascii_str_valid_length):
         base32.decode(extended_ascii_str_valid_length)
 
 
+def test_decode_raises_on_non_base32_decode_char(ascii_non_base32_str_valid_length):
+    """
+    Assert that :func:`~ulid.base32.decode_ulid` raises a :class:`~ValueError` when given a :class:`~str`
+    instance that includes ASCII characters not part of the Base 32 decoding character set.
+    """
+    with pytest.raises(ValueError) as ex:
+        base32.decode(ascii_non_base32_str_valid_length)
+    ex.match(NON_BASE_32_EXP)
+
+
 def test_decode_ulid_returns_16_bytes(valid_str_26):
     """
     Assert that :func:`~ulid.base32.decode_ulid` decodes a valid 26 character string  into a :class:`~bytes`
@@ -190,6 +200,16 @@ def test_decode_ulid_raises_on_non_ascii_str(extended_ascii_str_26):
     """
     with pytest.raises(ValueError):
         base32.decode_ulid(extended_ascii_str_26)
+
+
+def test_decode_ulid_raises_on_non_base32_decode_char(ascii_non_base32_str_26):
+    """
+    Assert that :func:`~ulid.base32.decode_ulid` raises a :class:`~ValueError` when given a :class:`~str`
+    instance that includes ASCII characters not part of the Base 32 decoding character set.
+    """
+    with pytest.raises(ValueError) as ex:
+        base32.decode_ulid(ascii_non_base32_str_26)
+    ex.match(NON_BASE_32_EXP)
 
 
 def test_decode_timestamp_returns_6_bytes(valid_str_10):
@@ -220,6 +240,16 @@ def test_decode_timestamp_raises_on_non_ascii_str(extended_ascii_str_10):
         base32.decode_timestamp(extended_ascii_str_10)
 
 
+def test_decode_timestamp_raises_on_non_base32_decode_char(ascii_non_base32_str_10):
+    """
+    Assert that :func:`~ulid.base32.decode_timestamp` raises a :class:`~ValueError` when given a :class:`~str`
+    instance that includes ASCII characters not part of the Base 32 decoding character set.
+    """
+    with pytest.raises(ValueError) as ex:
+        base32.decode_timestamp(ascii_non_base32_str_10)
+    ex.match(NON_BASE_32_EXP)
+
+
 def test_decode_randomness_returns_10_bytes(valid_str_16):
     """
     Assert that :func:`~ulid.base32.decode_randomness` decodes a valid 16 character string  into a :class:`~bytes`
@@ -246,6 +276,16 @@ def test_decode_randomness_raises_on_non_ascii_str(extended_ascii_str_16):
     """
     with pytest.raises(ValueError):
         base32.decode_randomness(extended_ascii_str_16)
+
+
+def test_decode_randomness_raises_on_non_base32_decode_char(ascii_non_base32_str_16):
+    """
+    Assert that :func:`~ulid.base32.decode_randomness` raises a :class:`~ValueError` when given a :class:`~str`
+    instance that includes ASCII characters not part of the Base 32 decoding character set.
+    """
+    with pytest.raises(ValueError) as ex:
+        base32.decode_randomness(ascii_non_base32_str_16)
+    ex.match(NON_BASE_32_EXP)
 
 
 def test_decode_table_has_value_for_entire_decoding_alphabet(decoding_alphabet):
