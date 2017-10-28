@@ -13,7 +13,7 @@ import random
 from ulid import base32
 
 
-NON_ASCII_ALPHABET = ''.join(chr(d) for d in range(128, 256))
+EXTENDED_ASCII_ALPHABET = ''.join(chr(d) for d in range(128, 256))
 
 
 @pytest.fixture(scope='session')
@@ -188,7 +188,7 @@ def invalid_str_encoding(request):
     Fixture that yields :class:`~str` instances that are between 0 and 32 characters
     that uses non-ascii characters.
     """
-    return random_str(request.param, alphabet=NON_ASCII_ALPHABET)
+    return random_str(request.param, alphabet=EXTENDED_ASCII_ALPHABET)
 
 
 def random_bytes(num_bytes, not_in=(-1,)):
