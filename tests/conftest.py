@@ -218,15 +218,6 @@ def extended_ascii_str_16():
     return random_str(16, alphabet=EXTENDED_ASCII_ALPHABET)
 
 
-@pytest.fixture(scope='function', params=range(0, 32))
-def extended_ascii_str_encoding(request):
-    """
-    Fixture that yields :class:`~str` instances that are between 0 and 32 characters
-    that uses non-ascii characters.
-    """
-    return random_str(request.param, alphabet=EXTENDED_ASCII_ALPHABET)
-
-
 def random_bytes(num_bytes, not_in=(-1,)):
     """
     Helper function that returns a number of random bytes, optionally excluding those of a specific length.
