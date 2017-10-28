@@ -183,7 +183,7 @@ def invalid_str_10_16_26(request):
 
 
 @pytest.fixture(scope='function', params=range(0, 32))
-def invalid_str_encoding(request):
+def extended_ascii_str_encoding(request):
     """
     Fixture that yields :class:`~str` instances that are between 0 and 32 characters
     that uses non-ascii characters.
