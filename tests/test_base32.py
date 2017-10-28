@@ -9,6 +9,9 @@ import pytest
 from ulid import base32
 
 
+NON_BASE_32_EXP = r'^Non-base32 character found'
+
+
 @pytest.fixture(scope='session')
 def decoding_alphabet():
     """
@@ -252,3 +255,41 @@ def test_decode_table_has_value_for_entire_decoding_alphabet(decoding_alphabet):
     """
     for char in decoding_alphabet:
         assert base32.DECODING[ord(char)] != 0xFF, 'Character "{}" decoded improperly'.format(char)
+
+
+def test_str_to_bytes_returns_expected_bytes(valid_str_valid_length):
+    """
+    Assert that :func:`~ulid.base32.str_to_bytes` decodes a valid string that is 10, 16, or 26 characters long
+    into a :class:`~bytes` instance.
+    """
+    decoded = base32.str_to_bytes(valid_str_valid_length, len(valid_str_valid_length))
+    assert isinstance(decoded, bytes)
+    assert len(decoded) == len(valid_str_valid_length)
+
+
+def test_str_to_bytes_raises_on_unexpected_length(invalid_str_26):
+    """
+    Assert that :func:`~ulid.base32.str_to_bytes` raises a :class:`~ValueError` when given a :class:`~str`
+    instance that does not match the expected length.
+    """
+    with pytest.raises(ValueError):
+        base32.str_to_bytes(invalid_str_26, 26)
+
+
+def test_str_to_bytes_raises_on_extended_ascii_str(extended_ascii_str_valid_length):
+    """
+    Assert that :func:`~ulid.base32.str_to_bytes` raises a :class:`~ValueError` when given a :class:`~str`
+    instance that includes extended ascii characters.
+    """
+    with pytest.raises(ValueError):
+        base32.str_to_bytes(extended_ascii_str_valid_length, len(extended_ascii_str_valid_length))
+
+
+def test_str_to_bytes_raises_on_non_base32_decode_char(ascii_non_base32_str_valid_length):
+    """
+    Assert that :func:`~ulid.base32.str_to_bytes` raises a :class:`~ValueError` when given a :class:`~str`
+    instance that includes ASCII characters not part of the Base 32 decoding character set.
+    """
+    with pytest.raises(ValueError) as ex:
+        base32.str_to_bytes(ascii_non_base32_str_valid_length, len(ascii_non_base32_str_valid_length))
+    ex.match(NON_BASE_32_EXP)

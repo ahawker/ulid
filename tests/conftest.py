@@ -13,7 +13,9 @@ import random
 from ulid import base32
 
 
+ASCII_ALPHABET = ''.join(chr(d) for d in range(0, 128))
 EXTENDED_ASCII_ALPHABET = ''.join(chr(d) for d in range(128, 256))
+ASCII_NON_BASE_32_ALPHABET = ''.join(set(ASCII_ALPHABET).difference(set(base32.ENCODING)))
 
 
 @pytest.fixture(scope='session')
@@ -126,6 +128,14 @@ def invalid_bytes_48_80_128(request):
     return random_bytes(request.param, not_in=[6, 10, 16])
 
 
+@pytest.fixture(scope='function', params=[10, 16, 26])
+def valid_str_valid_length(request):
+    """
+    Fixture that yields :class:`~str` instances that are 10, 16, and 26 characters.
+    """
+    return random_str(request.param)
+
+
 @pytest.fixture(scope='function')
 def valid_str_26():
     """
@@ -180,6 +190,42 @@ def invalid_str_10_16_26(request):
     Fixture that yields :class:`~str` instances that are between 0 and 32 characters, except 10, 16, and 26.
     """
     return random_str(request.param, not_in=[10, 16, 26])
+
+
+@pytest.fixture(scope='function', params=[10, 16, 26])
+def ascii_non_base32_str_valid_length(request):
+    """
+    Fixture that yields a :class:`~str` instance that is valid length for a ULID part but contains
+    any standard ASCII characters that are not in the Base 32 alphabet.
+    """
+    return random_str(request.param, alphabet=ASCII_NON_BASE_32_ALPHABET)
+
+
+@pytest.fixture(scope='function')
+def ascii_non_base32_str_26():
+    """
+    Fixture that yields a :class:`~str` instance that is 26 characters, the length of an entire ULID but
+    contains extended ASCII characters.
+    """
+    return random_str(26, alphabet=ASCII_NON_BASE_32_ALPHABET)
+
+
+@pytest.fixture(scope='function')
+def ascii_non_base32_str_10():
+    """
+    Fixture that yields a :class:`~str` instance that is 10 characters, the length of a ULID timestamp value but
+    contains extended ASCII characters.
+    """
+    return random_str(10, alphabet=ASCII_NON_BASE_32_ALPHABET)
+
+
+@pytest.fixture(scope='function')
+def ascii_non_base32_str_16():
+    """
+    Fixture that yields a :class:`~str` instance that is 16 characters, the length of a ULID randomness value but
+    contains extended ASCII characters.
+    """
+    return random_str(16, alphabet=ASCII_NON_BASE_32_ALPHABET)
 
 
 @pytest.fixture(scope='function', params=[10, 16, 26])
