@@ -357,3 +357,34 @@ def decode_randomness(randomness: str) -> bytes:
         ((decoding[encoded[12]] << 7) | (decoding[encoded[13]] << 2) | (decoding[encoded[14]] >> 3)) & 0xFF,
         ((decoding[encoded[14]] << 5) | (decoding[encoded[15]])) & 0xFF
     ))
+
+
+def str_to_bytes(value: str, expected_length: int) -> bytes:
+    """
+    Convert the given string to bytes and validate it is within the Base32 character set.
+
+    :param value: String to convert to bytes
+    :type value: :class:`~str`
+    :param expected_length: Expected length of the input string
+    :type expected_length: :class:`~int`
+    :return: Value converted to bytes.
+    :rtype: :class:`~bytes`
+    """
+    length = len(value)
+    if length != expected_length:
+        raise ValueError('Expects {} characters for decoding; got {}'.format(expected_length, length))
+
+    try:
+        encoded = value.encode('ascii')
+    except UnicodeEncodeError as ex:
+        raise ValueError('Expects value that can be encoded in ASCII charset: {}'.format(ex))
+
+    decoding = DECODING
+
+    # Confirm all bytes are valid Base32 decode characters.
+    # Note: ASCII encoding handles the out of range checking for us.
+    for byte in encoded:
+        if decoding[byte] > 31:
+            raise ValueError('Non-base32 character found: "{}"'.format(chr(byte)))
+
+    return encoded
