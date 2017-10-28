@@ -248,14 +248,7 @@ def decode_ulid(value: str) -> bytes:
     :raises ValueError: when value is not 26 characters
     :raises ValueError: when value cannot be encoded in ASCII
     """
-    length = len(value)
-    if length != 26:
-        raise ValueError('Expects 26 characters for timestamp + randomness; got {}'.format(length))
-
-    try:
-        encoded = value.encode('ascii')
-    except UnicodeEncodeError as ex:
-        raise ValueError('Expects value that can be encoded in ASCII charset: {}'.format(ex))
+    encoded = str_to_bytes(value, 26)
 
     decoding = DECODING
 
@@ -296,14 +289,7 @@ def decode_timestamp(timestamp: str) -> bytes:
     :raises ValueError: when value is not 10 characters
     :raises ValueError: when value cannot be encoded in ASCII
     """
-    length = len(timestamp)
-    if length != 10:
-        raise ValueError('Expects 10 characters for timestamp; got {}'.format(length))
-
-    try:
-        encoded = timestamp.encode('ascii')
-    except UnicodeEncodeError as ex:
-        raise ValueError('Expects timestamp that can be encoded in ASCII charset: {}'.format(ex))
+    encoded = str_to_bytes(timestamp, 10)
 
     decoding = DECODING
 
@@ -334,14 +320,7 @@ def decode_randomness(randomness: str) -> bytes:
     :raises ValueError: when value is not 16 characters
     :raises ValueError: when value cannot be encoded in ASCII
     """
-    length = len(randomness)
-    if length != 16:
-        raise ValueError('Expects 16 characters for randomness; got {}'.format(length))
-
-    try:
-        encoded = randomness.encode('ascii')
-    except UnicodeEncodeError as ex:
-        raise ValueError('Expects randomness that can be encoded in ASCII charset: {}'.format(ex))
+    encoded = str_to_bytes(randomness, 16)
 
     decoding = DECODING
 
