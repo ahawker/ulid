@@ -182,6 +182,42 @@ def invalid_str_10_16_26(request):
     return random_str(request.param, not_in=[10, 16, 26])
 
 
+@pytest.fixture(scope='function', params=[10, 16, 26])
+def extended_ascii_str_valid_length(request):
+    """
+    Fixture that yields a :class:`~str` instance that is valid length for a ULID part but
+    contains extended ASCII characters.
+    """
+    return random_str(request.param, alphabet=EXTENDED_ASCII_ALPHABET)
+
+
+@pytest.fixture(scope='function')
+def extended_ascii_str_26():
+    """
+    Fixture that yields a :class:`~str` instance that is 26 characters, the length of an entire ULID but
+    contains extended ASCII characters.
+    """
+    return random_str(26, alphabet=EXTENDED_ASCII_ALPHABET)
+
+
+@pytest.fixture(scope='function')
+def extended_ascii_str_10():
+    """
+    Fixture that yields a :class:`~str` instance that is 10 characters, the length of a ULID timestamp value but
+    contains extended ASCII characters.
+    """
+    return random_str(10, alphabet=EXTENDED_ASCII_ALPHABET)
+
+
+@pytest.fixture(scope='function')
+def extended_ascii_str_16():
+    """
+    Fixture that yields a :class:`~str` instance that is 16 characters, the length of a ULID randomness value but
+    contains extended ASCII characters.
+    """
+    return random_str(16, alphabet=EXTENDED_ASCII_ALPHABET)
+
+
 @pytest.fixture(scope='function', params=range(0, 32))
 def extended_ascii_str_encoding(request):
     """
