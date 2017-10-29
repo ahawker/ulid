@@ -9,7 +9,7 @@ import pytest
 from ulid import base32
 
 
-NON_BASE_32_EXP = r'^Non-base32 character found'
+NON_BASE_32_EXC_REGEX = r'^Non-base32 character found'
 
 
 @pytest.fixture(scope='session')
@@ -171,7 +171,7 @@ def test_decode_raises_on_non_base32_decode_char(ascii_non_base32_str_valid_leng
     """
     with pytest.raises(ValueError) as ex:
         base32.decode(ascii_non_base32_str_valid_length)
-    ex.match(NON_BASE_32_EXP)
+    ex.match(NON_BASE_32_EXC_REGEX)
 
 
 def test_decode_ulid_returns_16_bytes(valid_str_26):
@@ -209,7 +209,7 @@ def test_decode_ulid_raises_on_non_base32_decode_char(ascii_non_base32_str_26):
     """
     with pytest.raises(ValueError) as ex:
         base32.decode_ulid(ascii_non_base32_str_26)
-    ex.match(NON_BASE_32_EXP)
+    ex.match(NON_BASE_32_EXC_REGEX)
 
 
 def test_decode_timestamp_returns_6_bytes(valid_str_10):
@@ -247,7 +247,7 @@ def test_decode_timestamp_raises_on_non_base32_decode_char(ascii_non_base32_str_
     """
     with pytest.raises(ValueError) as ex:
         base32.decode_timestamp(ascii_non_base32_str_10)
-    ex.match(NON_BASE_32_EXP)
+    ex.match(NON_BASE_32_EXC_REGEX)
 
 
 def test_decode_randomness_returns_10_bytes(valid_str_16):
@@ -285,7 +285,7 @@ def test_decode_randomness_raises_on_non_base32_decode_char(ascii_non_base32_str
     """
     with pytest.raises(ValueError) as ex:
         base32.decode_randomness(ascii_non_base32_str_16)
-    ex.match(NON_BASE_32_EXP)
+    ex.match(NON_BASE_32_EXC_REGEX)
 
 
 def test_decode_table_has_value_for_entire_decoding_alphabet(decoding_alphabet):
@@ -332,4 +332,4 @@ def test_str_to_bytes_raises_on_non_base32_decode_char(ascii_non_base32_str_vali
     """
     with pytest.raises(ValueError) as ex:
         base32.str_to_bytes(ascii_non_base32_str_valid_length, len(ascii_non_base32_str_valid_length))
-    ex.match(NON_BASE_32_EXP)
+    ex.match(NON_BASE_32_EXC_REGEX)
