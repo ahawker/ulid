@@ -333,8 +333,9 @@ def test_str_to_bytes_raises_on_unexpected_length(invalid_str_26):
     Assert that :func:`~ulid.base32.str_to_bytes` raises a :class:`~ValueError` when given a :class:`~str`
     instance that does not match the expected length.
     """
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError) as ex:
         base32.str_to_bytes(invalid_str_26, 26)
+    assert ex.match(DECODE_ULID_STR_LEN_EXC_REGEX)
 
 
 def test_str_to_bytes_raises_on_extended_ascii_str(extended_ascii_str_valid_length):
@@ -342,8 +343,9 @@ def test_str_to_bytes_raises_on_extended_ascii_str(extended_ascii_str_valid_leng
     Assert that :func:`~ulid.base32.str_to_bytes` raises a :class:`~ValueError` when given a :class:`~str`
     instance that includes extended ascii characters.
     """
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError) as ex:
         base32.str_to_bytes(extended_ascii_str_valid_length, len(extended_ascii_str_valid_length))
+    assert ex.match(NON_ASCII_EXC_REGEX)
 
 
 def test_str_to_bytes_raises_on_non_base32_decode_char(ascii_non_base32_str_valid_length):
