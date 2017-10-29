@@ -13,6 +13,7 @@ from ulid import api, base32, ulid
 
 
 BYTES_SIZE_EXC_REGEX = r'Expects bytes to be 128 bits'
+INT_SIZE_EXC_REGEX = r'Expects integer to be 128 bits'
 
 
 @pytest.fixture(scope='session', params=[
@@ -83,8 +84,9 @@ def test_from_int_raises_when_not_128_bits(invalid_bytes_128):
     that is not 128 bit in length.
     """
     value = int.from_bytes(invalid_bytes_128, byteorder='big')
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError) as ex:
         api.from_int(value)
+    assert ex.match(INT_SIZE_EXC_REGEX)
 
 
 def test_from_str_returns_ulid_instance(valid_bytes_128):
