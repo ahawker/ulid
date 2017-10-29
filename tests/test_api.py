@@ -14,6 +14,7 @@ from ulid import api, base32, ulid
 
 BYTES_SIZE_EXC_REGEX = r'Expects bytes to be 128 bits'
 INT_SIZE_EXC_REGEX = r'Expects integer to be 128 bits'
+STR_SIZE_EXC_REGEX = r'Expects 26 characters'
 
 
 @pytest.fixture(scope='session', params=[
@@ -106,8 +107,9 @@ def test_from_str_raises_when_not_128_bits(valid_bytes_48):
     that is not 128 bit in length.
     """
     value = base32.encode(valid_bytes_48)
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError) as ex:
         api.from_str(value)
+    assert ex.match(STR_SIZE_EXC_REGEX)
 
 
 def test_from_uuid_returns_ulid_instance():
