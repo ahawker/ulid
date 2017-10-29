@@ -9,7 +9,6 @@ import uuid
 
 from . import base32, hints
 
-
 __all__ = ['Timestamp', 'Randomness', 'ULID']
 
 

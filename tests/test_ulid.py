@@ -6,9 +6,10 @@
 """
 import datetime
 import operator
-import pytest
 import time
 import uuid
+
+import pytest
 
 from ulid import base32, ulid
 

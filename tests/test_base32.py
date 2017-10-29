@@ -8,7 +8,6 @@ import pytest
 
 from ulid import base32
 
-
 NON_BASE_32_EXC_REGEX = r'^Non-base32 character found'
 NON_ASCII_EXC_REGEX = r'Expects value that can be encoded in ASCII charset'
 ENCODE_BYTE_SIZE_EXC_REGEX = r'^Expects bytes in sizes of'

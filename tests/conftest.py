@@ -7,11 +7,11 @@
 import calendar
 import datetime
 import os
-import pytest
 import random
 
-from ulid import base32
+import pytest
 
+from ulid import base32
 
 ASCII_ALPHABET = ''.join(chr(d) for d in range(0, 128))
 EXTENDED_ASCII_ALPHABET = ''.join(chr(d) for d in range(128, 256))

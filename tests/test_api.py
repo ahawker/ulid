@@ -5,12 +5,12 @@
     Tests for the :mod:`~ulid.api` module.
 """
 import datetime
-import pytest
 import time
 import uuid
 
-from ulid import api, base32, ulid
+import pytest
 
+from ulid import api, base32, ulid
 
 BYTES_SIZE_EXC_REGEX = r'Expects bytes to be 128 bits'
 INT_SIZE_EXC_REGEX = r'Expects integer to be 128 bits'

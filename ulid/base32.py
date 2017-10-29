@@ -16,7 +16,6 @@ import array
 
 from . import hints
 
-
 #: Base32 character set. Excludes characters "I L O U".
 ENCODING = "0123456789ABCDEFGHJKMNPQRSTVWXYZ"
 

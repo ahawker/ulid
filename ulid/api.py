@@ -12,7 +12,6 @@ import uuid
 
 from . import base32, hints, ulid
 
-
 __all__ = ['new', 'from_bytes', 'from_int', 'from_str', 'from_uuid', 'from_timestamp', 'from_randomness']
 
 

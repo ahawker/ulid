@@ -4,8 +4,9 @@
 
     Performance benchmarks that compare ULID instance creation speed to comparable types.
 """
-import ulid
 import uuid
+
+import ulid
 
 
 def test_ulid_new(benchmark):
