@@ -18,6 +18,7 @@ ENCODE_RANDOMNESS_BYTE_SIZE_EXC_REGEX = r'Expects 10 bytes for'
 DECODE_STR_LEN_EXC_REGEX = r'^Expects string in lengths of'
 DECODE_ULID_STR_LEN_EXC_REGEX = r'^Expects 26 characters for decoding'
 DECODE_TIMESTAMP_STR_LEN_EXC_REGEX = r'^Expects 10 characters for decoding'
+DECODE_RANDOMNESS_STR_LEN_EXC_REGEX = r'^Expects 16 characters for decoding'
 
 
 @pytest.fixture(scope='session')
@@ -283,8 +284,9 @@ def test_decode_randomness_raises_on_str_length_mismatch(invalid_str_16):
     Assert that :func:`~ulid.base32.decode_randomness` raises a :class:`~ValueError` when given a :class:`~str`
     instance that is not exactly 16 chars.
     """
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError) as ex:
         base32.decode_randomness(invalid_str_16)
+    assert ex.match(DECODE_RANDOMNESS_STR_LEN_EXC_REGEX)
 
 
 def test_decode_randomness_raises_on_non_ascii_str(extended_ascii_str_16):
@@ -292,8 +294,9 @@ def test_decode_randomness_raises_on_non_ascii_str(extended_ascii_str_16):
     Assert that :func:`~ulid.base32.decode_randomness` raises a :class:`~ValueError` when given a :class:`~str`
     instance that contains extended ascii characters.
     """
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError) as ex:
         base32.decode_randomness(extended_ascii_str_16)
+    assert ex.match(NON_ASCII_EXC_REGEX)
 
 
 def test_decode_randomness_raises_on_non_base32_decode_char(ascii_non_base32_str_16):
