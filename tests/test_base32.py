@@ -11,6 +11,7 @@ from ulid import base32
 
 NON_BASE_32_EXC_REGEX = r'^Non-base32 character found'
 ENCODE_BYTE_SIZE_EXC_REGEX = r'^Expects bytes in sizes of'
+ENCODE_ULID_BYTE_SIZE_EXC_REGEX = r'Expects 16 bytes for'
 
 
 @pytest.fixture(scope='session')
@@ -76,8 +77,9 @@ def test_encode_ulid_raises_on_bytes_length_mismatch(invalid_bytes_128):
     Assert that :func:`~ulid.base32.encode_ulid` raises a :class:`~ValueError` when given a :class:`~bytes`
     instance that is not exactly 128 bit.
     """
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError) as ex:
         base32.encode_ulid(invalid_bytes_128)
+    assert ex.match(ENCODE_ULID_BYTE_SIZE_EXC_REGEX)
 
 
 def test_encode_timestamp_returns_10_char_string(valid_bytes_48):
