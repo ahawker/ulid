@@ -18,6 +18,8 @@ STR_SIZE_EXC_REGEX = r'Expects 26 characters'
 UNSUPPORTED_TIMESTAMP_TYPE_EXC_REGEX = (r'Expected datetime, int, float, str, memoryview, Timestamp'
                                         r', ULID, bytes, or bytearray')
 TIMESTAMP_SIZE_EXC_REGEX = r'Expects timestamp to be 48 bits'
+UNSUPPORTED_RANDOMNESS_TYPE_EXC_REGEX = r'Expected int, float, str, memoryview, Randomness, ULID, bytes, or bytearray'
+RANDOMNESS_SIZE_EXC_REGEX = r'Expects randomness to be 80 bits'
 
 
 @pytest.fixture(scope='session', params=[
@@ -294,8 +296,9 @@ def test_from_randomness_with_unsupported_type_raises(unsupported_type):
     Assert that :func:`~ulid.api.from_randomness` raises a :class:`~ValueError` when given
     a type it cannot compute a randomness value from.
     """
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError) as ex:
         api.from_randomness(unsupported_type())
+    assert ex.match(UNSUPPORTED_RANDOMNESS_TYPE_EXC_REGEX)
 
 
 def test_from_randomness_with_incorrect_size_bytes_raises(valid_bytes_128):
@@ -303,5 +306,6 @@ def test_from_randomness_with_incorrect_size_bytes_raises(valid_bytes_128):
     Assert that :func:`~ulid.api.from_randomness` raises a :class:`~ValueError` when given
     a type that cannot be represented as exactly 80 bits.
     """
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError) as ex:
         api.from_randomness(valid_bytes_128)
+    assert ex.match(RANDOMNESS_SIZE_EXC_REGEX)
