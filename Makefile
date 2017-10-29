@@ -54,6 +54,10 @@ codeclimate:  ## Run codeclimate analysis.
 		--volume /tmp/cc:/tmp/cc \
 		codeclimate/codeclimate analyze
 
+.PHONY: isort
+isort:  ## Run isort on the package.
+	@isort --recursive --check-only ulid tests
+
 .PHONY: mypy
 mypy:  ## Run mypy static analysis checks on the package.
 	@mypy ulid
@@ -67,7 +71,7 @@ seclint:  ## Run bandit on the package.
 	@bandit -v -r ulid
 
 .PHONY: lint
-lint:  pylint mypy seclint  ## Run mypy and pylint on the package.
+lint:  pylint mypy seclint isort  ## Run mypy and pylint on the package.
 
 .PHONY: bump-patch
 bump-patch:  ## Bump package patch version, e.g. 0.0.1 -> 0.0.2.
