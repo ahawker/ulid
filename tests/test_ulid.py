@@ -5,6 +5,7 @@
     Tests for the :mod:`~ulid.ulid` module.
 """
 import datetime
+import operator
 import pytest
 import time
 import uuid
@@ -208,14 +209,9 @@ def test_memoryview_unorderble_with_unsupported_type(valid_bytes_128, unsupporte
     against unsupported types.
     """
     mv = ulid.MemoryView(valid_bytes_128)
-    with pytest.raises(TypeError):
-        mv < unsupported_comparison_type()
-    with pytest.raises(TypeError):
-        mv > unsupported_comparison_type()
-    with pytest.raises(TypeError):
-        mv <= unsupported_comparison_type()
-    with pytest.raises(TypeError):
-        mv >= unsupported_comparison_type()
+    for op in (operator.lt, operator.gt, operator.le, operator.ge):
+        with pytest.raises(TypeError):
+            op(mv, unsupported_comparison_type())
 
 
 def test_memoryview_supports_str(valid_bytes_128):
