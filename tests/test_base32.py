@@ -10,10 +10,12 @@ from ulid import base32
 
 
 NON_BASE_32_EXC_REGEX = r'^Non-base32 character found'
+NON_ASCII_EXC_REGEX = r'Expects value that can be encoded in ASCII charset'
 ENCODE_BYTE_SIZE_EXC_REGEX = r'^Expects bytes in sizes of'
 ENCODE_ULID_BYTE_SIZE_EXC_REGEX = r'Expects 16 bytes for'
 ENCODE_TIMESTAMP_BYTE_SIZE_EXC_REGEX = r'Expects 6 bytes for'
 ENCODE_RANDOMNESS_BYTE_SIZE_EXC_REGEX = r'Expects 10 bytes for'
+DECODE_STR_LEN_EXC_REGEX = r'^Expects string in lengths of'
 
 
 @pytest.fixture(scope='session')
@@ -159,8 +161,9 @@ def test_decode_raises_on_str_length_mismatch(invalid_str_10_16_26):
     Assert that :func:`~ulid.base32.decode` raises a :class:`~ValueError` when given a :class:`~str`
     instance that is not exactly 10, 16, 26 characters in length.
     """
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError) as ex:
         base32.decode(invalid_str_10_16_26)
+    assert ex.match(DECODE_STR_LEN_EXC_REGEX)
 
 
 def test_decode_raises_on_extended_ascii_str(extended_ascii_str_valid_length):
@@ -168,8 +171,9 @@ def test_decode_raises_on_extended_ascii_str(extended_ascii_str_valid_length):
     Assert that :func:`~ulid.base32.decode` raises a :class:`~ValueError` when given a :class:`~str`
     instance that contains extended ascii characters.
     """
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError) as ex:
         base32.decode(extended_ascii_str_valid_length)
+    assert ex.match(NON_ASCII_EXC_REGEX)
 
 
 def test_decode_raises_on_non_base32_decode_char(ascii_non_base32_str_valid_length):
