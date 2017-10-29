@@ -15,6 +15,9 @@ from ulid import api, base32, ulid
 BYTES_SIZE_EXC_REGEX = r'Expects bytes to be 128 bits'
 INT_SIZE_EXC_REGEX = r'Expects integer to be 128 bits'
 STR_SIZE_EXC_REGEX = r'Expects 26 characters'
+UNSUPPORTED_TIMESTAMP_TYPE_EXC_REGEX = (r'Expected datetime, int, float, str, memoryview, Timestamp'
+                                        r', ULID, bytes, or bytearray')
+TIMESTAMP_SIZE_EXC_REGEX = r'Expects timestamp to be 48 bits'
 
 
 @pytest.fixture(scope='session', params=[
@@ -205,8 +208,9 @@ def test_from_timestamp_with_unsupported_type_raises(unsupported_type):
     Assert that :func:`~ulid.api.from_timestamp` raises a :class:`~ValueError` when given
     a type it cannot compute a timestamp value from.
     """
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError) as ex:
         api.from_timestamp(unsupported_type())
+    assert ex.match(UNSUPPORTED_TIMESTAMP_TYPE_EXC_REGEX)
 
 
 def test_from_timestamp_with_incorrect_size_bytes_raises(valid_bytes_128):
@@ -214,8 +218,9 @@ def test_from_timestamp_with_incorrect_size_bytes_raises(valid_bytes_128):
     Assert that :func:`~ulid.api.from_timestamp` raises a :class:`~ValueError` when given
     a type that cannot be represented as exactly 48 bits.
     """
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError) as ex:
         api.from_timestamp(valid_bytes_128)
+    assert ex.match(TIMESTAMP_SIZE_EXC_REGEX)
 
 
 def test_from_randomness_int_returns_ulid_instance(valid_bytes_80):
