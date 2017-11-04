@@ -17,6 +17,9 @@ ASCII_ALPHABET = ''.join(chr(d) for d in range(0, 128))
 EXTENDED_ASCII_ALPHABET = ''.join(chr(d) for d in range(128, 256))
 ASCII_NON_BASE_32_ALPHABET = ''.join(set(ASCII_ALPHABET).difference(set(base32.ENCODING)))
 
+MIN_EPOCH = 0
+MAX_EPOCH = 281474976710655
+
 
 @pytest.fixture(scope='session')
 def valid_bytes_48_before():
@@ -77,7 +80,7 @@ def valid_bytes_128():
     """
     Fixture that yields :class:`~bytes` instances that are 128 bits, the length of an entire ULID.
     """
-    return random_bytes(16)
+    return random_timestamp_bytes() + random_bytes(10)
 
 
 @pytest.fixture(scope='function')
@@ -93,7 +96,7 @@ def valid_bytes_48():
     """
     Fixture that yields :class:`~bytes` instances that are 48 bits, the length of a ULID timestamp.
     """
-    return random_bytes(6)
+    return random_timestamp_bytes()
 
 
 @pytest.fixture(scope='function', params=range(0, 32))
@@ -262,6 +265,15 @@ def extended_ascii_str_16():
     contains extended ASCII characters.
     """
     return random_str(16, alphabet=EXTENDED_ASCII_ALPHABET)
+
+
+def random_timestamp_bytes():
+    """
+    Helper function that returns a number of random bytes that represent a timestamp that are within
+    the valid range.
+    """
+    value = random.randint(MIN_EPOCH, MAX_EPOCH + 1)
+    return value.to_bytes(6, byteorder='big')
 
 
 def random_bytes(num_bytes, not_in=(-1,)):
