@@ -70,6 +70,9 @@ def from_int(value: int) -> ulid.ULID:
     :rtype: :class:`~ulid.ulid.ULID`
     :raises ValueError: when the value is not a 128 bit integer
     """
+    if value < 0:
+        raise ValueError('Expects positive integer')
+
     length = (value.bit_length() + 7) // 8
     if length != 16:
         raise ValueError('Expects integer to be 128 bits; got {} bytes'.format(length))
