@@ -99,6 +99,14 @@ def valid_bytes_48():
     return random_timestamp_bytes()
 
 
+@pytest.fixture(scope='function', params=range(16, 32))
+def invalid_bytes_128_overflow(request):
+    """
+    Fixture that yields :class:`~bytes` instances that are between 128 and 256 bits, except 128.
+    """
+    return random_bytes(request.param, not_in=[16])
+
+
 @pytest.fixture(scope='function', params=range(0, 32))
 def invalid_bytes_128(request):
     """

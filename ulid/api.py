@@ -74,7 +74,7 @@ def from_int(value: int) -> ulid.ULID:
         raise ValueError('Expects positive integer')
 
     length = (value.bit_length() + 7) // 8
-    if length != 16:
+    if length > 16:
         raise ValueError('Expects integer to be 128 bits; got {} bytes'.format(length))
 
     return ulid.ULID(value.to_bytes(16, byteorder='big'))

@@ -85,12 +85,12 @@ def test_from_int_returns_ulid_instance(valid_bytes_128):
     assert instance.bytes == valid_bytes_128
 
 
-def test_from_int_raises_when_not_128_bits(invalid_bytes_128):
+def test_from_int_raises_when_greater_than_128_bits(invalid_bytes_128_overflow):
     """
-    Assert that :func:`~ulid.api.from_int` raises a :class:`~ValueError` when given bytes
-    that is not 128 bit in length.
+    Assert that :func:`~ulid.api.from_int` raises a :class:`~ValueError` when given int
+    cannot be stored in 128 bits.
     """
-    value = int.from_bytes(invalid_bytes_128, byteorder='big')
+    value = int.from_bytes(invalid_bytes_128_overflow, byteorder='big')
     with pytest.raises(ValueError) as ex:
         api.from_int(value)
     assert ex.match(INT_SIZE_EXC_REGEX)
