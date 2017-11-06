@@ -5,6 +5,8 @@ ulid
 
 |PyPI Version| |PyPI Versions|
 
+|Updates|
+
 |Documentation Status|
 
 |Stories in Ready|
@@ -301,6 +303,8 @@ Links
    :target: https://badge.fury.io/py/ulid-py
 .. |PyPI Versions| image:: https://img.shields.io/pypi/pyversions/ulid-py.svg
    :target: https://pypi.python.org/pypi/ulid-py
+.. |Updates| image:: https://pyup.io/repos/github/ahawker/ulid/shield.svg
+   :target: https://pyup.io/repos/github/ahawker/ulid/
 .. |Documentation Status| image:: https://readthedocs.org/projects/ulid/badge/?version=latest
    :target: http://ulid.readthedocs.io/en/latest/?badge=latest
 .. |Stories in Ready| image:: https://badge.waffle.io/ahawker/ulid.svg?label=ready&title=Ready

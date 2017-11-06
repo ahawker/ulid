@@ -8,6 +8,8 @@
 [![PyPI Version](https://badge.fury.io/py/ulid-py.svg)](https://badge.fury.io/py/ulid-py)
 [![PyPI Versions](https://img.shields.io/pypi/pyversions/ulid-py.svg)](https://pypi.python.org/pypi/ulid-py)
 
+[![Updates](https://pyup.io/repos/github/ahawker/ulid/shield.svg)](https://pyup.io/repos/github/ahawker/ulid/)
+
 [![Documentation Status](https://readthedocs.org/projects/ulid/badge/?version=latest)](http://ulid.readthedocs.io/en/latest/?badge=latest)
 
 [![Stories in Ready](https://badge.waffle.io/ahawker/ulid.svg?label=ready&title=Ready)](http://waffle.io/ahawker/ulid)
