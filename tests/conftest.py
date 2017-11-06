@@ -102,9 +102,9 @@ def valid_bytes_48():
 @pytest.fixture(scope='function', params=range(16, 32))
 def invalid_bytes_128_overflow(request):
     """
-    Fixture that yields :class:`~bytes` instances that are between 128 and 256 bits, except 128.
+    Fixture that yields :class:`~bytes` instances that require more than 128 bits to store.
     """
-    return random_bytes(request.param, not_in=[16])
+    return random_non_zero_byte() + random_bytes(request.param, not_in=[16])
 
 
 @pytest.fixture(scope='function', params=range(0, 32))
@@ -282,6 +282,14 @@ def random_timestamp_bytes():
     """
     value = random.randint(MIN_EPOCH, MAX_EPOCH + 1)
     return value.to_bytes(6, byteorder='big')
+
+
+def random_non_zero_byte():
+    """
+    Helper function that yields a single byte that isn't zero.
+    """
+    value = random.randint(1, 255)
+    return value.to_bytes(1, byteorder='big')
 
 
 def random_bytes(num_bytes, not_in=(-1,)):
