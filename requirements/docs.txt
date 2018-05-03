@@ -5,4 +5,4 @@
 -r base.txt
 
 sphinx==1.7.4
-sphinx_rtd_theme==0.3.0
+sphinx_rtd_theme==0.3.1
