@@ -2,4 +2,4 @@
 #
 # Requirements for using this package.
 
-typing==3.6.4; python_version < '3.6'
+typing==3.6.6; python_version < '3.6'
