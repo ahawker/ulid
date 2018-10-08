@@ -1,0 +1,33 @@
+build: off
+skip_branch_with_pr: true
+environment:
+  matrix:
+    - PYTHON: "C:\\Python34-x64"
+      PYTHON_VERSION: "3.4.x"
+      PYTHON_ARCH: "64"
+      TOXENV: "py34"
+    - PYTHON: "C:\\Python35-x64"
+      PYTHON_VERSION: "3.5.x"
+      PYTHON_ARCH: "64"
+      TOXENV: "py35"
+    - PYTHON: "C:\\Python36-x64"
+      PYTHON_VERSION: "3.6.x"
+      PYTHON_ARCH: "64"
+      TOXENV: "py36"
+    - PYTHON: "C:\\Python37-x64"
+      PYTHON_VERSION: "3.7.x"
+      PYTHON_ARCH: "64"
+      TOXENV: "py37"
+install:
+  - ps: if (-not(Test-Path($env:PYTHON))) { & .ci\install.ps1 }
+  - "choco install codecov"
+  - "copy C:\\MinGW\\bin\\mingw32-make.exe C:\\MinGW\\bin\\make.exe"
+  - "set PATH=%PYTHON%;%PYTHON%\\Scripts;C:\\MinGW\\bin;%PATH%"
+  - "set MSSDK=1"
+  - "set DISTUTILS_USE_SDK=1"
+  - "python -m pip install --upgrade pip wheel"
+  - "make tox-install"
+test_script:
+  - "make tox"
+on_success:
+  - "codecov -f coverage.xml"
