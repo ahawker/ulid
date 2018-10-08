@@ -1,6 +1,7 @@
 # ulid
 
 [![Build Status](https://travis-ci.org/ahawker/ulid.svg?branch=master)](https://travis-ci.org/ahawker/ulid)
+[![Build Status](https://ci.appveyor.com/api/projects/status/fy0hufnb8h6gwk4d/branch/master?svg=true)](https://ci.appveyor.com/project/ahawker/ulid/branch/master)
 [![codecov](https://codecov.io/gh/ahawker/ulid/branch/master/graph/badge.svg)](https://codecov.io/gh/ahawker/ulid)
 [![Code Climate](https://codeclimate.com/github/ahawker/ulid/badges/gpa.svg)](https://codeclimate.com/github/ahawker/ulid)
 [![Issue Count](https://codeclimate.com/github/ahawker/ulid/badges/issue_count.svg)](https://codeclimate.com/github/ahawker/ulid)
