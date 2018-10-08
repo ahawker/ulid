@@ -1,0 +1,5 @@
+# uild/requirements/build.txt
+#
+# Requirements necessary to build the ulid package.
+
+setuptools==40.4.3
