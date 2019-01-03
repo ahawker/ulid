@@ -2,10 +2,130 @@
 
 ## [Unreleased](https://github.com/ahawker/ulid/tree/HEAD)
 
-[Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.4...HEAD)
+[Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.7...HEAD)
+
+**Implemented enhancements:**
+
+- Add Python 3.7 Support [\#282](https://github.com/ahawker/ulid/issues/282)
+- Full Windows Support [\#48](https://github.com/ahawker/ulid/issues/48)
 
 **Merged pull requests:**
 
+- pyup.io:  Scheduled daily dependency update on wednesday [\#308](https://github.com/ahawker/ulid/pull/308) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on tuesday [\#307](https://github.com/ahawker/ulid/pull/307) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on saturday [\#305](https://github.com/ahawker/ulid/pull/305) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on thursday [\#303](https://github.com/ahawker/ulid/pull/303) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on saturday [\#301](https://github.com/ahawker/ulid/pull/301) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on wednesday [\#300](https://github.com/ahawker/ulid/pull/300) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on tuesday [\#299](https://github.com/ahawker/ulid/pull/299) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on monday [\#298](https://github.com/ahawker/ulid/pull/298) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on saturday [\#297](https://github.com/ahawker/ulid/pull/297) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on thursday [\#296](https://github.com/ahawker/ulid/pull/296) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on tuesday [\#295](https://github.com/ahawker/ulid/pull/295) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on monday [\#294](https://github.com/ahawker/ulid/pull/294) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on sunday [\#293](https://github.com/ahawker/ulid/pull/293) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on monday [\#292](https://github.com/ahawker/ulid/pull/292) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on monday [\#291](https://github.com/ahawker/ulid/pull/291) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on sunday [\#290](https://github.com/ahawker/ulid/pull/290) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on saturday [\#289](https://github.com/ahawker/ulid/pull/289) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on tuesday [\#288](https://github.com/ahawker/ulid/pull/288) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on thursday [\#287](https://github.com/ahawker/ulid/pull/287) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on tuesday [\#285](https://github.com/ahawker/ulid/pull/285) ([pyup-bot](https://github.com/pyup-bot))
+- Switch from 3.7-dev to 3.7 on xenial. [\#284](https://github.com/ahawker/ulid/pull/284) ([ahawker](https://github.com/ahawker))
+
+## [v0.0.7](https://github.com/ahawker/ulid/tree/v0.0.7) (2018-10-09)
+[Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.6...v0.0.7)
+
+**Implemented enhancements:**
+
+- Assert on ValueError exception messages [\#65](https://github.com/ahawker/ulid/issues/65)
+
+**Fixed bugs:**
+
+- Enforce ULID Timestamp Range [\#64](https://github.com/ahawker/ulid/issues/64)
+
+**Merged pull requests:**
+
+- pyup.io:  Scheduled daily dependency update on tuesday [\#281](https://github.com/ahawker/ulid/pull/281) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on monday [\#279](https://github.com/ahawker/ulid/pull/279) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on saturday [\#278](https://github.com/ahawker/ulid/pull/278) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on wednesday [\#277](https://github.com/ahawker/ulid/pull/277) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on monday [\#276](https://github.com/ahawker/ulid/pull/276) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on thursday [\#273](https://github.com/ahawker/ulid/pull/273) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on wednesday [\#272](https://github.com/ahawker/ulid/pull/272) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on thursday [\#270](https://github.com/ahawker/ulid/pull/270) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on saturday [\#269](https://github.com/ahawker/ulid/pull/269) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on thursday [\#267](https://github.com/ahawker/ulid/pull/267) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on tuesday [\#266](https://github.com/ahawker/ulid/pull/266) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on thursday [\#265](https://github.com/ahawker/ulid/pull/265) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on wednesday [\#179](https://github.com/ahawker/ulid/pull/179) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on sunday [\#177](https://github.com/ahawker/ulid/pull/177) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on sunday [\#172](https://github.com/ahawker/ulid/pull/172) ([pyup-bot](https://github.com/pyup-bot))
+- Remove test pypi deployment. [\#167](https://github.com/ahawker/ulid/pull/167) ([ahawker](https://github.com/ahawker))
+- pyup.io:  Scheduled daily dependency update on monday [\#166](https://github.com/ahawker/ulid/pull/166) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on tuesday [\#142](https://github.com/ahawker/ulid/pull/142) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on wednesday [\#136](https://github.com/ahawker/ulid/pull/136) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on friday [\#124](https://github.com/ahawker/ulid/pull/124) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on thursday [\#117](https://github.com/ahawker/ulid/pull/117) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on monday [\#114](https://github.com/ahawker/ulid/pull/114) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on sunday [\#109](https://github.com/ahawker/ulid/pull/109) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on wednesday [\#100](https://github.com/ahawker/ulid/pull/100) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on monday [\#98](https://github.com/ahawker/ulid/pull/98) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on tuesday [\#96](https://github.com/ahawker/ulid/pull/96) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on monday [\#95](https://github.com/ahawker/ulid/pull/95) ([pyup-bot](https://github.com/pyup-bot))
+- Fix isort issues on Python 3.3.x. [\#93](https://github.com/ahawker/ulid/pull/93) ([ahawker](https://github.com/ahawker))
+- pyup.io:  Scheduled daily dependency update on wednesday [\#91](https://github.com/ahawker/ulid/pull/91) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on sunday [\#90](https://github.com/ahawker/ulid/pull/90) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on tuesday [\#84](https://github.com/ahawker/ulid/pull/84) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on saturday [\#83](https://github.com/ahawker/ulid/pull/83) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on saturday [\#81](https://github.com/ahawker/ulid/pull/81) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on friday [\#80](https://github.com/ahawker/ulid/pull/80) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on monday [\#79](https://github.com/ahawker/ulid/pull/79) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on wednesday [\#78](https://github.com/ahawker/ulid/pull/78) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on wednesday [\#77](https://github.com/ahawker/ulid/pull/77) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on wednesday [\#75](https://github.com/ahawker/ulid/pull/75) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on tuesday [\#74](https://github.com/ahawker/ulid/pull/74) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on sunday [\#73](https://github.com/ahawker/ulid/pull/73) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on saturday [\#72](https://github.com/ahawker/ulid/pull/72) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on monday [\#71](https://github.com/ahawker/ulid/pull/71) ([pyup-bot](https://github.com/pyup-bot))
+- Fix bug in overflow test where random bytes would be zero padded. [\#70](https://github.com/ahawker/ulid/pull/70) ([ahawker](https://github.com/ahawker))
+- Fix bit length computation for low value timestamps. [\#68](https://github.com/ahawker/ulid/pull/68) ([ahawker](https://github.com/ahawker))
+- Add isort support. [\#67](https://github.com/ahawker/ulid/pull/67) ([ahawker](https://github.com/ahawker))
+- Refactor tests to assert on exception messages. [\#66](https://github.com/ahawker/ulid/pull/66) ([ahawker](https://github.com/ahawker))
+
+## [v0.0.6](https://github.com/ahawker/ulid/tree/v0.0.6) (2017-10-28)
+[Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.5...v0.0.6)
+
+**Fixed bugs:**
+
+- Fix non-ascii character tests [\#61](https://github.com/ahawker/ulid/issues/61)
+- Properly handle invalid base32 characters [\#60](https://github.com/ahawker/ulid/issues/60)
+
+**Merged pull requests:**
+
+- TEST: Try requirements.txt symlink for services. This is a work-around for services that processes repositories and expect them to follow a static layout \(requirements.txt in the root\) and cannot configure a custom path. [\#69](https://github.com/ahawker/ulid/pull/69) ([ahawker](https://github.com/ahawker))
+- Fix missing validation of B32 charset when decoding. [\#63](https://github.com/ahawker/ulid/pull/63) ([ahawker](https://github.com/ahawker))
+- Fix non-ascii character set tests [\#62](https://github.com/ahawker/ulid/pull/62) ([ahawker](https://github.com/ahawker))
+
+## [v0.0.5](https://github.com/ahawker/ulid/tree/v0.0.5) (2017-10-26)
+[Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.4...v0.0.5)
+
+**Closed issues:**
+
+- Non-Crockford's Base32 letters converted differently in Java or Python implementations [\#58](https://github.com/ahawker/ulid/issues/58)
+
+**Merged pull requests:**
+
+- Add Python 3.7 Support [\#283](https://github.com/ahawker/ulid/pull/283) ([ahawker](https://github.com/ahawker))
+- Properly base32 decode 'iIoOlL' characters. [\#59](https://github.com/ahawker/ulid/pull/59) ([ahawker](https://github.com/ahawker))
+- pyup.io:  Scheduled daily dependency update on tuesday [\#57](https://github.com/ahawker/ulid/pull/57) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on saturday [\#55](https://github.com/ahawker/ulid/pull/55) ([pyup-bot](https://github.com/pyup-bot))
+- Use codecov.io for test coverage reporting. [\#54](https://github.com/ahawker/ulid/pull/54) ([ahawker](https://github.com/ahawker))
+- pyup.io:  Scheduled daily dependency update on saturday [\#53](https://github.com/ahawker/ulid/pull/53) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on thursday [\#52](https://github.com/ahawker/ulid/pull/52) ([pyup-bot](https://github.com/pyup-bot))
+- Add Hound CI support. [\#51](https://github.com/ahawker/ulid/pull/51) ([ahawker](https://github.com/ahawker))
+- Fix reported CodeClimate issues. [\#50](https://github.com/ahawker/ulid/pull/50) ([ahawker](https://github.com/ahawker))
+- Add CHANGELOG.md [\#49](https://github.com/ahawker/ulid/pull/49) ([ahawker](https://github.com/ahawker))
 - Add Python code security linting with bandit. [\#47](https://github.com/ahawker/ulid/pull/47) ([ahawker](https://github.com/ahawker))
 - Refactor security scan into separate Travis CI job. [\#46](https://github.com/ahawker/ulid/pull/46) ([ahawker](https://github.com/ahawker))
 - Refactor lint checking into separate Travis CI job. [\#45](https://github.com/ahawker/ulid/pull/45) ([ahawker](https://github.com/ahawker))
