@@ -9,7 +9,7 @@ coverage==4.5.2
 pytest<3.3.0; python_version < '3.4'  # pyup: ignore
 pytest==4.1.0; python_version >= '3.4'
 pytest-benchmark==3.1.1
-pytest-cov==2.6.0
+pytest-cov==2.6.1
 pytest-mock==1.6.3; python_version < '3.4'  # pyup: ignore
 pytest-mock==1.10.0; python_version >= '3.4'
 pytest-pep8==1.0.6
