@@ -27,6 +27,10 @@ RandomnessPrimitive = typing.Union[int, float, str, bytes, bytearray, memoryview
                                    ulid.Randomness, ulid.ULID]
 
 
+#: Type hint that defines multiple primitive types that can represent a full ULID.
+ULIDPrimitive = typing.Union[int, float, str, bytes, bytearray, memoryview, ulid.ULID]  # pylint: disable=invalid-name
+
+
 def new() -> ulid.ULID:
     """
     Create a new :class:`~ulid.ulid.ULID` instance.
@@ -40,6 +44,43 @@ def new() -> ulid.ULID:
     timestamp = int(time.time() * 1000).to_bytes(6, byteorder='big')
     randomness = os.urandom(10)
     return ulid.ULID(timestamp + randomness)
+
+
+def parse(value: ULIDPrimitive) -> ulid.ULID:
+    """
+    Create a new :class:`~ulid.ulid.ULID` instance from the given value.
+
+    .. note:: This method should only be used when the caller is trying to parse a ULID from
+    a value when they're unsure what format/primitive type it will be given in.
+
+    :param value: ULID value of any supported type
+    :type value: :class:`~ulid.api.ULIDPrimitive`
+    :return: ULID from value
+    :rtype: :class:`~ulid.ulid.ULID`
+    :raises ValueError: when unable to parse a ULID from the value
+    """
+    if isinstance(value, ulid.ULID):
+        return value
+    if isinstance(value, str):
+        len_value = len(value)
+        if len_value == 36:
+            return from_uuid(uuid.UUID(value))
+        if len_value == 32:
+            return from_uuid(uuid.UUID(value))
+        if len_value == 26:
+            return from_str(value)
+        if len_value == 16:
+            return from_randomness(value)
+        if len_value == 10:
+            return from_timestamp(value)
+        raise ValueError('Cannot create ULID from string of length {}'.format(len_value))
+    if isinstance(value, (int, float)):
+        return from_int(int(value))
+    if isinstance(value, (bytes, bytearray)):
+        return from_bytes(value)
+    if isinstance(value, memoryview):
+        return from_bytes(value.tobytes())
+    raise ValueError('Cannot create ULID from type {}'.format(value.__class__.__name__))
 
 
 def from_bytes(value: hints.Buffer) -> ulid.ULID:

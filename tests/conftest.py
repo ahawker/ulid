@@ -203,6 +203,15 @@ def invalid_str_10_16_26(request):
     return random_str(request.param, not_in=[10, 16, 26])
 
 
+@pytest.fixture(scope='function', params=range(0, 40))
+def invalid_str_10_16_26_32_36(request):
+    """
+    Fixture that yields :class:`~str` instances that are between 0 and 40 characters, except 10, 16, 26,
+    32, and 36.
+    """
+    return random_str(request.param, not_in=[10, 16, 26, 32, 36])
+
+
 @pytest.fixture(scope='function', params=[10, 16, 26])
 def ascii_non_base32_str_valid_length(request):
     """
