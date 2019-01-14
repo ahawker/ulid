@@ -66,6 +66,17 @@ def test_parse_returns_given_ulid_instance():
     assert instance == value
 
 
+def test_parse_returns_ulid_instance_from_uuid():
+    """
+    Assert that :func:`~ulid.api.parse` returns a new :class:`~ulid.ulid.ULID` instance
+    from the given :class:`~uuid.UUID`.
+    """
+    value = uuid.uuid4()
+    instance = api.parse(value)
+    assert isinstance(instance, ulid.ULID)
+    assert instance.bytes == value.bytes
+
+
 def test_parse_returns_ulid_instance_from_uuid_str():
     """
     Assert that :func:`~ulid.api.parse` returns a new :class:`~ulid.ulid.ULID` instance

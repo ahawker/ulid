@@ -28,7 +28,8 @@ RandomnessPrimitive = typing.Union[int, float, str, bytes, bytearray, memoryview
 
 
 #: Type hint that defines multiple primitive types that can represent a full ULID.
-ULIDPrimitive = typing.Union[int, float, str, bytes, bytearray, memoryview, ulid.ULID]  # pylint: disable=invalid-name
+ULIDPrimitive = typing.Union[int, float, str, bytes, bytearray, memoryview,  # pylint: disable=invalid-name
+                             uuid.UUID, ulid.ULID]
 
 
 def new() -> ulid.ULID:
@@ -61,6 +62,8 @@ def parse(value: ULIDPrimitive) -> ulid.ULID:
     """
     if isinstance(value, ulid.ULID):
         return value
+    if isinstance(value, uuid.UUID):
+        return from_uuid(value)
     if isinstance(value, str):
         len_value = len(value)
         if len_value == 36:
