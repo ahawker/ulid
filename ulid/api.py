@@ -12,7 +12,7 @@ import uuid
 
 from . import base32, hints, ulid
 
-__all__ = ['new', 'from_bytes', 'from_int', 'from_str', 'from_uuid', 'from_timestamp', 'from_randomness']
+__all__ = ['new', 'parse', 'from_bytes', 'from_int', 'from_str', 'from_uuid', 'from_timestamp', 'from_randomness']
 
 
 #: Type hint that defines multiple primitive types that can represent
