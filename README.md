@@ -82,6 +82,19 @@ Supports randomness values as `int`, `float`, `str`, `bytes`, `bytearray`, `memo
 >>> <ULID('01BJQHX2XEDK0VN0GMYWT9JN8S')>
 ```
 
+For cases when you don't necessarily control the data type (input from external system), you can use the `parse` method
+which will attempt to make the correct determination for you. Please note that this will be slightly slower than creating
+the instance from the respective `from_*` method as it needs to make a number of type/conditional checks.
+
+Supports values as `int`, `float`, `str`, `bytes`, `bytearray`, `memoryview`, `uuid.UUID`, and `ULID` types.
+
+```python
+>>> import ulid
+>>> value = db.model.get_id()  ## Unsure about datatype -- Could be int, UUID, or string?
+>>> ulid.parse(value)
+>>> <ULID('0K0EDFETFM8SH912DBBD4ABXSZ')>
+```
+
 Once you have a ULID object, there are a number of ways to interact with it.
 
 The `timestamp` method will give you a snapshot view of the first 48-bits of the ULID while the `randomness` method
