@@ -1,11 +1,21 @@
 # Change Log
 
+## [v0.0.9](https://github.com/ahawker/ulid/tree/v0.0.9) (2019-01-14)
+[Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.8...v0.0.9)
+
+**Implemented enhancements:**
+
+- API: Add from\_\* style method [\#313](https://github.com/ahawker/ulid/issues/313)
+
+**Merged pull requests:**
+
+- Expose `parse` to module interface [\#318](https://github.com/ahawker/ulid/pull/318) ([ahawker](https://github.com/ahawker))
+
 ## [v0.0.8](https://github.com/ahawker/ulid/tree/v0.0.8) (2019-01-14)
 [Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.7...v0.0.8)
 
 **Implemented enhancements:**
 
-- API: Add from\_\* style method [\#313](https://github.com/ahawker/ulid/issues/313)
 - Add Python 3.7 Support [\#282](https://github.com/ahawker/ulid/issues/282)
 - Full Windows Support [\#48](https://github.com/ahawker/ulid/issues/48)
 
