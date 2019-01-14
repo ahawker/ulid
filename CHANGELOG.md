@@ -1,16 +1,26 @@
 # Change Log
 
-## [Unreleased](https://github.com/ahawker/ulid/tree/HEAD)
-
-[Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.7...HEAD)
+## [v0.0.8](https://github.com/ahawker/ulid/tree/v0.0.8) (2019-01-14)
+[Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.7...v0.0.8)
 
 **Implemented enhancements:**
 
+- API: Add from\_\* style method [\#313](https://github.com/ahawker/ulid/issues/313)
 - Add Python 3.7 Support [\#282](https://github.com/ahawker/ulid/issues/282)
 - Full Windows Support [\#48](https://github.com/ahawker/ulid/issues/48)
 
+**Closed issues:**
+
+- Update Changelog [\#309](https://github.com/ahawker/ulid/issues/309)
+
 **Merged pull requests:**
 
+- pyup.io:  Scheduled daily dependency update on sunday [\#317](https://github.com/ahawker/ulid/pull/317) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on saturday [\#316](https://github.com/ahawker/ulid/pull/316) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on friday [\#315](https://github.com/ahawker/ulid/pull/315) ([pyup-bot](https://github.com/pyup-bot))
+- Add 'parse' to public API [\#314](https://github.com/ahawker/ulid/pull/314) ([ahawker](https://github.com/ahawker))
+- pyup.io:  Scheduled daily dependency update on tuesday [\#312](https://github.com/ahawker/ulid/pull/312) ([pyup-bot](https://github.com/pyup-bot))
+- Update CHANGELOG for latest releases [\#310](https://github.com/ahawker/ulid/pull/310) ([ahawker](https://github.com/ahawker))
 - pyup.io:  Scheduled daily dependency update on wednesday [\#308](https://github.com/ahawker/ulid/pull/308) ([pyup-bot](https://github.com/pyup-bot))
 - pyup.io:  Scheduled daily dependency update on tuesday [\#307](https://github.com/ahawker/ulid/pull/307) ([pyup-bot](https://github.com/pyup-bot))
 - pyup.io:  Scheduled daily dependency update on saturday [\#305](https://github.com/ahawker/ulid/pull/305) ([pyup-bot](https://github.com/pyup-bot))
