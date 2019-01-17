@@ -5,7 +5,7 @@
 -r base.txt
 
 bumpversion==0.5.3
-mypy==0.650
+mypy==0.660
 pylint==1.7.5; python_version < '2.7' or (python_version > '3.0' and python_version < '3.4')  # pyup: ignore
 pylint==2.2.2; (python_version > '2.7' and python_version < '3.0') or python_version >= '3.4'
 safety==1.8.4
