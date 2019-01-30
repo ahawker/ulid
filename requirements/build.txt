@@ -2,4 +2,4 @@
 #
 # Requirements necessary to build the ulid package.
 
-setuptools==40.6.3
+setuptools==40.7.1
