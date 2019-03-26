@@ -11,5 +11,5 @@ pytest==4.3.1; python_version >= '3.4'
 pytest-benchmark==3.2.2
 pytest-cov==2.6.1
 pytest-mock==1.6.3; python_version < '3.4'  # pyup: ignore
-pytest-mock==1.10.1; python_version >= '3.4'
+pytest-mock==1.10.2; python_version >= '3.4'
 pytest-pep8==1.0.6
