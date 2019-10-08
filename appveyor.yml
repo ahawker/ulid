@@ -2,10 +2,6 @@ build: off
 skip_branch_with_pr: true
 environment:
   matrix:
-    - PYTHON: "C:\\Python34-x64"
-      PYTHON_VERSION: "3.4.x"
-      PYTHON_ARCH: "64"
-      TOXENV: "py34"
     - PYTHON: "C:\\Python35-x64"
       PYTHON_VERSION: "3.5.x"
       PYTHON_ARCH: "64"
