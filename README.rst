@@ -27,14 +27,14 @@ To install ulid from `pip <https://pypi.python.org/pypi/pip>`__:
 
 .. code:: bash
 
-        $ pip install ulid-py
+       $ pip install ulid-py
 
 To install ulid from source:
 
 .. code:: bash
 
-        $ git clone git@github.com:ahawker/ulid.git
-        $ cd ulid && python setup.py install
+       $ git clone git@github.com:ahawker/ulid.git
+       $ cd ulid && python setup.py install
 
 Usage
 ~~~~~
@@ -50,9 +50,9 @@ The randomness value (80-bits) is from
 
 .. code:: python
 
-    >>> import ulid
-    >>> ulid.new()
-    <ULID('01BJQE4QTHMFP0S5J153XCFSP9')>
+   >>> import ulid
+   >>> ulid.new()
+   <ULID('01BJQE4QTHMFP0S5J153XCFSP9')>
 
 Create a new ULID from an existing 128-bit value, such as a
 `UUID <https://docs.python.org/3/library/uuid.html>`__.
@@ -61,12 +61,12 @@ Supports ULID values as ``int``, ``bytes``, ``str``, and ``UUID`` types.
 
 .. code:: python
 
-    >>> import ulid, uuid
-    >>> value = uuid.uuid4()
-    >>> value
-    UUID('0983d0a2-ff15-4d83-8f37-7dd945b5aa39')
-    >>> ulid.from_uuid(value)
-    <ULID('09GF8A5ZRN9P1RYDVXV52VBAHS')>
+   >>> import ulid, uuid
+   >>> value = uuid.uuid4()
+   >>> value
+   UUID('0983d0a2-ff15-4d83-8f37-7dd945b5aa39')
+   >>> ulid.from_uuid(value)
+   <ULID('09GF8A5ZRN9P1RYDVXV52VBAHS')>
 
 Create a new ULID from an existing timestamp value, such as a
 `datetime <https://docs.python.org/3/library/datetime.html#module-datetime>`__
@@ -78,9 +78,9 @@ types.
 
 .. code:: python
 
-    >>> import datetime, ulid
-    >>> ulid.from_timestamp(datetime.datetime(1999, 1, 1))
-    <ULID('00TM9HX0008S220A3PWSFVNFEH')>
+   >>> import datetime, ulid
+   >>> ulid.from_timestamp(datetime.datetime(1999, 1, 1))
+   <ULID('00TM9HX0008S220A3PWSFVNFEH')>
 
 Create a new ULID from an existing randomness value.
 
@@ -89,12 +89,12 @@ Supports randomness values as ``int``, ``float``, ``str``, ``bytes``,
 
 .. code:: python
 
-    >>> import os, ulid
-    >>> randomness = os.urandom(10)
-    >>> ulid.from_randomness(randomness)
-    >>> <ULID('01BJQHX2XEDK0VN0GMYWT9JN8S')>
+   >>> import os, ulid
+   >>> randomness = os.urandom(10)
+   >>> ulid.from_randomness(randomness)
+   >>> <ULID('01BJQHX2XEDK0VN0GMYWT9JN8S')>
 
-For cases when you don't necessarily control the data type (input from
+For cases when you don’t necessarily control the data type (input from
 external system), you can use the ``parse`` method which will attempt to
 make the correct determination for you. Please note that this will be
 slightly slower than creating the instance from the respective
@@ -106,10 +106,10 @@ Supports values as ``int``, ``float``, ``str``, ``bytes``,
 
 .. code:: python
 
-    >>> import ulid
-    >>> value = db.model.get_id()  ## Unsure about datatype -- Could be int, UUID, or string?
-    >>> ulid.parse(value)
-    >>> <ULID('0K0EDFETFM8SH912DBBD4ABXSZ')>
+   >>> import ulid
+   >>> value = db.model.get_id()  ## Unsure about datatype -- Could be int, UUID, or string?
+   >>> ulid.parse(value)
+   >>> <ULID('0K0EDFETFM8SH912DBBD4ABXSZ')>
 
 Once you have a ULID object, there are a number of ways to interact with
 it.
@@ -120,14 +120,14 @@ snapshot of the last 80-bits.
 
 .. code:: python
 
-    >>> import ulid
-    >>> u = ulid.new()
-    >>> u
-    <ULID('01BJQM7SC7D5VVTG3J68ABFQ3N')>
-    >>> u.timestamp()
-    <Timestamp('01BJQM7SC7')>
-    >>> u.randomness()
-    <Randomness('D5VVTG3J68ABFQ3N')>
+   >>> import ulid
+   >>> u = ulid.new()
+   >>> u
+   <ULID('01BJQM7SC7D5VVTG3J68ABFQ3N')>
+   >>> u.timestamp()
+   <Timestamp('01BJQM7SC7')>
+   >>> u.randomness()
+   <Randomness('D5VVTG3J68ABFQ3N')>
 
 The ``ULID``, ``Timestamp``, and ``Randomness`` classes all derive from
 the same base class, a ``MemoryView``.
@@ -137,42 +137,42 @@ for changing any values representation.
 
 .. code:: python
 
-    >>> import ulid
-    >>> u = ulid.new()
-    >>> u
-    <ULID('01BJQMF54D093DXEAWZ6JYRPAQ')>
-    >>> u.timestamp()
-    <Timestamp('01BJQMF54D')>
-    >>> u.timestamp().int
-    1497589322893
-    >>> u.timestamp().bytes
-    b'\x01\\\xafG\x94\x8d'
-    >>> u.timestamp().datetime
-    datetime.datetime(2017, 6, 16, 5, 2, 2, 893000)
-    >>> u.randomness().bytes
-    b'\x02F\xde\xb9\\\xf9\xa5\xecYW'
-    >>> u.bytes[6:] == u.randomness().bytes
-    True
-    >>> u.str
-    '01BJQMF54D093DXEAWZ6JYRPAQ'
-    >>> u.int
-    1810474399624548315999517391436142935
+   >>> import ulid
+   >>> u = ulid.new()
+   >>> u
+   <ULID('01BJQMF54D093DXEAWZ6JYRPAQ')>
+   >>> u.timestamp()
+   <Timestamp('01BJQMF54D')>
+   >>> u.timestamp().int
+   1497589322893
+   >>> u.timestamp().bytes
+   b'\x01\\\xafG\x94\x8d'
+   >>> u.timestamp().datetime
+   datetime.datetime(2017, 6, 16, 5, 2, 2, 893000)
+   >>> u.randomness().bytes
+   b'\x02F\xde\xb9\\\xf9\xa5\xecYW'
+   >>> u.bytes[6:] == u.randomness().bytes
+   True
+   >>> u.str
+   '01BJQMF54D093DXEAWZ6JYRPAQ'
+   >>> u.int
+   1810474399624548315999517391436142935
 
 A ``MemoryView`` also provides rich comparison functionality.
 
 .. code:: python
 
-    >>> import datetime, time, ulid
-    >>> u1 = ulid.new()
-    >>> time.sleep(5)
-    >>> u2 = ulid.new()
-    >>> u1 < u2
-    True
-    >>> u3 = ulid.from_timestamp(datetime.datetime(2039, 1, 1))
-    >>> u1 < u2 < u3
-    True
-    >>> [u.timestamp().datetime for u in sorted([u2, u3, u1])]
-    [datetime.datetime(2017, 6, 16, 5, 7, 14, 847000), datetime.datetime(2017, 6, 16, 5, 7, 26, 775000), datetime.datetime(2039, 1, 1, 8, 0)]
+   >>> import datetime, time, ulid
+   >>> u1 = ulid.new()
+   >>> time.sleep(5)
+   >>> u2 = ulid.new()
+   >>> u1 < u2
+   True
+   >>> u3 = ulid.from_timestamp(datetime.datetime(2039, 1, 1))
+   >>> u1 < u2 < u3
+   True
+   >>> [u.timestamp().datetime for u in sorted([u2, u3, u1])]
+   [datetime.datetime(2017, 6, 16, 5, 7, 14, 847000), datetime.datetime(2017, 6, 16, 5, 7, 26, 775000), datetime.datetime(2039, 1, 1, 8, 0)]
 
 Future Items
 ~~~~~~~~~~~~
@@ -206,7 +206,7 @@ Why not UUID?
 
 UUID can be suboptimal for many uses-cases because:
 
--  It isn't the most character efficient way of encoding 128 bits of
+-  It isn’t the most character efficient way of encoding 128 bits of
    randomness
 -  UUID v1/v2 is impractical in many environments, as it requires access
    to a unique, stable MAC address
@@ -222,7 +222,7 @@ ULID provides:
 -  Lexicographically sortable!
 -  Canonically encoded as a 26 character string, as opposed to the 36
    character UUID
--  Uses Crockford's base32 for better efficiency and readability (5 bits
+-  Uses Crockford’s base32 for better efficiency and readability (5 bits
    per character)
 -  Case insensitive
 -  No special characters (URL safe)
@@ -237,17 +237,17 @@ The binary format is implemented.
 
 ::
 
-     01AN4Z07BY      79KA1307SR9X4MV3
+    01AN4Z07BY      79KA1307SR9X4MV3
 
-    |----------|    |----------------|
-     Timestamp          Randomness
-      10chars            16chars
-       48bits             80bits
+   |----------|    |----------------|
+    Timestamp          Randomness
+     10chars            16chars
+      48bits             80bits
 
 Components
 ~~~~~~~~~~
 
-**Timestamp** \* 48 bit integer \* UNIX-time in milliseconds \* Won't
+**Timestamp** \* 48 bit integer \* UNIX-time in milliseconds \* Won’t
 run out of space till the year 10895 AD.
 
 **Randomness** \* 80 bits \* Cryptographically secure source of
@@ -263,12 +263,12 @@ must be used. Within the same millisecond, sort order is not guaranteed
 Encoding
 ~~~~~~~~
 
-Crockford's Base32 is used as shown. This alphabet excludes the letters
+Crockford’s Base32 is used as shown. This alphabet excludes the letters
 I, L, O, and U to avoid confusion and abuse.
 
 ::
 
-    0123456789ABCDEFGHJKMNPQRSTVWXYZ
+   0123456789ABCDEFGHJKMNPQRSTVWXYZ
 
 Binary Layout and Byte Order
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -278,28 +278,28 @@ the Most Significant Byte first (network byte order).
 
 ::
 
-    0                   1                   2                   3
-     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                      32_bit_uint_time_high                    |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |     16_bit_uint_time_low      |       16_bit_uint_random      |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                       32_bit_uint_random                      |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |                       32_bit_uint_random                      |
-    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                      32_bit_uint_time_high                    |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |     16_bit_uint_time_low      |       16_bit_uint_random      |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                       32_bit_uint_random                      |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |                       32_bit_uint_random                      |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 String Representation
 ~~~~~~~~~~~~~~~~~~~~~
 
 ::
 
-    ttttttttttrrrrrrrrrrrrrrrr
+   ttttttttttrrrrrrrrrrrrrrrr
 
-    where
-    t is Timestamp
-    r is Randomness
+   where
+   t is Timestamp
+   r is Randomness
 
 Links
 ~~~~~
