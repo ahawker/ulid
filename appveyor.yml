@@ -14,6 +14,10 @@ environment:
       PYTHON_VERSION: "3.7.x"
       PYTHON_ARCH: "64"
       TOXENV: "py37"
+    - PYTHON: "C:\\Python38-x64"
+      PYTHON_VERSION: "3.8.0"
+      PYTHON_ARCH: "64"
+      TOXENV: "py38"
 install:
   - ps: if (-not(Test-Path($env:PYTHON))) { & .ci\install.ps1 }
   - "choco install codecov"
