@@ -3,15 +3,15 @@ skip_branch_with_pr: true
 environment:
   matrix:
     - PYTHON: "C:\\Python35-x64"
-      PYTHON_VERSION: "3.5.x"
+      PYTHON_VERSION: "3.5.8"
       PYTHON_ARCH: "64"
       TOXENV: "py35"
     - PYTHON: "C:\\Python36-x64"
-      PYTHON_VERSION: "3.6.x"
+      PYTHON_VERSION: "3.6.9"
       PYTHON_ARCH: "64"
       TOXENV: "py36"
     - PYTHON: "C:\\Python37-x64"
-      PYTHON_VERSION: "3.7.x"
+      PYTHON_VERSION: "3.7.5"
       PYTHON_ARCH: "64"
       TOXENV: "py37"
     - PYTHON: "C:\\Python38-x64"
