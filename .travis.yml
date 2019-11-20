@@ -33,7 +33,7 @@ deploy:
   on:
     branch: master
     tags: true
-    condition: $TRAVIS_PYTHON_VERSION = "3.6"
+    condition: $TRAVIS_PYTHON_VERSION = "3.7"
 notifications:
   slack:
     secure: LiRVoggt16ZNgzVw7zuTejrTPF8s2LZUw6gKeqIlw8b6q/kyY+i94PVgFDT0qSugfUjq4L5/r48rJ7Vpd2coHDimmMx6OTyhTv2P0iCLTP9x5OdltEBsIV/4lsyKl5IHVaM4gjUIpfsDRJohGjccAa4XAIzWguojn2Ea2dVXjw3oYpGSMye4GKQfkbkUwz0PqumppniLE1LkwK9ing5kin5DQtqBIBu3bcuv1a956e3KODPvMfkaOlhHOXZjITBuqo8H2gcajmnH/U7d6fioVQKUKGS4/RwrEmZgiFhSsRiZJXJ/jal9RPpVAfIN81/Ke3PsWBZs/JBxQx2hcUpJKhO1Uyz/Nt0Ph6SiufO97H6MindN5+90PxU+a6eTfMY8vrtSPmfreo39TyjQWB58AZ5SoJ5jAq5ldbF/E6E+tLtRWNKdeY8iPzLSwACaxj5clxRPOGOgmmgmkJUomUXVKQe2EIa+MZtTcQGg6bU391vdfMGmSeMQxW76gsifGF5m1kKM+rw9arddN7MnbvXwPdQ7so/ZYiWnlGgh/mestiKpAPf7WUHhrBMQ5L9sSLbEwETPbZehs1kYk4GS2tZ566b8pR6kejEvS0HpSIawtxdTfRy7DWcatRbuiTkynW028HDqEuNJrf1RDP1onaYBArGji1sP8DT+QQV2nLssddI=
