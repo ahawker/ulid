@@ -40,6 +40,8 @@ setup(
     description='Universally Unique Lexicographically Sortable Identifier',
     long_description=get_long_description(),
     packages=['ulid'],
+    package_data={'ulid': ['ulid/py.typed']},
+    zip_safe=False,
     classifiers=(
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
