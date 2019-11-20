@@ -2,7 +2,15 @@
 
 ## [Unreleased](https://github.com/ahawker/ulid/tree/HEAD)
 
-[Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.9...HEAD)
+[Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.10...HEAD)
+
+**Merged pull requests:**
+
+- Change travis deploy version to 3.7 so there aren't duplicates [\#428](https://github.com/ahawker/ulid/pull/428) ([ahawker](https://github.com/ahawker))
+- Remove README.rst and switch setup.py to use markdown version [\#427](https://github.com/ahawker/ulid/pull/427) ([ahawker](https://github.com/ahawker))
+
+## [v0.0.10](https://github.com/ahawker/ulid/tree/v0.0.10) (2019-11-20)
+[Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.9...v0.0.10)
 
 **Implemented enhancements:**
 
