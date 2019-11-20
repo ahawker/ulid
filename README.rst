@@ -9,8 +9,6 @@ ulid
 
 |Documentation Status|
 
-|Stories in Ready|
-
 `Universally Unique Lexicographically Sortable
 Identifier <https://github.com/alizain/ulid>`__ in `Python
 3 <https://www.python.org/>`__.
@@ -326,5 +324,3 @@ Links
    :target: https://pyup.io/repos/github/ahawker/ulid/
 .. |Documentation Status| image:: https://readthedocs.org/projects/ulid/badge/?version=latest
    :target: http://ulid.readthedocs.io/en/latest/?badge=latest
-.. |Stories in Ready| image:: https://badge.waffle.io/ahawker/ulid.svg?label=ready&title=Ready
-   :target: http://waffle.io/ahawker/ulid
