@@ -10,6 +10,13 @@
 
 **Merged pull requests:**
 
+- Add PEP561 Support [\#426](https://github.com/ahawker/ulid/pull/426) ([ahawker](https://github.com/ahawker))
+- pyup.io:  Scheduled weekly dependency update for week 44 [\#425](https://github.com/ahawker/ulid/pull/425) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled weekly dependency update for week 43 [\#424](https://github.com/ahawker/ulid/pull/424) ([pyup-bot](https://github.com/pyup-bot))
+- Add python 3.8 support [\#423](https://github.com/ahawker/ulid/pull/423) ([ahawker](https://github.com/ahawker))
+- pyup.io:  Scheduled weekly dependency update for week 42 [\#422](https://github.com/ahawker/ulid/pull/422) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled daily dependency update on Thursday [\#420](https://github.com/ahawker/ulid/pull/420) ([pyup-bot](https://github.com/pyup-bot))
+- Update CHANGELOG.md based on latest [\#417](https://github.com/ahawker/ulid/pull/417) ([ahawker](https://github.com/ahawker))
 - Update README.rst from latest README.md [\#416](https://github.com/ahawker/ulid/pull/416) ([ahawker](https://github.com/ahawker))
 - Remove py34 support [\#415](https://github.com/ahawker/ulid/pull/415) ([ahawker](https://github.com/ahawker))
 - Don't use tox with appveyor to fix py35 setup issue [\#414](https://github.com/ahawker/ulid/pull/414) ([ahawker](https://github.com/ahawker))
