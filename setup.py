@@ -26,7 +26,7 @@ def get_version():
 
 
 def get_long_description():
-    with open('README.rst') as f:
+    with open('README.md') as f:
         return f.read()
 
 
@@ -39,6 +39,7 @@ setup(
     license='Apache 2.0',
     description='Universally Unique Lexicographically Sortable Identifier',
     long_description=get_long_description(),
+    long_description_content_type='text/markdown',
     packages=['ulid'],
     package_data={'ulid': ['ulid/py.typed']},
     zip_safe=False,
