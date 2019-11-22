@@ -30,6 +30,8 @@ class MemoryView:
             return self.memory == other
         if isinstance(other, int):
             return self.int == other
+        if isinstance(other, float):
+            return self.float == other
         if isinstance(other, str):
             return self.str == other
         return NotImplemented
@@ -41,6 +43,8 @@ class MemoryView:
             return self.memory != other
         if isinstance(other, int):
             return self.int != other
+        if isinstance(other, float):
+            return self.float != other
         if isinstance(other, str):
             return self.str != other
         return NotImplemented
@@ -54,6 +58,8 @@ class MemoryView:
             return self.bytes < other.tobytes()
         if isinstance(other, int):
             return self.int < other
+        if isinstance(other, float):
+            return self.float < other
         if isinstance(other, str):
             return self.str < other
         return NotImplemented
@@ -67,6 +73,8 @@ class MemoryView:
             return self.bytes > other.tobytes()
         if isinstance(other, int):
             return self.int > other
+        if isinstance(other, float):
+            return self.float > other
         if isinstance(other, str):
             return self.str > other
         return NotImplemented
@@ -80,6 +88,8 @@ class MemoryView:
             return self.bytes <= other.tobytes()
         if isinstance(other, int):
             return self.int <= other
+        if isinstance(other, float):
+            return self.float <= other
         if isinstance(other, str):
             return self.str <= other
         return NotImplemented
@@ -93,12 +103,17 @@ class MemoryView:
             return self.bytes >= other.tobytes()
         if isinstance(other, int):
             return self.int >= other
+        if isinstance(other, float):
+            return self.float >= other
         if isinstance(other, str):
             return self.str >= other
         return NotImplemented
 
     def __hash__(self):
         return hash(self.memory)
+
+    def __float__(self):
+        return self.float
 
     def __int__(self):
         return self.int
@@ -118,6 +133,16 @@ class MemoryView:
         :rtype: :class:`~bytes`
         """
         return self.memory.tobytes()
+
+    @property
+    def float(self) -> hints.Float:
+        """
+        Computes the float value of the underlying :class:`~memoryview` in big-endian byte order.
+
+        :return: Bytes in float form.
+        :rtype: :class:`~float`
+        """
+        return float(self.int)
 
     @property
     def int(self) -> hints.Int:

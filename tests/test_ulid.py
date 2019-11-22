@@ -96,6 +96,7 @@ def test_model_supports_eq_with_expected_types(model_with_eq_bytes):
     assert model == bytearray(equal_bytes)
     assert model == memoryview(equal_bytes)
     assert model == int.from_bytes(equal_bytes, byteorder='big')
+    assert model == float(int.from_bytes(equal_bytes, byteorder='big'))
     assert model == base32.encode(equal_bytes)
 
 
@@ -111,6 +112,7 @@ def test_model_supports_ne_with_expected_types(model_with_ne_bytes):
     assert model != bytearray(not_equal_bytes)
     assert model != memoryview(not_equal_bytes)
     assert model != int.from_bytes(not_equal_bytes, byteorder='big')
+    assert model != float(int.from_bytes(not_equal_bytes, byteorder='big'))
     assert model != base32.encode(not_equal_bytes)
 
 
@@ -126,6 +128,7 @@ def test_model_supports_lt_with_expected_types(model_with_ordered_bytes):
     assert model < bytearray(greater_than_bytes)
     assert model < memoryview(greater_than_bytes)
     assert model < int.from_bytes(greater_than_bytes, byteorder='big')
+    assert model < float(int.from_bytes(greater_than_bytes, byteorder='big'))
     assert model < base32.encode(greater_than_bytes)
 
 
@@ -141,6 +144,7 @@ def test_model_supports_gt_with_expected_types(model_with_ordered_bytes):
     assert model > bytearray(less_than_bytes)
     assert model > memoryview(less_than_bytes)
     assert model > int.from_bytes(less_than_bytes, byteorder='big')
+    assert model > float(int.from_bytes(less_than_bytes, byteorder='big'))
     assert model > base32.encode(less_than_bytes)
 
 
@@ -156,6 +160,7 @@ def test_model_supports_le_with_expected_types(model_with_ordered_bytes):
     assert model <= bytearray(less_than_bytes)
     assert model <= memoryview(less_than_bytes)
     assert model <= int.from_bytes(less_than_bytes, byteorder='big')
+    assert model <= float(int.from_bytes(less_than_bytes, byteorder='big'))
     assert model <= base32.encode(less_than_bytes)
 
     assert model <= ulid.MemoryView(greater_than_bytes)
@@ -163,6 +168,7 @@ def test_model_supports_le_with_expected_types(model_with_ordered_bytes):
     assert model <= bytearray(greater_than_bytes)
     assert model <= memoryview(greater_than_bytes)
     assert model <= int.from_bytes(greater_than_bytes, byteorder='big')
+    assert model <= float(int.from_bytes(greater_than_bytes, byteorder='big'))
     assert model <= base32.encode(greater_than_bytes)
 
 
@@ -178,6 +184,7 @@ def test_model_supports_ge_with_expected_types(model_with_ordered_bytes):
     assert model >= bytearray(greater_than_bytes)
     assert model >= memoryview(greater_than_bytes)
     assert model >= int.from_bytes(greater_than_bytes, byteorder='big')
+    assert model >= float(int.from_bytes(greater_than_bytes, byteorder='big'))
     assert model >= base32.encode(greater_than_bytes)
 
     assert model >= ulid.MemoryView(less_than_bytes)
@@ -185,6 +192,7 @@ def test_model_supports_ge_with_expected_types(model_with_ordered_bytes):
     assert model >= bytearray(less_than_bytes)
     assert model >= memoryview(less_than_bytes)
     assert model >= int.from_bytes(less_than_bytes, byteorder='big')
+    assert model >= float(int.from_bytes(less_than_bytes, byteorder='big'))
     assert model >= base32.encode(less_than_bytes)
 
 
@@ -231,6 +239,15 @@ def test_memoryview_supports_int(valid_bytes_128):
     """
     mv = ulid.MemoryView(valid_bytes_128)
     assert int(mv) == mv.int
+
+
+def test_memoryview_supports_float(valid_bytes_128):
+    """
+    Assert that the `float` representation of a :class:`~ulid.ulid.MemoryView` is equal to the
+    result of the :meth:`~ulid.ulid.MemoryView.float` method.
+    """
+    mv = ulid.MemoryView(valid_bytes_128)
+    assert float(mv) == mv.float
 
 
 def test_memoryview_defines_hash(valid_bytes_128):
