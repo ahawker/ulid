@@ -49,7 +49,7 @@ author = 'Andrew Hawker'
 # built documents.
 #
 # The short X.Y version.
-version = '0.0.11'
+version = '0.0.12'
 # The full version, including alpha/beta/rc tags.
 release = version
 
