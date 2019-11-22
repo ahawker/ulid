@@ -112,6 +112,9 @@ class MemoryView:
     def __hash__(self):
         return hash(self.memory)
 
+    def __bytes__(self):
+        return self.bytes
+
     def __float__(self):
         return self.float
 

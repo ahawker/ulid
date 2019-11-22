@@ -223,6 +223,15 @@ def test_memoryview_unorderble_with_unsupported_type(valid_bytes_128, unsupporte
             op(mv, unsupported_comparison_type())
 
 
+def test_memoryview_supports_bytes(valid_bytes_128):
+    """
+    Assert that the `bytes` representation of a :class:`~ulid.ulid.MemoryView` is equal to the
+    result of the :meth:`~ulid.ulid.MemoryView.bytes` method.
+    """
+    mv = ulid.MemoryView(valid_bytes_128)
+    assert bytes(mv) == mv.bytes
+
+
 def test_memoryview_supports_str(valid_bytes_128):
     """
     Assert that the `str` representation of a :class:`~ulid.ulid.MemoryView` is equal to the
