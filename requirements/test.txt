@@ -4,7 +4,7 @@
 
 -r dev.txt
 
-coverage==4.5.4
+coverage==5.0.3
 
 pytest<3.3.0; python_version < '3.4'  # pyup: ignore
 pytest==4.6.5; python_version == '3.4'  # pyup: ignore
