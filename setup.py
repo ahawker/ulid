@@ -41,7 +41,7 @@ setup(
     long_description=get_long_description(),
     long_description_content_type='text/markdown',
     packages=['ulid'],
-    package_data={'ulid': ['ulid/py.typed']},
+    package_data={'ulid': ['py.typed']},
     zip_safe=False,
     classifiers=(
         'Development Status :: 4 - Beta',
