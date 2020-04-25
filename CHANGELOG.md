@@ -1,8 +1,27 @@
 # Change Log
 
-## [Unreleased](https://github.com/ahawker/ulid/tree/HEAD)
+## [v0.0.14](https://github.com/ahawker/ulid/tree/v0.0.14) (2020-04-25)
+[Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.13...v0.0.14)
 
-[Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.10...HEAD)
+## [v0.0.13](https://github.com/ahawker/ulid/tree/v0.0.13) (2020-04-25)
+[Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.12...v0.0.13)
+
+**Merged pull requests:**
+
+- fix py.typed path [\#441](https://github.com/ahawker/ulid/pull/441) ([kentac55](https://github.com/kentac55))
+- pyup.io:  Scheduled weekly dependency update for week 06 [\#432](https://github.com/ahawker/ulid/pull/432) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled weekly dependency update for week 05 [\#431](https://github.com/ahawker/ulid/pull/431) ([pyup-bot](https://github.com/pyup-bot))
+
+## [v0.0.12](https://github.com/ahawker/ulid/tree/v0.0.12) (2019-11-22)
+[Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.11...v0.0.12)
+
+**Merged pull requests:**
+
+- Add \_\_bytes\_\_ support to MemoryView [\#430](https://github.com/ahawker/ulid/pull/430) ([ahawker](https://github.com/ahawker))
+- Add float support to MemoryView [\#429](https://github.com/ahawker/ulid/pull/429) ([ahawker](https://github.com/ahawker))
+
+## [v0.0.11](https://github.com/ahawker/ulid/tree/v0.0.11) (2019-11-20)
+[Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.10...v0.0.11)
 
 **Merged pull requests:**
 
