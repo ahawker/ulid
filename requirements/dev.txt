@@ -4,7 +4,7 @@
 
 -r base.txt
 
-bumpversion==0.5.3
+bumpversion==0.6.0
 mypy==0.670; python_version <= '3.4'  # pyup: ignore
 mypy==0.770; python_version > '3.4'
 pylint==1.7.5; python_version < '2.7' or (python_version > '3.0' and python_version < '3.4')  # pyup: ignore
