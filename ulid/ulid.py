@@ -5,11 +5,16 @@
     Object representation of a ULID.
 """
 import datetime
+import typing
 import uuid
 
 from . import base32, hints
 
 __all__ = ['Timestamp', 'Randomness', 'ULID']
+
+
+#: Type hint that defines multiple primitive types and itself for comparing MemoryView instances.
+MemoryViewPrimitive = typing.Union['MemoryView', hints.Primitive]  # pylint: disable=invalid-name
 
 
 class MemoryView:
@@ -20,10 +25,10 @@ class MemoryView:
 
     __slots__ = ['memory']
 
-    def __init__(self, buffer):
+    def __init__(self, buffer: hints.Buffer) -> None:
         self.memory = memoryview(buffer)
 
-    def __eq__(self, other):
+    def __eq__(self, other: MemoryViewPrimitive) -> hints.Bool:  # type: ignore[override]
         if isinstance(other, MemoryView):
             return self.memory == other.memory
         if isinstance(other, (bytes, bytearray, memoryview)):
@@ -36,7 +41,7 @@ class MemoryView:
             return self.str == other
         return NotImplemented
 
-    def __ne__(self, other):
+    def __ne__(self, other: MemoryViewPrimitive) -> hints.Bool:  # type: ignore[override]
         if isinstance(other, MemoryView):
             return self.memory != other.memory
         if isinstance(other, (bytes, bytearray, memoryview)):
@@ -49,7 +54,7 @@ class MemoryView:
             return self.str != other
         return NotImplemented
 
-    def __lt__(self, other):
+    def __lt__(self, other: MemoryViewPrimitive) -> hints.Bool:
         if isinstance(other, MemoryView):
             return self.int < other.int
         if isinstance(other, (bytes, bytearray)):
@@ -64,7 +69,7 @@ class MemoryView:
             return self.str < other
         return NotImplemented
 
-    def __gt__(self, other):
+    def __gt__(self, other: MemoryViewPrimitive) -> hints.Bool:
         if isinstance(other, MemoryView):
             return self.int > other.int
         if isinstance(other, (bytes, bytearray)):
@@ -79,7 +84,7 @@ class MemoryView:
             return self.str > other
         return NotImplemented
 
-    def __le__(self, other):
+    def __le__(self, other: MemoryViewPrimitive) -> hints.Bool:
         if isinstance(other, MemoryView):
             return self.int <= other.int
         if isinstance(other, (bytes, bytearray)):
@@ -94,7 +99,7 @@ class MemoryView:
             return self.str <= other
         return NotImplemented
 
-    def __ge__(self, other):
+    def __ge__(self, other: MemoryViewPrimitive) -> hints.Bool:
         if isinstance(other, MemoryView):
             return self.int >= other.int
         if isinstance(other, (bytes, bytearray)):
@@ -109,22 +114,22 @@ class MemoryView:
             return self.str >= other
         return NotImplemented
 
-    def __hash__(self):
+    def __hash__(self) -> hints.Int:
         return hash(self.memory)
 
-    def __bytes__(self):
+    def __bytes__(self) -> hints.Bytes:
         return self.bytes
 
-    def __float__(self):
+    def __float__(self) -> hints.Float:
         return self.float
 
-    def __int__(self):
+    def __int__(self) -> hints.Int:
         return self.int
 
-    def __repr__(self):
+    def __repr__(self) -> hints.Str:
         return '<{}({!r})>'.format(self.__class__.__name__, str(self))
 
-    def __str__(self):
+    def __str__(self) -> hints.Str:
         return self.str
 
     @property
