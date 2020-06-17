@@ -60,7 +60,7 @@ isort:  ## Run isort on the package.
 
 .PHONY: mypy
 mypy:  ## Run mypy static analysis checks on the package.
-	@mypy ulid
+	@mypy ulid --strict
 
 .PHONY: pylint
 pylint:  ## Run pylint on the package.
