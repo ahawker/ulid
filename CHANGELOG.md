@@ -1,10 +1,25 @@
-# Change Log
+# Changelog
+
+## [v0.1.0](https://github.com/ahawker/ulid/tree/v0.1.0) (2020-06-17)
+
+[Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.14...v0.1.0)
+
+**Closed issues:**
+
+- deepcopy doesn't work on ULID object [\#452](https://github.com/ahawker/ulid/issues/452)
+- Problems with using ulid with `mypy --strict` [\#450](https://github.com/ahawker/ulid/issues/450)
+
+**Merged pull requests:**
+
+- Add pickle support [\#455](https://github.com/ahawker/ulid/pull/455) ([ahawker](https://github.com/ahawker))
+- Explicitly define public api in \_\_init\_\_.py [\#454](https://github.com/ahawker/ulid/pull/454) ([ahawker](https://github.com/ahawker))
+- Support mypy strict [\#453](https://github.com/ahawker/ulid/pull/453) ([ahawker](https://github.com/ahawker))
+- pyup.io:  Scheduled weekly dependency update for week 24 [\#451](https://github.com/ahawker/ulid/pull/451) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled weekly dependency update for week 16 [\#442](https://github.com/ahawker/ulid/pull/442) ([pyup-bot](https://github.com/pyup-bot))
 
 ## [v0.0.14](https://github.com/ahawker/ulid/tree/v0.0.14) (2020-04-25)
-[Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.13...v0.0.14)
 
-## [v0.0.13](https://github.com/ahawker/ulid/tree/v0.0.13) (2020-04-25)
-[Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.12...v0.0.13)
+[Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.13...v0.0.14)
 
 **Merged pull requests:**
 
@@ -12,7 +27,12 @@
 - pyup.io:  Scheduled weekly dependency update for week 06 [\#432](https://github.com/ahawker/ulid/pull/432) ([pyup-bot](https://github.com/pyup-bot))
 - pyup.io:  Scheduled weekly dependency update for week 05 [\#431](https://github.com/ahawker/ulid/pull/431) ([pyup-bot](https://github.com/pyup-bot))
 
+## [v0.0.13](https://github.com/ahawker/ulid/tree/v0.0.13) (2020-04-25)
+
+[Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.12...v0.0.13)
+
 ## [v0.0.12](https://github.com/ahawker/ulid/tree/v0.0.12) (2019-11-22)
+
 [Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.11...v0.0.12)
 
 **Merged pull requests:**
@@ -21,6 +41,7 @@
 - Add float support to MemoryView [\#429](https://github.com/ahawker/ulid/pull/429) ([ahawker](https://github.com/ahawker))
 
 ## [v0.0.11](https://github.com/ahawker/ulid/tree/v0.0.11) (2019-11-20)
+
 [Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.10...v0.0.11)
 
 **Merged pull requests:**
@@ -29,6 +50,7 @@
 - Remove README.rst and switch setup.py to use markdown version [\#427](https://github.com/ahawker/ulid/pull/427) ([ahawker](https://github.com/ahawker))
 
 ## [v0.0.10](https://github.com/ahawker/ulid/tree/v0.0.10) (2019-11-20)
+
 [Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.9...v0.0.10)
 
 **Implemented enhancements:**
@@ -110,6 +132,7 @@
 - pyup.io:  Scheduled daily dependency update on thursday [\#319](https://github.com/ahawker/ulid/pull/319) ([pyup-bot](https://github.com/pyup-bot))
 
 ## [v0.0.9](https://github.com/ahawker/ulid/tree/v0.0.9) (2019-01-14)
+
 [Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.8...v0.0.9)
 
 **Implemented enhancements:**
@@ -121,6 +144,7 @@
 - Expose `parse` to module interface [\#318](https://github.com/ahawker/ulid/pull/318) ([ahawker](https://github.com/ahawker))
 
 ## [v0.0.8](https://github.com/ahawker/ulid/tree/v0.0.8) (2019-01-14)
+
 [Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.7...v0.0.8)
 
 **Implemented enhancements:**
@@ -161,8 +185,10 @@
 - pyup.io:  Scheduled daily dependency update on thursday [\#287](https://github.com/ahawker/ulid/pull/287) ([pyup-bot](https://github.com/pyup-bot))
 - pyup.io:  Scheduled daily dependency update on tuesday [\#285](https://github.com/ahawker/ulid/pull/285) ([pyup-bot](https://github.com/pyup-bot))
 - Switch from 3.7-dev to 3.7 on xenial. [\#284](https://github.com/ahawker/ulid/pull/284) ([ahawker](https://github.com/ahawker))
+- pyup.io:  Scheduled daily dependency update on tuesday [\#281](https://github.com/ahawker/ulid/pull/281) ([pyup-bot](https://github.com/pyup-bot))
 
 ## [v0.0.7](https://github.com/ahawker/ulid/tree/v0.0.7) (2018-10-09)
+
 [Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.6...v0.0.7)
 
 **Implemented enhancements:**
@@ -175,7 +201,7 @@
 
 **Merged pull requests:**
 
-- pyup.io:  Scheduled daily dependency update on tuesday [\#281](https://github.com/ahawker/ulid/pull/281) ([pyup-bot](https://github.com/pyup-bot))
+- Add Python 3.7 Support [\#283](https://github.com/ahawker/ulid/pull/283) ([ahawker](https://github.com/ahawker))
 - pyup.io:  Scheduled daily dependency update on monday [\#279](https://github.com/ahawker/ulid/pull/279) ([pyup-bot](https://github.com/pyup-bot))
 - pyup.io:  Scheduled daily dependency update on saturday [\#278](https://github.com/ahawker/ulid/pull/278) ([pyup-bot](https://github.com/pyup-bot))
 - pyup.io:  Scheduled daily dependency update on wednesday [\#277](https://github.com/ahawker/ulid/pull/277) ([pyup-bot](https://github.com/pyup-bot))
@@ -223,6 +249,7 @@
 - Refactor tests to assert on exception messages. [\#66](https://github.com/ahawker/ulid/pull/66) ([ahawker](https://github.com/ahawker))
 
 ## [v0.0.6](https://github.com/ahawker/ulid/tree/v0.0.6) (2017-10-28)
+
 [Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.5...v0.0.6)
 
 **Fixed bugs:**
@@ -232,11 +259,11 @@
 
 **Merged pull requests:**
 
-- TEST: Try requirements.txt symlink for services. This is a work-around for services that processes repositories and expect them to follow a static layout \(requirements.txt in the root\) and cannot configure a custom path. [\#69](https://github.com/ahawker/ulid/pull/69) ([ahawker](https://github.com/ahawker))
 - Fix missing validation of B32 charset when decoding. [\#63](https://github.com/ahawker/ulid/pull/63) ([ahawker](https://github.com/ahawker))
 - Fix non-ascii character set tests [\#62](https://github.com/ahawker/ulid/pull/62) ([ahawker](https://github.com/ahawker))
 
 ## [v0.0.5](https://github.com/ahawker/ulid/tree/v0.0.5) (2017-10-26)
+
 [Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.4...v0.0.5)
 
 **Closed issues:**
@@ -245,7 +272,6 @@
 
 **Merged pull requests:**
 
-- Add Python 3.7 Support [\#283](https://github.com/ahawker/ulid/pull/283) ([ahawker](https://github.com/ahawker))
 - Properly base32 decode 'iIoOlL' characters. [\#59](https://github.com/ahawker/ulid/pull/59) ([ahawker](https://github.com/ahawker))
 - pyup.io:  Scheduled daily dependency update on tuesday [\#57](https://github.com/ahawker/ulid/pull/57) ([pyup-bot](https://github.com/pyup-bot))
 - pyup.io:  Scheduled daily dependency update on saturday [\#55](https://github.com/ahawker/ulid/pull/55) ([pyup-bot](https://github.com/pyup-bot))
@@ -262,6 +288,7 @@
 - pyup.io:  Scheduled daily dependency update on thursday [\#42](https://github.com/ahawker/ulid/pull/42) ([pyup-bot](https://github.com/pyup-bot))
 
 ## [v0.0.4](https://github.com/ahawker/ulid/tree/v0.0.4) (2017-09-22)
+
 [Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.3...v0.0.4)
 
 **Implemented enhancements:**
@@ -297,6 +324,7 @@
 - Add waffle.io badge. [\#15](https://github.com/ahawker/ulid/pull/15) ([ahawker](https://github.com/ahawker))
 
 ## [v0.0.3](https://github.com/ahawker/ulid/tree/v0.0.3) (2017-06-25)
+
 [Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.2...v0.0.3)
 
 **Implemented enhancements:**
@@ -317,5 +345,8 @@
 
 ## [v0.0.2](https://github.com/ahawker/ulid/tree/v0.0.2) (2017-06-16)
 
+[Full Changelog](https://github.com/ahawker/ulid/compare/51f69c6abf0b31dfaa62fa80eec2ccae32e721ee...v0.0.2)
 
-\* *This Change Log was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)*
+
+
+\* *This Changelog was automatically generated by [github_changelog_generator](https://github.com/github-changelog-generator/github-changelog-generator)*
