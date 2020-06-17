@@ -40,7 +40,7 @@ def unsupported_type(request):
     return request.param
 
 
-@pytest.fixture('session', params=[bytes, bytearray, memoryview])
+@pytest.fixture(scope='session', params=[bytes, bytearray, memoryview])
 def buffer_type(request):
     """
     Fixture that yields types that support the buffer protocol.
