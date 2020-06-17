@@ -24,4 +24,4 @@ ULID = ulid.ULID
 
 __all__ = api.__all__ + ulid.__all__
 
-__version__ = '0.0.14'
+__version__ = '0.1.0'
