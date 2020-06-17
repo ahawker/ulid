@@ -4,6 +4,8 @@
 
     Tests for validating reported bugs have been fixed.
 """
+import copy
+
 import pytest
 
 from ulid import api
@@ -35,3 +37,13 @@ def test_github_issue_61():
     for s in ('01BX73KC0TNH409RTFD1uXKM00', '01BX73KC0TNH409RTFD1UXKM00'):
         with pytest.raises(ValueError):
             api.from_str(s)
+
+
+def test_github_issue_452():
+    """
+    Assert that :class:`~ulid.ulid.ULID` will not raise during a deepcopy.
+
+    Issue: https://github.com/ahawker/ulid/issues/452
+    """
+    result = copy.deepcopy(api.new())
+    assert result is not None

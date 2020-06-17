@@ -4,8 +4,10 @@
 
     Tests for the :mod:`~ulid.ulid` module.
 """
+import copy
 import datetime
 import operator
+import pickle
 import time
 import uuid
 
@@ -259,13 +261,56 @@ def test_memoryview_supports_float(valid_bytes_128):
     assert float(mv) == mv.float
 
 
-def test_memoryview_defines_hash(valid_bytes_128):
+def test_memoryview_supports_hash(valid_bytes_128):
     """
     Assert that the `hash` representation of a :class:`~ulid.ulid.MemoryView` is equal to the
     hash result of the underlying :class:`~memoryview.`
     """
     mv = ulid.MemoryView(valid_bytes_128)
     assert hash(mv) == hash(mv.memory)
+
+
+def test_memoryview_supports_getstate(valid_bytes_128):
+    """
+    Assert that the `__getstate__` representation of a :class:`~ulid.ulid.MemoryView` is equal to the
+    str result of the underlying :class:`~memoryview.`
+    """
+    mv = ulid.MemoryView(valid_bytes_128)
+    assert mv.__getstate__() == mv.str
+
+
+def test_memoryview_supports_pickle(valid_bytes_128):
+    """
+    Assert that instances of :class:`~ulid.ulid.MemoryView` can be pickled and use the
+    the str result of the underlying :class:`~memoryview.` as the serialized value.
+    """
+    mv = ulid.MemoryView(valid_bytes_128)
+    serialized = pickle.dumps(mv)
+    assert serialized is not None
+    assert isinstance(serialized, bytes)
+    deserialized = pickle.loads(serialized)
+    assert deserialized == mv.str
+
+
+def test_memoryview_supports_copy(valid_bytes_128):
+    """
+    Assert that instances of :class:`~ulid.ulid.MemoryView` can be copied using
+    :func:`~copy.copy`.
+    """
+    mv = ulid.MemoryView(valid_bytes_128)
+    copied = copy.copy(mv)
+    assert copied == mv
+
+
+def test_memoryview_supports_deepcopy(valid_bytes_128):
+    """
+    Assert that instances of :class:`~ulid.ulid.MemoryView` can be copied using
+    :func:`~copy.deepcopy`.
+    """
+    mv = ulid.MemoryView(valid_bytes_128)
+    data = dict(a=dict(b=dict(c=mv)))
+    copied = copy.deepcopy(data)
+    assert copied == data
 
 
 def test_timestamp_coverts_bytes_to_unix_time_seconds():

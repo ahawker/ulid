@@ -132,6 +132,12 @@ class MemoryView:
     def __str__(self) -> hints.Str:
         return self.str
 
+    def __getstate__(self) -> hints.Str:
+        return self.str
+
+    def __setstate__(self, state: hints.Str) -> None:
+        self.memory = memoryview(base32.decode(state))
+
     @property
     def bytes(self) -> hints.Bytes:
         """
