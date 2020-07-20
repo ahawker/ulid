@@ -4,4 +4,4 @@
 
 -r build.txt
 
-typing==3.7.4.1; python_version < '3.6'
+typing==3.7.4.3; python_version < '3.6'
