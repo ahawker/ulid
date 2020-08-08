@@ -13,4 +13,5 @@ pylint==2.5.3; python_version > '3.4'
 safety==1.9.0
 bandit==1.6.2
 isort==4.2.15; (python_version > '3.0' and python_version < '3.4')  # pyup: ignore
-isort==5.2.2; (python_version > '2.7' and python_version < '3.0') or python_version >= '3.4'
+isort==4.3.21; python_version == '3.5'  # pyup: ignore
+isort==5.2.2; python_version > '3.5'
