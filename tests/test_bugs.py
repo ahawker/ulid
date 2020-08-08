@@ -5,6 +5,7 @@
     Tests for validating reported bugs have been fixed.
 """
 import copy
+import datetime
 
 import pytest
 
@@ -47,3 +48,14 @@ def test_github_issue_452():
     """
     result = copy.deepcopy(api.new())
     assert result is not None
+
+
+def test_github_issue_463():
+    """
+    Assert that :meth:`~ulid.ulid.Timestamp.datetime` returns the value as
+    a :class:`~datetime.datetime` instance that is UTC aware.
+
+    Issue: https://github.com/ahawker/ulid/issues/463
+    """
+    instance = api.new()
+    assert instance.timestamp().datetime.tzinfo == datetime.timezone.utc

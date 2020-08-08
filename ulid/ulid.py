@@ -226,8 +226,12 @@ class Timestamp(MemoryView):
         :return: Timestamp in datetime form.
         :rtype: :class:`~datetime.datetime`
         """
-        mills = self.int
-        return datetime.datetime.utcfromtimestamp(mills // 1000.0).replace(microsecond=mills % 1000 * 1000)
+        milli = self.int
+        micro = milli % 1000 * 1000
+        sec = milli // 1000.0
+        timezone = datetime.timezone.utc
+
+        return datetime.datetime.utcfromtimestamp(sec).replace(microsecond=micro, tzinfo=timezone)
 
 
 class Randomness(MemoryView):

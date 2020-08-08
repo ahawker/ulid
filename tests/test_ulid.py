@@ -322,14 +322,15 @@ def test_timestamp_coverts_bytes_to_unix_time_seconds():
     assert timestamp.timestamp == now_ms / 1000.0
 
 
-def test_timestamp_converts_to_datetime():
+def test_timestamp_converts_to_utc_aware_datetime():
     """
     Assert that :meth:`~ulid.ulid.Timestamp.datetime` returns the value as
-    a :class:`~datetime.dateime` instance.
+    a :class:`~datetime.datetime` instance that is UTC aware.
     """
     now_ms = int(time.time()) * 1000
+    timezone = datetime.timezone.utc
     timestamp = ulid.Timestamp(now_ms.to_bytes(6, byteorder='big'))
-    assert timestamp.datetime == datetime.datetime.utcfromtimestamp(now_ms / 1000.0)
+    assert timestamp.datetime == datetime.datetime.utcfromtimestamp(now_ms / 1000.0).replace(tzinfo=timezone)
 
 
 def test_ulid_timestamp_returns_instance(valid_bytes_128):
