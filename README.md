@@ -111,7 +111,7 @@ will give you a snapshot of the last 80-bits.
 
 The `ULID`, `Timestamp`, and `Randomness` classes all derive from the same base class, a `MemoryView`.
 
-A `MemoryView` provides the `str`, `int`, and `bytes` methods for changing any values representation.
+A `MemoryView` provides the `bin`, `bytes`, `hex`, `int`, `oct`, and `str`, methods for changing any values representation.
 
 ```python
 >>> import ulid
@@ -134,6 +134,12 @@ True
 '01BJQMF54D093DXEAWZ6JYRPAQ'
 >>> u.int
 1810474399624548315999517391436142935
+>>> u.bin
+'0b1010111001010111101000111100101001000110100000010010001101101111010111001010111001111100110100101111011000101100101010111'
+>>> u.hex
+'0x15caf47948d0246deb95cf9a5ec5957'
+>>> u.oct
+'0o12712750745106402215572712717464573054527'
 ```
 
 A `MemoryView` also provides rich comparison functionality.

@@ -225,6 +225,33 @@ def test_memoryview_unorderble_with_unsupported_type(valid_bytes_128, unsupporte
             op(mv, unsupported_comparison_type())
 
 
+def test_memoryview_supports_bin(valid_bytes_128):
+    """
+    Assert that the `bin` representation of a :class:`~ulid.ulid.MemoryView` is equal to the
+    result of the :meth:`~ulid.ulid.MemoryView.bin` method.
+    """
+    mv = ulid.MemoryView(valid_bytes_128)
+    assert bin(mv) == mv.bin
+
+
+def test_memoryview_supports_hex(valid_bytes_128):
+    """
+    Assert that the `hex` representation of a :class:`~ulid.ulid.MemoryView` is equal to the
+    result of the :meth:`~ulid.ulid.MemoryView.hex` method.
+    """
+    mv = ulid.MemoryView(valid_bytes_128)
+    assert hex(mv) == mv.hex
+
+
+def test_memoryview_supports_oct(valid_bytes_128):
+    """
+    Assert that the `oct` representation of a :class:`~ulid.ulid.MemoryView` is equal to the
+    result of the :meth:`~ulid.ulid.MemoryView.oct` method.
+    """
+    mv = ulid.MemoryView(valid_bytes_128)
+    assert oct(mv) == mv.oct
+
+
 def test_memoryview_supports_bytes(valid_bytes_128):
     """
     Assert that the `bytes` representation of a :class:`~ulid.ulid.MemoryView` is equal to the
@@ -268,6 +295,15 @@ def test_memoryview_supports_hash(valid_bytes_128):
     """
     mv = ulid.MemoryView(valid_bytes_128)
     assert hash(mv) == hash(mv.memory)
+
+
+def test_memoryview_supports_index(valid_bytes_128):
+    """
+    Assert that the `__index__` representation of a :class:`~ulid.ulid.MemoryView` is equal to the
+    int value of the underlying :class:`~memoryview.`
+    """
+    mv = ulid.MemoryView(valid_bytes_128)
+    assert mv.__index__() == mv.int
 
 
 def test_memoryview_supports_getstate(valid_bytes_128):

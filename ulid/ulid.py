@@ -126,6 +126,9 @@ class MemoryView:
     def __int__(self) -> hints.Int:
         return self.int
 
+    def __index__(self) -> hints.Int:
+        return self.int
+
     def __repr__(self) -> hints.Str:
         return '<{}({!r})>'.format(self.__class__.__name__, str(self))
 
@@ -137,6 +140,16 @@ class MemoryView:
 
     def __setstate__(self, state: hints.Str) -> None:
         self.memory = memoryview(base32.decode(state))
+
+    @property
+    def bin(self) -> hints.Str:
+        """
+        Computes the binary string value of the underlying :class:`~memoryview`.
+
+        :return: Memory in binary string form
+        :rtype: :class:`~str`
+        """
+        return bin(self.int)
 
     @property
     def bytes(self) -> hints.Bytes:
@@ -159,6 +172,16 @@ class MemoryView:
         return float(self.int)
 
     @property
+    def hex(self) -> hints.Str:
+        """
+        Computes the hexadecimal string value of the underlying :class:`~memoryview`.
+
+        :return: Memory in hexadecimal string form
+        :rtype: :class:`~str`
+        """
+        return hex(self.int)
+
+    @property
     def int(self) -> hints.Int:
         """
         Computes the integer value of the underlying :class:`~memoryview` in big-endian byte order.
@@ -167,6 +190,16 @@ class MemoryView:
         :rtype: :class:`~int`
         """
         return int.from_bytes(self.memory, byteorder='big')
+
+    @property
+    def oct(self) -> hints.Str:
+        """
+        Computes the octal string value of the underlying :class:`~memoryview`.
+
+        :return: Memory in octal string form
+        :rtype: :class:`~str`
+        """
+        return oct(self.int)
 
     @property
     def str(self) -> hints.Str:
