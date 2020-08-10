@@ -240,6 +240,7 @@ def decode_ulid(value: str) -> bytes:
     .. note:: This uses an optimized strategy from the `NUlid` project for decoding ULID
         strings specifically and is not meant for arbitrary decoding.
 
+
     :param value: String to decode
     :type value: :class:`~str`
     :return: Value decoded from Base32 string

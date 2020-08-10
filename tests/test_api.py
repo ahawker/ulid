@@ -48,6 +48,54 @@ def buffer_type(request):
     return request.param
 
 
+def test_min_timestamp_uses_expected_value():
+    """
+    Assert that :func:`~ulid.api.MIN_TIMESTAMP` uses expected byte value.
+    """
+    value = api.MIN_TIMESTAMP
+    assert value == b'\x00\x00\x00\x00\x00\x00'
+
+
+def test_max_timestamp_uses_expected_value():
+    """
+    Assert that :func:`~ulid.api.MAX_RANDOMNESS` uses expected byte value.
+    """
+    value = api.MAX_TIMESTAMP
+    assert value == b'\xff\xff\xff\xff\xff\xff'
+
+
+def test_min_randomness_uses_expected_value():
+    """
+    Assert that :func:`~ulid.api.MIN_RANDOMNESS` uses expected byte value.
+    """
+    value = api.MIN_RANDOMNESS
+    assert value == b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+
+
+def test_max_randomness_uses_expected_value():
+    """
+    Assert that :func:`~ulid.api.MAX_RANDOMNESS` uses expected byte value.
+    """
+    value = api.MAX_RANDOMNESS
+    assert value == b'\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff'
+
+
+def test_min_ulid_uses_expected_value():
+    """
+    Assert that :func:`~ulid.api.MIN_ULID` uses expected byte value.
+    """
+    value = api.MIN_ULID
+    assert value == b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+
+
+def test_max_ulid_uses_expected_value():
+    """
+    Assert that :func:`~ulid.api.MAX_ULID` uses expected byte value.
+    """
+    value = api.MAX_ULID
+    assert value == b'\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff'
+
+
 def test_new_returns_ulid_instance():
     """
     Assert that :func:`~ulid.api.new` returns a new :class:`~ulid.ulid.ULID` instance.
@@ -238,6 +286,170 @@ def test_parse_raises_when_given_unsupported_type(unsupported_type):
     assert ex.match(PARSE_UNSUPPORTED_TYPE_REGEX)
 
 
+def test_create_timestamp_datetime_returns_ulid_instance(valid_bytes_80):
+    """
+    Assert that :func:`~ulid.api.create` returns a new :class:`~ulid.ulid.ULID` instance
+    from the given Unix time from epoch in seconds as an :class:`~datetime.datetime`.
+    """
+    value = datetime.datetime.now()
+    instance = api.create(value, valid_bytes_80)
+    assert isinstance(instance, ulid.ULID)
+    assert int(instance.timestamp().timestamp) == int(value.timestamp())
+
+
+def test_create_timestamp_int_returns_ulid_instance(valid_bytes_80):
+    """
+    Assert that :func:`~ulid.api.create` returns a new :class:`~ulid.ulid.ULID` instance
+    from the given Unix time from epoch in seconds as an :class:`~int`.
+    """
+    value = int(time.time())
+    instance = api.create(value, valid_bytes_80)
+    assert isinstance(instance, ulid.ULID)
+    assert int(instance.timestamp().timestamp) == value
+
+
+def test_create_timestamp_float_returns_ulid_instance(valid_bytes_80):
+    """
+    Assert that :func:`~ulid.api.create` returns a new :class:`~ulid.ulid.ULID` instance
+    from the given Unix time from epoch in seconds as a :class:`~float`.
+    """
+    value = float(time.time())
+    instance = api.create(value, valid_bytes_80)
+    assert isinstance(instance, ulid.ULID)
+    assert int(instance.timestamp().timestamp) == int(value)
+
+
+def test_create_timestamp_str_returns_ulid_instance(valid_bytes_48, valid_bytes_80):
+    """
+    Assert that :func:`~ulid.api.create` returns a new :class:`~ulid.ulid.ULID` instance
+    from the given timestamp as a :class:`~str`.
+    """
+    value = base32.encode_timestamp(valid_bytes_48)
+    instance = api.create(value, valid_bytes_80)
+    assert isinstance(instance, ulid.ULID)
+    assert instance.timestamp().str == value
+
+
+def test_create_timestamp_bytes_returns_ulid_instance(buffer_type, valid_bytes_48, valid_bytes_80):
+    """
+    Assert that :func:`~ulid.api.create` returns a new :class:`~ulid.ulid.ULID` instance
+    from the given timestamp as an object that supports the buffer protocol.
+    """
+    value = buffer_type(valid_bytes_48)
+    instance = api.create(value, valid_bytes_80)
+    assert isinstance(instance, ulid.ULID)
+    assert instance.timestamp().bytes == value
+
+
+def test_create_timestamp_timestamp_returns_ulid_instance(valid_bytes_48, valid_bytes_80):
+    """
+    Assert that :func:`~ulid.api.create` returns a new :class:`~ulid.ulid.ULID` instance
+    from the given timestamp as a :class:`~ulid.ulid.Timestamp`.
+    """
+    value = ulid.Timestamp(valid_bytes_48)
+    instance = api.create(value, valid_bytes_80)
+    assert isinstance(instance, ulid.ULID)
+    assert instance.timestamp() == value
+
+
+def test_create_timestamp_ulid_returns_ulid_instance(valid_bytes_128, valid_bytes_80):
+    """
+    Assert that :func:`~ulid.api.create` returns a new :class:`~ulid.ulid.ULID` instance
+    from the given timestamp as a :class:`~ulid.ulid.ULID`.
+    """
+    value = ulid.ULID(valid_bytes_128)
+    instance = api.create(value, valid_bytes_80)
+    assert isinstance(instance, ulid.ULID)
+    assert instance.timestamp() == value.timestamp()
+
+
+def test_create_raises_when_given_unsupported_timestamp_type(unsupported_type, valid_bytes_80):
+    """
+    Assert that :func:`~ulid.api.create` raises a :class:`~ValueError` when timestamp value
+    of an unsupported type.
+    """
+    with pytest.raises(ValueError) as ex:
+        api.create(unsupported_type, valid_bytes_80)
+    assert ex.match(UNSUPPORTED_TIMESTAMP_TYPE_EXC_REGEX)
+
+
+def test_create_randomness_int_returns_ulid_instance(valid_bytes_48, valid_bytes_80):
+    """
+    Assert that :func:`~ulid.api.create` returns a new :class:`~ulid.ulid.ULID` instance
+    from the given random values as an :class:`~int`.
+    """
+    value = int.from_bytes(valid_bytes_80, byteorder='big')
+    instance = api.create(valid_bytes_48, value)
+    assert isinstance(instance, ulid.ULID)
+    assert instance.randomness().int == value
+
+
+def test_create_randomness_float_returns_ulid_instance(valid_bytes_48, valid_bytes_80):
+    """
+    Assert that :func:`~ulid.api.create` returns a new :class:`~ulid.ulid.ULID` instance
+    from the given random values as an :class:`~float`.
+    """
+    value = float(int.from_bytes(valid_bytes_80, byteorder='big'))
+    instance = api.create(valid_bytes_48, value)
+    assert isinstance(instance, ulid.ULID)
+    assert instance.randomness().int == int(value)
+
+
+def test_create_randomness_str_returns_ulid_instance(valid_bytes_48, valid_bytes_80):
+
+    """
+    Assert that :func:`~ulid.api.create` returns a new :class:`~ulid.ulid.ULID` instance
+    from the given random values as an :class:`~str`.
+    """
+    value = base32.encode_randomness(valid_bytes_80)
+    instance = api.create(valid_bytes_48, value)
+    assert isinstance(instance, ulid.ULID)
+    assert instance.randomness().str == value
+
+
+def test_create_randomness_bytes_returns_ulid_instance(buffer_type, valid_bytes_48, valid_bytes_80):
+    """
+    Assert that :func:`~ulid.api.create` returns a new :class:`~ulid.ulid.ULID` instance
+    from the given random values as an object that supports the buffer protocol.
+    """
+    value = buffer_type(valid_bytes_80)
+    instance = api.create(valid_bytes_48, value)
+    assert isinstance(instance, ulid.ULID)
+    assert instance.randomness().bytes == value
+
+
+def test_create_randomness_randomness_returns_ulid_instance(valid_bytes_48, valid_bytes_80):
+    """
+    Assert that :func:`~ulid.api.create` returns a new :class:`~ulid.ulid.ULID` instance
+    from the given random values as a :class:`~ulid.ulid.Randomness`.
+    """
+    value = ulid.Randomness(valid_bytes_80)
+    instance = api.create(valid_bytes_48, value)
+    assert isinstance(instance, ulid.ULID)
+    assert instance.randomness() == value
+
+
+def test_create_randomness_ulid_returns_ulid_instance(valid_bytes_48, valid_bytes_128):
+    """
+    Assert that :func:`~ulid.api.create` returns a new :class:`~ulid.ulid.ULID` instance
+    from the given random values as a :class:`~ulid.ulid.ULID`.
+    """
+    value = ulid.ULID(valid_bytes_128)
+    instance = api.create(valid_bytes_48, value)
+    assert isinstance(instance, ulid.ULID)
+    assert instance.randomness() == value.randomness()
+
+
+def test_create_raises_when_given_unsupported_randomness_type(unsupported_type, valid_bytes_48):
+    """
+    Assert that :func:`~ulid.api.create` raises a :class:`~ValueError` when randomness value
+    of an unsupported type.
+    """
+    with pytest.raises(ValueError) as ex:
+        api.create(valid_bytes_48, unsupported_type)
+    assert ex.match(UNSUPPORTED_RANDOMNESS_TYPE_EXC_REGEX)
+
+
 def test_from_bytes_returns_ulid_instance(buffer_type, valid_bytes_128):
     """
     Assert that :func:`~ulid.api.from_bytes` returns a new :class:`~ulid.ulid.ULID` instance
@@ -328,7 +540,7 @@ def test_from_uuid_returns_ulid_instance():
 def test_from_timestamp_datetime_returns_ulid_instance():
     """
     Assert that :func:`~ulid.api.from_timestamp` returns a new :class:`~ulid.ulid.ULID` instance
-    from the given Unix time from epoch in seconds as an :class:`~datetime.dateime`.
+    from the given Unix time from epoch in seconds as an :class:`~datetime.datetime`.
     """
     value = datetime.datetime.now()
     instance = api.from_timestamp(value)

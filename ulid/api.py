@@ -4,32 +4,43 @@
 
     Defines the public API of the `ulid` package.
 """
-import datetime
 import os
 import time
 import typing
 import uuid
 
-from . import base32, hints, ulid
+from . import base32, codec, hints, ulid
 
-__all__ = ['new', 'parse', 'from_bytes', 'from_int', 'from_str', 'from_uuid', 'from_timestamp', 'from_randomness']
+__all__ = ['new', 'parse', 'create', 'from_bytes', 'from_int', 'from_str',
+           'from_uuid', 'from_timestamp', 'from_randomness',
+           'MIN_TIMESTAMP', 'MAX_TIMESTAMP', 'MIN_RANDOMNESS', 'MAX_RANDOMNESS', 'MIN_ULID', 'MAX_ULID']
+
+#: Minimum possible timestamp value (0).
+MIN_TIMESTAMP = ulid.Timestamp(b'\x00\x00\x00\x00\x00\x00')
 
 
-#: Type hint that defines multiple primitive types that can represent
-#: a Unix timestamp in seconds.
-TimestampPrimitive = typing.Union[int, float, str, bytes, bytearray, memoryview,  # pylint: disable=invalid-name
-                                  datetime.datetime, ulid.Timestamp, ulid.ULID]
+#: Maximum possible timestamp value (281474976710.655 epoch).
+MAX_TIMESTAMP = ulid.Timestamp(b'\xff\xff\xff\xff\xff\xff')
 
 
-#: Type hint that defines multiple primitive types that can represent
-#: randomness.
-RandomnessPrimitive = typing.Union[int, float, str, bytes, bytearray, memoryview,  # pylint: disable=invalid-name
-                                   ulid.Randomness, ulid.ULID]
+#: Minimum possible randomness value (0).
+MIN_RANDOMNESS = ulid.Randomness(b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
+
+
+#: Maximum possible randomness value (1208925819614629174706175).
+MAX_RANDOMNESS = ulid.Randomness(b'\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff')
+
+
+#: Minimum possible ULID value (0).
+MIN_ULID = ulid.ULID(MIN_TIMESTAMP.bytes + MIN_RANDOMNESS.bytes)
+
+
+#: Maximum possible ULID value (340282366920938463463374607431768211455).
+MAX_ULID = ulid.ULID(MAX_TIMESTAMP.bytes + MAX_RANDOMNESS.bytes)
 
 
 #: Type hint that defines multiple primitive types that can represent a full ULID.
-ULIDPrimitive = typing.Union[int, float, str, bytes, bytearray, memoryview,  # pylint: disable=invalid-name
-                             uuid.UUID, ulid.ULID]
+ULIDPrimitive = typing.Union[hints.Primitive, uuid.UUID, ulid.ULID]  # pylint: disable=invalid-name
 
 
 def new() -> ulid.ULID:
@@ -84,6 +95,48 @@ def parse(value: ULIDPrimitive) -> ulid.ULID:
     if isinstance(value, memoryview):
         return from_bytes(value.tobytes())
     raise ValueError('Cannot create ULID from type {}'.format(value.__class__.__name__))
+
+
+def create(timestamp: codec.TimestampPrimitive, randomness: codec.RandomnessPrimitive) -> ulid.ULID:
+    """
+    Create a new :class:`~ulid.ulid.ULID` instance using the given timestamp and randomness values.
+
+    The following types are supported for timestamp values:
+
+    * :class:`~datetime.datetime`
+    * :class:`~int`
+    * :class:`~float`
+    * :class:`~str`
+    * :class:`~memoryview`
+    * :class:`~ulid.ulid.Timestamp`
+    * :class:`~ulid.ulid.ULID`
+    * :class:`~bytes`
+    * :class:`~bytearray`
+
+    The following types are supported for randomness values:
+
+    * :class:`~int`
+    * :class:`~float`
+    * :class:`~str`
+    * :class:`~memoryview`
+    * :class:`~ulid.ulid.Randomness`
+    * :class:`~ulid.ulid.ULID`
+    * :class:`~bytes`
+    * :class:`~bytearray`
+
+    :param timestamp: Unix timestamp in seconds
+    :type timestamp: See docstring for types
+    :param randomness: Random bytes
+    :type randomness: See docstring for types
+    :return: ULID using given timestamp and randomness
+    :rtype: :class:`~ulid.ulid.ULID`
+    :raises ValueError: when a value is an unsupported type
+    :raises ValueError: when a value is a string and cannot be Base32 decoded
+    :raises ValueError: when a value is or was converted to incorrect bit length
+    """
+    timestamp = codec.decode_timestamp(timestamp)
+    randomness = codec.decode_randomness(randomness)
+    return ulid.ULID(timestamp.bytes + randomness.bytes)
 
 
 def from_bytes(value: hints.Buffer) -> ulid.ULID:
@@ -149,7 +202,7 @@ def from_uuid(value: uuid.UUID) -> ulid.ULID:
     return ulid.ULID(value.bytes)
 
 
-def from_timestamp(timestamp: TimestampPrimitive) -> ulid.ULID:
+def from_timestamp(timestamp: codec.TimestampPrimitive) -> ulid.ULID:
     """
     Create a new :class:`~ulid.ulid.ULID` instance using a timestamp value of a supported type.
 
@@ -173,32 +226,10 @@ def from_timestamp(timestamp: TimestampPrimitive) -> ulid.ULID:
     :raises ValueError: when the value is a string and cannot be Base32 decoded
     :raises ValueError: when the value is or was converted to something 48 bits
     """
-    if isinstance(timestamp, datetime.datetime):
-        timestamp = timestamp.timestamp()
-    if isinstance(timestamp, (int, float)):
-        timestamp = int(timestamp * 1000.0).to_bytes(6, byteorder='big')
-    elif isinstance(timestamp, str):
-        timestamp = base32.decode_timestamp(timestamp)
-    elif isinstance(timestamp, memoryview):
-        timestamp = timestamp.tobytes()
-    elif isinstance(timestamp, ulid.Timestamp):
-        timestamp = timestamp.bytes
-    elif isinstance(timestamp, ulid.ULID):
-        timestamp = timestamp.timestamp().bytes
-
-    if not isinstance(timestamp, (bytes, bytearray)):
-        raise ValueError('Expected datetime, int, float, str, memoryview, Timestamp, ULID, '
-                         'bytes, or bytearray; got {}'.format(type(timestamp).__name__))
-
-    length = len(timestamp)
-    if length != 6:
-        raise ValueError('Expects timestamp to be 48 bits; got {} bytes'.format(length))
-
-    randomness = os.urandom(10)
-    return ulid.ULID(timestamp + randomness)
+    return create(timestamp, os.urandom(10))
 
 
-def from_randomness(randomness: RandomnessPrimitive) -> ulid.ULID:
+def from_randomness(randomness: codec.RandomnessPrimitive) -> ulid.ULID:
     """
     Create a new :class:`~ulid.ulid.ULID` instance using the given randomness value of a supported type.
 
@@ -221,24 +252,4 @@ def from_randomness(randomness: RandomnessPrimitive) -> ulid.ULID:
     :raises ValueError: when the value is a string and cannot be Base32 decoded
     :raises ValueError: when the value is or was converted to something 80 bits
     """
-    if isinstance(randomness, (int, float)):
-        randomness = int(randomness).to_bytes(10, byteorder='big')
-    elif isinstance(randomness, str):
-        randomness = base32.decode_randomness(randomness)
-    elif isinstance(randomness, memoryview):
-        randomness = randomness.tobytes()
-    elif isinstance(randomness, ulid.Randomness):
-        randomness = randomness.bytes
-    elif isinstance(randomness, ulid.ULID):
-        randomness = randomness.randomness().bytes
-
-    if not isinstance(randomness, (bytes, bytearray)):
-        raise ValueError('Expected int, float, str, memoryview, Randomness, ULID, '
-                         'bytes, or bytearray; got {}'.format(type(randomness).__name__))
-
-    length = len(randomness)
-    if length != 10:
-        raise ValueError('Expects randomness to be 80 bits; got {} bytes'.format(length))
-
-    timestamp = int(time.time() * 1000).to_bytes(6, byteorder='big')
-    return ulid.ULID(timestamp + randomness)
+    return create(int(time.time() * 1000).to_bytes(6, byteorder='big'), randomness)

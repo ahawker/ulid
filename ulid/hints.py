@@ -20,6 +20,10 @@ Buffer = typing.Union[bytes, bytearray, memoryview]  # pylint: disable=invalid-n
 Bytes = bytes  # pylint: disable=invalid-name
 
 
+#: Type hint that is an alias for the built-in :class:`~datetime.datetime` type.
+Datetime = datetime.datetime  # pylint: disable=invalid-name
+
+
 #: Type hint that is an alias for the built-in :class:`~int` type.
 Int = int  # pylint: disable=invalid-name
 
@@ -34,10 +38,6 @@ Primitive = typing.Union[int, float, str, bytes, bytearray, memoryview]  # pylin
 
 #: Type hint that is an alias for the built-in :class:`~str` type.
 Str = str  # pylint: disable=invalid-name
-
-
-#: Type hint that is an alias for the built-in :class:`~datetime.datetime` type.
-Datetime = datetime.datetime  # pylint: disable=invalid-name
 
 
 #: Type hint that is an alias for the built-in :class:`~datetime.datetime` type.

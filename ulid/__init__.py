@@ -9,6 +9,7 @@
 """
 from . import api, ulid
 
+create = api.create
 from_bytes = api.from_bytes
 from_int = api.from_int
 from_randomness = api.from_randomness
@@ -17,6 +18,13 @@ from_timestamp = api.from_timestamp
 from_uuid = api.from_uuid
 new = api.new
 parse = api.parse
+
+MIN_TIMESTAMP = api.MIN_TIMESTAMP
+MAX_TIMESTAMP = api.MAX_TIMESTAMP
+MIN_RANDOMNESS = api.MIN_RANDOMNESS
+MAX_RANDOMNESS = api.MAX_RANDOMNESS
+MIN_ULID = api.MIN_ULID
+MAX_ULID = api.MAX_ULID
 
 Timestamp = ulid.Timestamp
 Randomness = ulid.Randomness
