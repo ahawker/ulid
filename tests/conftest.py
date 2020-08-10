@@ -16,6 +16,8 @@ from ulid import base32
 ASCII_ALPHABET = ''.join(chr(d) for d in range(0, 128))
 EXTENDED_ASCII_ALPHABET = ''.join(chr(d) for d in range(128, 256))
 ASCII_NON_BASE_32_ALPHABET = ''.join(set(ASCII_ALPHABET).difference(set(base32.ENCODING)))
+MSB_ASCII_ALPHABET = ''.join(chr(d) for d in range(48, 56))
+MSB_ASCII_INVALID_ALPHABET = ''.join(set(base32.ENCODING).difference(set(MSB_ASCII_ALPHABET)))
 
 MIN_EPOCH = 0
 MAX_EPOCH = 281474976710655
@@ -195,6 +197,15 @@ def invalid_str_10(request):
     return random_str(request.param, not_in=[10])
 
 
+@pytest.fixture(scope='function')
+def invalid_str_10_msb_invalid():
+    """
+    Fixture that yields :class:`~str` instances that are 10 characters long and use an invalid
+    MSB.
+    """
+    return random_str(10, msb_alphabet=MSB_ASCII_INVALID_ALPHABET)
+
+
 @pytest.fixture(scope='function', params=range(0, 32))
 def invalid_str_10_16_26(request):
     """
@@ -289,7 +300,7 @@ def random_timestamp_bytes():
     Helper function that returns a number of random bytes that represent a timestamp that are within
     the valid range.
     """
-    value = random.randint(MIN_EPOCH, MAX_EPOCH + 1)
+    value = random.randint(MIN_EPOCH, MAX_EPOCH - 1)
     return value.to_bytes(6, byteorder='big')
 
 
@@ -309,13 +320,13 @@ def random_bytes(num_bytes, not_in=(-1,)):
     return os.urandom(num_bytes)
 
 
-def random_str(num_chars, alphabet=base32.ENCODING, not_in=(-1,)):
+def random_str(num_chars, alphabet=base32.ENCODING, msb_alphabet=MSB_ASCII_ALPHABET, not_in=(-1,)):
     """
     Helper function that returns a string with the specified number of random characters, optionally
     excluding those of a specific length.
     """
     num_chars = num_chars + 1 if num_chars in not_in else num_chars
-    return ''.join(random.choice(alphabet) for _ in range(num_chars))
+    return random.choice(msb_alphabet) + ''.join(random.choice(alphabet) for _ in range(num_chars - 1))
 
 
 def fixed_year_timestamp_bytes(*args, **kwargs):

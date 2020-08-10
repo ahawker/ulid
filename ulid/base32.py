@@ -366,4 +366,10 @@ def str_to_bytes(value: str, expected_length: int) -> bytes:
         if decoding[byte] > 31:
             raise ValueError('Non-base32 character found: "{}"'.format(chr(byte)))
 
+    # Confirm most significant bit on timestamp value is limited so it can be stored in 128-bits.
+    if length in (10, 26):
+        msb = decoding[encoded[0]]
+        if msb > 7:
+            raise ValueError('Timestamp value too large and will overflow 128-bits. Must be between b"0" and b"7"')
+
     return encoded

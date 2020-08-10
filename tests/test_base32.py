@@ -18,6 +18,7 @@ DECODE_STR_LEN_EXC_REGEX = r'^Expects string in lengths of'
 DECODE_ULID_STR_LEN_EXC_REGEX = r'^Expects 26 characters for decoding'
 DECODE_TIMESTAMP_STR_LEN_EXC_REGEX = r'^Expects 10 characters for decoding'
 DECODE_RANDOMNESS_STR_LEN_EXC_REGEX = r'^Expects 16 characters for decoding'
+TIMESTAMP_OVERFLOW_EXC_REGEX = r'Timestamp value too large and will overflow 128-bits. Must be between b"0" and b"7"'
 
 
 @pytest.fixture(scope='session')
@@ -355,3 +356,13 @@ def test_str_to_bytes_raises_on_non_base32_decode_char(ascii_non_base32_str_vali
     with pytest.raises(ValueError) as ex:
         base32.str_to_bytes(ascii_non_base32_str_valid_length, len(ascii_non_base32_str_valid_length))
     ex.match(NON_BASE_32_EXC_REGEX)
+
+
+def test_str_to_bytes_raises_on_timestamp_msb_overflow(invalid_str_10_msb_invalid):
+    """
+    Assert that :func:`~ulid.base32.str_to_bytes` raises a :class:`~ValueError` when given a :class:`~str`
+    instance that includes a valid length timestamp but MSB too large causing an overflow.
+    """
+    with pytest.raises(ValueError) as ex:
+        base32.str_to_bytes(invalid_str_10_msb_invalid, len(invalid_str_10_msb_invalid))
+    ex.match(TIMESTAMP_OVERFLOW_EXC_REGEX)
