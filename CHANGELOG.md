@@ -1,5 +1,26 @@
 # Changelog
 
+## [v0.2.0](https://github.com/ahawker/ulid/tree/v0.2.0) (2020-08-11)
+
+[Full Changelog](https://github.com/ahawker/ulid/compare/v0.1.0...v0.2.0)
+
+**Implemented enhancements:**
+
+- Values for range queries [\#457](https://github.com/ahawker/ulid/issues/457)
+
+**Closed issues:**
+
+- Add bounds checking for max timestamp overflow case [\#468](https://github.com/ahawker/ulid/issues/468)
+
+**Merged pull requests:**
+
+- Add MSB validation to raise when timestamp overflows 128 bits [\#471](https://github.com/ahawker/ulid/pull/471) ([ahawker](https://github.com/ahawker))
+- Freeze isort to 4.x on py36 [\#470](https://github.com/ahawker/ulid/pull/470) ([ahawker](https://github.com/ahawker))
+- Add API create method and min/max constants [\#469](https://github.com/ahawker/ulid/pull/469) ([ahawker](https://github.com/ahawker))
+- Add support for bin, oct, and hex representations [\#466](https://github.com/ahawker/ulid/pull/466) ([ahawker](https://github.com/ahawker))
+- pyup.io:  Scheduled weekly dependency update for week 31 [\#464](https://github.com/ahawker/ulid/pull/464) ([pyup-bot](https://github.com/pyup-bot))
+- pyup.io:  Scheduled weekly dependency update for week 25 [\#456](https://github.com/ahawker/ulid/pull/456) ([pyup-bot](https://github.com/pyup-bot))
+
 ## [v0.1.0](https://github.com/ahawker/ulid/tree/v0.1.0) (2020-06-17)
 
 [Full Changelog](https://github.com/ahawker/ulid/compare/v0.0.14...v0.1.0)
