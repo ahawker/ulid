@@ -37,9 +37,8 @@ def test_module_has_submodule_interface(submodule):
         assert hasattr(mod, i)
 
 
-def test_module_exposes_api_and_ulid_interfaces_via_all():
+def test_module_exposes_api_interfaces_via_all():
     """
-    Assert that :mod:`~ulid` exposes the :attr:`~ulid.api.__all__` and :attr:`~ulid.ulid.__all__`
-    attributes in its public interface.
+    Assert that :mod:`~ulid` exposes the :attr:`~ulid.api.__all__` attributes in its public interface.
     """
-    assert mod.__all__ == api.__all__ + ulid.__all__
+    assert mod.__all__ == api.__all__

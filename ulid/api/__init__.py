@@ -1,13 +1,10 @@
 """
-    ulid
-    ~~~~
+    ulid/api
+    ~~~~~~~~
 
-    Universally Unique Lexicographically Sortable Identifier
-
-    :copyright: (c) 2017 Andrew Hawker.
-    :license: Apache 2.0, see LICENSE for more details.
+    Defines the public API of the `ulid` package.
 """
-from .api import default, monotonic
+from . import default
 
 create = default.create
 from_bytes = default.from_bytes
@@ -31,5 +28,3 @@ Randomness = default.Randomness
 ULID = default.ULID
 
 __all__ = default.__all__
-
-__version__ = '0.2.0'

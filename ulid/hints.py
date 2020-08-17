@@ -5,6 +5,7 @@
     Contains type hint definitions across modules in the package.
 """
 import datetime
+import types
 import typing
 import uuid
 
@@ -24,12 +25,16 @@ Bytes = bytes  # pylint: disable=invalid-name
 Datetime = datetime.datetime  # pylint: disable=invalid-name
 
 
+#: Type hint that is an alias for the built-in :class:`~float` type.
+Float = float  # pylint: disable=invalid-name
+
+
 #: Type hint that is an alias for the built-in :class:`~int` type.
 Int = int  # pylint: disable=invalid-name
 
 
-#: Type hint that is an alias for the built-in :class:`~float` type.
-Float = float  # pylint: disable=invalid-name
+#: Type hint that is an alias for the built-in :class:`~types.ModuleType` type.
+Module = types.ModuleType
 
 
 #: Type hint that defines multiple primitive types that can represent parts or full ULID.
