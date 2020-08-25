@@ -356,7 +356,7 @@ def str_to_bytes(value: str, expected_length: int) -> bytes:
     try:
         encoded = value.encode('ascii')
     except UnicodeEncodeError as ex:
-        raise ValueError('Expects value that can be encoded in ASCII charset: {}'.format(ex))
+        raise ValueError('Expects value that can be encoded in ASCII charset: {}'.format(ex)) from ex
 
     decoding = DECODING
 
