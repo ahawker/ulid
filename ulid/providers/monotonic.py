@@ -33,7 +33,7 @@ class Provider(base.Provider):
         """
         Create a new randomness value.
 
-        :param timestamp: Timestamp value in bytes
+        :param timestamp: Timestamp in milliseconds
         :type timestamp: :class:`~bytes`
         :return: Randomness value in bytes.
         :rtype: :class:`~bytes`

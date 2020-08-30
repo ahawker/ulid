@@ -116,7 +116,7 @@ class Api:
         * :class:`~bytes`
         * :class:`~bytearray`
 
-        :param timestamp: Unix timestamp in seconds
+        :param timestamp: Timestamp in milliseconds
         :type timestamp: See docstring for types
         :return: ULID using given timestamp and new randomness
         :rtype: :class:`~ulid.ulid.ULID`

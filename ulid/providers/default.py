@@ -5,10 +5,9 @@
     Contains data provider that creates new randomness values for the same timestamp.
 """
 import os
-import time
 
 from .. import hints
-from . import base
+from . import base, time
 
 
 class Provider(base.Provider):
@@ -23,12 +22,14 @@ class Provider(base.Provider):
         :return: Timestamp value in bytes.
         :rtype: :class:`~bytes`
         """
-        return int(time.time() * 1000).to_bytes(6, byteorder='big')
+        return time.milliseconds().to_bytes(6, byteorder='big')
 
     def randomness(self, timestamp: hints.Bytes) -> hints.Bytes:
         """
         Create a new randomness value.
 
+        :param timestamp: Timestamp in milliseconds
+        :type timestamp: :class:`~bytes`
         :return: Randomness value in bytes.
         :rtype: :class:`~bytes`
         """
