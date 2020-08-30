@@ -3,21 +3,17 @@ language: python
 python:
 - '3.5'
 - '3.6'
+- '3.7'
+- '3.8'
 - nightly
 matrix:
   allow_failures:
   - python: nightly
   include:
-  - python: '3.6'
-    env: TOXENV=lint
-  - python: '3.6'
-    env: TOXENV=scan
   - python: '3.7'
-    dist: xenial
-    sudo: true
-  - python: '3.8'
-    dist: xenial
-    sudo: true
+    env: TOXENV=lint
+  - python: '3.7'
+    env: TOXENV=scan
 install: make travis-install
 before_script: make travis-before-script
 script: make travis-script
