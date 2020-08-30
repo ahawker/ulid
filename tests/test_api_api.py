@@ -16,6 +16,7 @@ def mock_provider(mocker):
     Fixture that yields a mock provider.
     """
     provider = mocker.Mock(spec=providers.Provider)
+    provider.new = mocker.Mock(side_effect=providers.DEFAULT.new)
     provider.timestamp = mocker.Mock(side_effect=providers.DEFAULT.timestamp)
     provider.randomness = mocker.Mock(side_effect=providers.DEFAULT.randomness)
     return provider
@@ -55,22 +56,14 @@ def test_all_defined_expected_methods():
     ]
 
 
-def test_api_new_calls_provider_timestamp(mock_api):
+def test_api_new_calls_provider_new(mock_api):
     """
-    Assert :meth:`~ulid.api.api.Api.new` calls :meth:`~ulid.providers.base.Provider.timestamp` for a value.
-    """
-    mock_api.new()
-
-    mock_api.provider.timestamp.assert_called_once_with()
-
-
-def test_api_new_calls_provider_randomness(mocker, mock_api):
-    """
-    Assert :meth:`~ulid.api.api.Api.new` calls :meth:`~ulid.providers.base.Provider.randomness` for a value.
+    Assert :meth:`~ulid.api.api.Api.new` calls :meth:`~ulid.providers.base.Provider.new` for timestamp
+    and randomness values.
     """
     mock_api.new()
 
-    mock_api.provider.randomness.assert_called_once_with(mocker.ANY)
+    mock_api.provider.new.assert_called_once_with()
 
 
 def test_api_from_timestamp_calls_provider_randomness(mocker, mock_api, valid_bytes_48):

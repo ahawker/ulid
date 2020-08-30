@@ -20,7 +20,7 @@ def test_package_exposes_expected_interface():
     """
     Assert that :attr:`~ulid.providers.__all__` exposes expected interface.
     """
-    assert providers.__all__ == ['Provider', 'DEFAULT', 'MONOTONIC']
+    assert providers.__all__ == ['Provider', 'DEFAULT', 'MICROSECOND', 'MONOTONIC']
 
 
 def test_package_has_default_provider():

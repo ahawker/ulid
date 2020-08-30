@@ -21,3 +21,10 @@ def test_module_exposes_expected_interface():
     Assert that :attr:`~ulid.api.monotonic.__all__` exposes expected interface.
     """
     assert monotonic.__all__ == ALL
+
+
+def test_module_api_uses_correct_provider():
+    """
+    Assert that the API instance uses the correct provider type.
+    """
+    assert isinstance(monotonic.API.provider, type(monotonic.providers.MONOTONIC))

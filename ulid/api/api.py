@@ -58,8 +58,7 @@ class Api:
         :return: ULID from current timestamp
         :rtype: :class:`~ulid.ulid.ULID`
         """
-        timestamp = self.provider.timestamp()
-        randomness = self.provider.randomness(timestamp)
+        timestamp, randomness = self.provider.new()
         return ulid.ULID(timestamp + randomness)
 
     def parse(self, value: ULIDPrimitive) -> ulid.ULID:

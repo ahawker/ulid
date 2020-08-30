@@ -7,7 +7,7 @@
     :copyright: (c) 2017 Andrew Hawker.
     :license: Apache 2.0, see LICENSE for more details.
 """
-from .api import default, monotonic
+from .api import default, microsecond, monotonic
 
 create = default.create
 from_bytes = default.from_bytes

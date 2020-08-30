@@ -52,7 +52,9 @@ def test_provider_milliseconds_is_unix_epoch(provider):
     since epoch.
     """
     x = int(time.time() * 1000)
+    time.sleep(1)
     y = provider.milliseconds()
+    time.sleep(1)
     z = int(time.time() * 1000)
 
     assert x <= y <= z
@@ -64,7 +66,9 @@ def test_provider_microseconds_is_unix_epoch(provider):
     since epoch.
     """
     x = int(time.time() * 1000 * 1000)
+    time.sleep(1)
     y = provider.microseconds()
+    time.sleep(1)
     z = int(time.time() * 1000 * 1000)
 
     assert x <= y <= z

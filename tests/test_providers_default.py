@@ -26,6 +26,18 @@ def test_provider_derives_from_base():
     assert issubclass(default.Provider, base.Provider)
 
 
+def test_provider_new_returns_bytes_pair(provider):
+    """
+    Assert that :meth:`~ulid.providers.default.Provider.new` returns timestamp and randomness
+    bytes of expected length as a two item tuple.
+    """
+    value = provider.new()
+    assert isinstance(value, tuple)
+    assert len(value) == 2
+    assert len(value[0]) == 6
+    assert len(value[1]) == 10
+
+
 def test_provider_timestamp_returns_bytes(provider):
     """
     Assert that :meth:`~ulid.providers.default.Provider.timestamp` returns bytes of expected length.

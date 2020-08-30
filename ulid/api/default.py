@@ -2,7 +2,7 @@
     ulid/api/default
     ~~~~~~~~~~~~~~~~
 
-    Defaults the public API of the `ulid` package using the default provider.
+    Contains the public API of the `ulid` package using the default provider.
 """
 from .. import consts, providers, ulid
 from . import api

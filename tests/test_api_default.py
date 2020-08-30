@@ -21,3 +21,10 @@ def test_module_exposes_expected_interface():
     Assert that :attr:`~ulid.api.default.__all__` exposes expected interface.
     """
     assert default.__all__ == ALL
+
+
+def test_module_api_uses_correct_provider():
+    """
+    Assert that the API instance uses the correct provider type.
+    """
+    assert isinstance(default.API.provider, type(default.providers.DEFAULT))

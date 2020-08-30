@@ -1,13 +1,13 @@
 """
-    ulid/api/monotonic
-    ~~~~~~~~~~~~~~~~~~
+    ulid/api/microsecond
+    ~~~~~~~~~~~~~~~~~~~~
 
-    Contains the public API of the `ulid` package using the monotonic provider.
+    Contains the public API of the `ulid` package using the microsecond provider.
 """
 from .. import consts, providers, ulid
 from . import api
 
-API = api.Api(providers.MONOTONIC)
+API = api.Api(providers.MICROSECOND)
 
 create = API.create
 from_bytes = API.from_bytes
