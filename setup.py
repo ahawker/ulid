@@ -12,7 +12,7 @@ import re
 
 
 try:
-    from setuptools import setup
+    from setuptools import find_packages, setup
 except ImportError:
     from distutils.core import setup
 
@@ -40,7 +40,7 @@ setup(
     description='Universally Unique Lexicographically Sortable Identifier',
     long_description=get_long_description(),
     long_description_content_type='text/markdown',
-    packages=['ulid'],
+    packages=find_packages(),
     package_data={'ulid': ['py.typed']},
     zip_safe=False,
     classifiers=(
