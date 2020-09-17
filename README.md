@@ -125,7 +125,7 @@ A `MemoryView` provides the `bin`, `bytes`, `hex`, `int`, `oct`, and `str`, meth
 >>> u.timestamp().bytes
 b'\x01\\\xafG\x94\x8d'
 >>> u.timestamp().datetime
-datetime.datetime(2017, 6, 16, 5, 2, 2, 893000)
+datetime.datetime(2017, 6, 16, 5, 2, 2, 893000, tzinfo=datetime.timezone.utc)
 >>> u.randomness().bytes
 b'\x02F\xde\xb9\\\xf9\xa5\xecYW'
 >>> u.bytes[6:] == u.randomness().bytes
@@ -155,7 +155,7 @@ True
 >>> u1 < u2 < u3
 True
 >>> [u.timestamp().datetime for u in sorted([u2, u3, u1])]
-[datetime.datetime(2017, 6, 16, 5, 7, 14, 847000), datetime.datetime(2017, 6, 16, 5, 7, 26, 775000), datetime.datetime(2039, 1, 1, 8, 0)]
+[datetime.datetime(2017, 6, 16, 5, 7, 14, 847000, tzinfo=datetime.timezone.utc), datetime.datetime(2017, 6, 16, 5, 7, 26, 775000, tzinfo=datetime.timezone.utc), datetime.datetime(2039, 1, 1, 8, 0, tzinfo=datetime.timezone.utc)]
 ```
 
 ### Future Items
