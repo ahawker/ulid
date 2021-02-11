@@ -156,15 +156,44 @@ True
 [datetime.datetime(2017, 6, 16, 5, 7, 14, 847000, tzinfo=datetime.timezone.utc), datetime.datetime(2017, 6, 16, 5, 7, 26, 775000, tzinfo=datetime.timezone.utc), datetime.datetime(2039, 1, 1, 8, 0, tzinfo=datetime.timezone.utc)]
 ```
 
-### Future Items
+### Monotonic Support
 
-* Collection of benchmarks to track performance.
-* Backport to Python 2.7?
-* See [Github Issues](https://github.com/ahawker/ulid/issues) for more!
+This library supports two implementations for stronger guarantees of monotonically increasing randomness.
 
-### Goals
+To use these implementations, simply import and alias it as `ulid`. They supports an identical interface as `ulid`, so no additional changes should be necessary.
 
-A fast implementation in pure python of the spec with binary format support.
+### Thread lock
+
+The "thread lock" implementation is a simple implementation that follows that of the `ulid/spec`. When two or more identifiers are created with the same millisecond, the subsequent identifiers use the previous identifiers randomness value + 1. See [PR 473](https://github.com/ahawker/ulid/pull/473) for more details.
+
+```python
+>>> import time
+>>> from ulid import monotonic as ulid
+
+>>> ts = time.time()
+>>> ulid.from_timestamp(ts)
+<ULID('01EFZ62V7VTEQR4Q788PSBBQP8')>
+>>> ulid.from_timestamp(ts)
+<ULID('01EFZ62V7VTEQR4Q788PSBBQP9')>
+>>> ulid.from_timestamp(ts)
+<ULID('01EFZ62V7VTEQR4Q788PSBBQPA')>
+```
+
+### Microsecond
+
+The "microsecond" implementation is not defined in the `ulid/spec`. It uses a microsecond clock and uses those additional 10-bits into the first two bytes of the randomness value. This means that two identifiers generated within the same millisecond will be monotonically ordered. If two identifiers are generated within the same microsecond, they are ordered entirely by the randomness bytes. See [PR 476](https://github.com/ahawker/ulid/pull/476) for more details.
+
+```python
+>>> from ulid import microsecond as ulid
+>>> ulid.new()
+<ULID('01EH0VVVEC0BKJHF0370TNGQ4Z')>
+>>> ulid.new()
+<ULID('01EH0VVWPG0C6VDD0529CAHPNJ')>
+>>> ulid.new()
+<ULID('01EH0VVX8R0AN45DBYZZYMXVKT')>
+>>> ulid.new()
+<ULID('01EH0VVYA406BDKKRVCDJQZHYQ')>
+```
 
 ### Contributing
 
