@@ -4,6 +4,7 @@
 
     Object representation of a ULID.
 """
+import binascii
 import datetime
 import typing
 import uuid
@@ -179,7 +180,7 @@ class MemoryView:
         :return: Memory in hexadecimal string form
         :rtype: :class:`~str`
         """
-        return hex(self.int)
+        return '0x' + binascii.hexlify(self.bytes).decode()
 
     @property
     def int(self) -> hints.Int:
