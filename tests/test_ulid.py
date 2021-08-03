@@ -406,3 +406,14 @@ def test_ulid_uuid_returns_instance(valid_bytes_128):
     Assert that :func:`~ulid.ulid.ULID.uuid` returns a :class:`~uuid.UUID` instance.
     """
     assert isinstance(ulid.ULID(valid_bytes_128).uuid, uuid.UUID)
+
+
+def test_hex_length_padding(valid_bytes_128):
+    """
+    Assert that the `hex` representation of a :class:`~ulid.ulid.MemoryView` is
+    correctly padded to 32 hex characters (34 with leading '0x').
+    """
+    mv = ulid.ULID(valid_bytes_128)
+    null_ulid = ulid.ULID(b'\00' * 16)
+    assert len(mv.hex) == 34
+    assert len(null_ulid.hex) == 34
