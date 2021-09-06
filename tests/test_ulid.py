@@ -4,6 +4,7 @@
 
     Tests for the :mod:`~ulid.ulid` module.
 """
+import binascii
 import copy
 import datetime
 import operator
@@ -236,11 +237,11 @@ def test_memoryview_supports_bin(valid_bytes_128):
 
 def test_memoryview_supports_hex(valid_bytes_128):
     """
-    Assert that the `hex` representation of a :class:`~ulid.ulid.MemoryView` is equal to the
-    result of the :meth:`~ulid.ulid.MemoryView.hex` method.
+    Assert that the `binascii.hexlify` representation of a :class:`~ulid.ulid.MemoryView` is equal to the
+    result of the :meth:`~ulid.ulid.MemoryView.hex` method with "0x" padding.
     """
     mv = ulid.MemoryView(valid_bytes_128)
-    assert hex(mv) == mv.hex
+    assert '0x' + binascii.hexlify(mv.bytes).decode() == mv.hex
 
 
 def test_memoryview_supports_oct(valid_bytes_128):
@@ -407,13 +408,11 @@ def test_ulid_uuid_returns_instance(valid_bytes_128):
     """
     assert isinstance(ulid.ULID(valid_bytes_128).uuid, uuid.UUID)
 
-
-def test_hex_length_padding(valid_bytes_128):
+def test_ulid_hex_length_padding(valid_bytes_128):
     """
-    Assert that the `hex` representation of a :class:`~ulid.ulid.MemoryView` is
+    Assert that the `hex` representation of a :class:`~ulid.ulid.ULID` is
     correctly padded to 32 hex characters (34 with leading '0x').
     """
     mv = ulid.ULID(valid_bytes_128)
-    null_ulid = ulid.ULID(b'\00' * 16)
     assert len(mv.hex) == 34
-    assert len(null_ulid.hex) == 34
+    assert mv.hex[0:2] == '0x'
