@@ -266,6 +266,15 @@ class Timestamp(MemoryView):
         timezone = datetime.timezone.utc
 
         return datetime.datetime.utcfromtimestamp(sec).replace(microsecond=micro, tzinfo=timezone)
+    
+    def __add__(self, other: Randomness) -> 'ULID':
+        """
+        Handle adding a Timestamp fragment to a Randomness fragment to get a full ULID, e.g.:
+        <Timestamp('01GVFWNS6C')> + <Randomness('EF25CD4687E793CB')> -> <ULID('01GVFWNS6CEF25CD4687E793CB')>
+        """
+        if isinstance(other, Randomness):
+            return ULID(self.bytes + other.bytes)
+        return NotImplemented
 
 
 class Randomness(MemoryView):
